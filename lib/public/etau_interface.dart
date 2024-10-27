@@ -500,7 +500,13 @@ abstract class TauInterface
 
   AudioWorkletProcessor newAudioWorkletProcessor();
 
+  AsyncWorkletNode newAsyncWorkletNode(BaseAudioContext context, String name, [AudioWorkletNodeOptions opt]);
 
+
+  ParameterData newParameterData(Map<String, dynamic> m);
+
+
+  ProcessorOptions newProcessorOptions(Map<String, dynamic> m);
 
 
 

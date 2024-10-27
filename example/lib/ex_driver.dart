@@ -29,6 +29,7 @@ import 'BasicEx/from_oscillator/from_oscillator_ex.dart';
 import 'BasicEx/from_constant/from_constant_ex.dart';
 import 'BasicEx/from_selected_device/from_selected_device_ex.dart';
 import 'BasicEx/from_asset/from_asset_ex.dart';
+import 'BasicEx/from_async_proc/from_async_proc_ex.dart';
 
 /*
 import 'RustEx/stereo_panner/stereo_panner_ex.dart';
@@ -173,6 +174,17 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
       description: '''Play from an asset file.
 '''),
 
+
+  Example(
+      title: 'From Async Processor',
+      subTitle: 'Play From an asynchronous processor',
+      flags: 0,
+      route: (_) => const FromAsyncProcEx(),
+      graphDir: 'from_Async_proc',
+      graphImage: 'FromAsyncProc',
+      mod: 'Basic',
+      description: '''Play from an asynchronous processor.
+'''),
 ];
 
 

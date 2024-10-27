@@ -28,114 +28,115 @@ import 'package:etau/etau.dart'
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:io';
+import 'dart:math';
 
 /// This is a very simple example for τ beginners, that show how to playback a file.
 /// Its a translation to Dart from [Mozilla example](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
 /// This example is really basic.
-class FromProcessorEx extends StatefulWidget {
-  const FromProcessorEx({super.key});
+class FromAsyncProcEx extends StatefulWidget {
+  const FromAsyncProcEx({super.key});
   @override
-  State<FromProcessorEx> createState() => _FromProcessorEx();
+  State<FromAsyncProcEx> createState() => _FromAsyncProcEx();
 }
 
-class _FromProcessorEx extends State<FromProcessorEx> {
+class _FromAsyncProcEx extends State<FromAsyncProcEx> {
 
-  bool playDisabled = true;
-  bool stopDisabled = true;
 // ----------------------------------------------------- This is the very simple example (the code itself) --------------------------------------------------------------------------
+
+
+String pcmAsset = 'assets/wav/viper.ogg'; // The OGG asset to be played
+
+  bool playEnabled = false;
+  bool stopEnabled = false;
+  double pannerValue = 0;
+  String path = '';
+  //late AudioBuffer audioBuffer;
 
 
   // The Audio Context
   AudioContext? audioCtx;
-  Timer? timer;
   // The three nodes
-  AudioDestinationNode? dest;
-  int messageNo = 0;
+  //AudioDestinationNode? dest;
+  //int messageNo = 0;
 
   Future<void> init() async
   {
     await Tau().init();
+
+      setState(() {playEnabled = true;});
+
   }
   
   @override
   void initState() {
     super.initState();
-    init().then ((e){setState(() {playDisabled = false;});});
-  }
+    init().then ((e){setState(() {playEnabled = true;});});
+   }
 
   void hitPlayButton() async {
 
-
     audioCtx = Tau().newAudioContext();
-    //await audioCtx!.audioWorklet.addModule("./packages/tauweb/js/stream_processor.js");
-    await audioCtx!.audioWorklet.addModule("js/random_noise_processor.js");
-    //var paramData = ParameterData();
-    var paramData = Tau().newParameterData({'momo':'riri','jojo':'riton'});
-    var procOpt = Tau().newProcessorOptions({'momo':'tom','maman':'pass@123'});
-    AudioWorkletNodeOptions opt = Tau().newAudioWorkletNodeOptions( channelCountMode: 'explicit', parameterData: paramData, processorOptions: procOpt);
-    //var streamNode =  audioCtx!.createAudioWorkletNode("random-noise-processor", opt);
-    var streamNode = Tau().newAudioWorkletNode(audioCtx!, "random-noise-processor", opt);
+    await audioCtx!.audioWorklet.addModule("./packages/tauweb/js/async_processor.js");
+    //audioBuffer = await loadAudio();
+    ByteData asset = await rootBundle.load(pcmAsset);
 
-    //var momoParam = streamNode.parameters.get("momo");
-    //momoParam.setValueAtTime(0, 'titi');
-    //var params = streamNode.parameters;
-    streamNode.port.onmessage = (Map<String,dynamic> m){
-      print(m['data']);
-    };
-    streamNode.parameters.setProperty("toto",'zozo');
-    streamNode.parameters.setProperty("momo",'zozo');
+    var audioBuffer = await audioCtx!.decodeAudioData( asset.buffer);
 
-    AudioParamMap parameters = streamNode.parameters;
-    var momo = parameters.getProperty('momo');
-    var mimi = parameters.getProperty('mimi');
-    var data = parameters.getProperty('data');
-    //var n1 = parameters.length;
-    //var k1 = parameters.keys;
-    //var v1 = parameters.values;
-    var totoParam = streamNode.parameters.getProperty("toto");
-    //var totoParam2 = parameters["toto"];
+    AudioWorkletNodeOptions opt = Tau().newAudioWorkletNodeOptions( 
+      channelCountMode: 'explicit', 
+      channelCount: audioBuffer.numberOfChannels,
+      numberOfInputs: 0,
+      numberOfOutputs: 1, // Only one output
+      outputChannelCount:  [audioBuffer.numberOfChannels],
+    );
+    var streamNode = Tau().newAsyncWorkletNode(audioCtx!, "async-processor", opt);
 
-    // send the message containing 'ping' string
-    // to the AudioWorkletProcessor from the AudioWorkletNode every second
-    //setInterval(() => streamNode.port.postMessage("ping"), 1000);
-
-    // runs every 1 second
-    timer = Timer.periodic(new Duration(seconds: 1), (timer) {
-      ++messageNo;
-      String msg = 'Ping ${messageNo}';
-      print ('Post ${msg}');
-      streamNode.port.postMessage({'data': msg});
-    });
     streamNode.port.onmessage = (Message e) => print("Rcv ${e['data']}");
+    assert (audioBuffer.numberOfChannels >= 1, "audioBuffer.numberOfChannels < 1");
+    List<Float32List> data = [];
+    for (int channel = 0; channel < audioBuffer.numberOfChannels; ++channel)
+    {
+        var d = audioBuffer.getChannelData(channel);
+        data.add(d);
+        assert (d.length == data[0].length, 'Length is not same for all the channels');
+    }
+    int x = 0;
+    int ln = data[0].length;
+    while (x < ln)
+    {
+        List<Float32List> m = [];
+        for (int channel = 0; channel < audioBuffer.numberOfChannels; ++channel)
+        {
+            m.add(data[channel].sublist(x, min ( x+10, ln)));
+        }
+        streamNode.send(output: 0,  data: m );
+        x += 10;
+    }
 
     streamNode.connect(audioCtx!.destination);
 
     setState(() {
-      playDisabled = true;
-      stopDisabled = false;
+      playEnabled = false;
+      stopEnabled = true;
     });
 
   }
 
 
   void hitStopButton() {
-    timer?.cancel();
-    timer = null;
-    audioCtx!.close();
-    audioCtx!.dispose();
+    audioCtx?.close();
+    audioCtx?.dispose();
     audioCtx = null;
 
       setState(() {
-        playDisabled = false;
-        stopDisabled = true;
+        playEnabled = true;
+        stopEnabled = false;
       });
   }
 
 
   @override
   void dispose() {
-    timer?.cancel();
-    timer = null;
 
       audioCtx?.close();
       audioCtx?.dispose();
@@ -153,7 +154,7 @@ class _FromProcessorEx extends State<FromProcessorEx> {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ElevatedButton(
-              onPressed: playDisabled ? null : hitPlayButton,
+              onPressed: playEnabled ? hitPlayButton : null,
               //color: Colors.indigo,
               child: const Text(
                 'Play',
@@ -164,7 +165,7 @@ class _FromProcessorEx extends State<FromProcessorEx> {
               width: 5,
             ),
             ElevatedButton(
-              onPressed: stopDisabled ? null : hitStopButton,
+              onPressed: stopEnabled ? hitStopButton : null,
               //color: Colors.indigo,
               child: const Text(
                 'Stop',

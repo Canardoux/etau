@@ -30,7 +30,7 @@ class RandomNoiseProcessor extends AudioWorkletProcessor {
   process(inputs, outputs, parameters) {
     console.log('momo = ' + parameters.momo.toString());
     console.log('mimi = ' +  parameters.mimi.toString());
-    //console.log('frequency = ' + parameters.frequency.toString());
+    console.log(parameters);
     
     const output = outputs[0];
     output.forEach((channel) => {
@@ -52,7 +52,9 @@ class RandomNoiseProcessor extends AudioWorkletProcessor {
         name: "mimi",
         defaultValue: 123,
         minValue: 0,
-        maxValue: 1000
+        maxValue: 1000,
+        automationRate: "a-rate",
+
       }
     ];
   }

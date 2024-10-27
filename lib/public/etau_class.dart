@@ -3791,13 +3791,10 @@ abstract class AudioWorkletGlobalScope {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioParamMap).
 abstract class AudioParamMap 
 {
-  AudioParam? getProperty(String key) ;
-  //void setProperty(String key, dynamic value) ;
-  //List<String> get keys;
-  //int get length;
-  //List<dynamic> get values;
-  //bool containsKey(String key);
-  AudioParam? operator [](String key);
+  dynamic? getProperty(String key) ;
+  void setProperty(String key, dynamic value) ;
+  //int get size;
+  //dynamic get(String key);
 }
 
 
@@ -3849,7 +3846,10 @@ abstract class AudioWorkletNode implements AudioNode {
   set onProcessorError(EventHandler value);
 }
 
-
+abstract class AsyncWorkletNode implements AudioWorkletNode
+{
+  void send({int output = 0,  required List<Float32List> data});
+}
 
 
 
@@ -3858,12 +3858,14 @@ abstract class AudioWorkletNode implements AudioNode {
 
 abstract class ProcessorOptions //implements AudioNodeOptions
 {
+  /* ctor */ ProcessorOptions(Map<String, dynamic> m);
 
 }
 
 
 abstract class ParameterData
 {
+  /* ctor */ ParameterData(Map<String, dynamic> m);
 
 }
 
@@ -3972,7 +3974,7 @@ class WorkletGlobalScope
 }
 */
 typedef void MessageFn(Message msg);
-typedef  Message = Map<String, String>;
+typedef  Message = Map<String, dynamic>;
 
 abstract class MessagePort
 {
