@@ -45,7 +45,7 @@ class _FromAsyncProcEx extends State<FromAsyncProcEx> {
 
 
 static const String PCM_ASSET = 'assets/wav/sample2.aac'; // The asset to be played
-static const int BLK_SIZE = 128;
+static const int BLK_SIZE = 50;
 
   bool playEnabled = false;
   bool stopEnabled = false;
