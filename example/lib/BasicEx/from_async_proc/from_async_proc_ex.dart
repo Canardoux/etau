@@ -44,7 +44,8 @@ class _FromAsyncProcEx extends State<FromAsyncProcEx> {
 // ----------------------------------------------------- This is the very simple example (the code itself) --------------------------------------------------------------------------
 
 
-String pcmAsset = 'assets/wav/viper.ogg'; // The OGG asset to be played
+static const String PCM_ASSET = 'assets/wav/sample2.aac'; // The asset to be played
+static const int BLK_SIZE = 128;
 
   bool playEnabled = false;
   bool stopEnabled = false;
@@ -78,7 +79,7 @@ String pcmAsset = 'assets/wav/viper.ogg'; // The OGG asset to be played
     audioCtx = Tau().newAudioContext();
     await audioCtx!.audioWorklet.addModule("./packages/tauweb/js/async_processor.js");
     //audioBuffer = await loadAudio();
-    ByteData asset = await rootBundle.load(pcmAsset);
+    ByteData asset = await rootBundle.load(PCM_ASSET);
 
     var audioBuffer = await audioCtx!.decodeAudioData( asset.buffer);
 
@@ -107,10 +108,10 @@ String pcmAsset = 'assets/wav/viper.ogg'; // The OGG asset to be played
         List<Float32List> m = [];
         for (int channel = 0; channel < audioBuffer.numberOfChannels; ++channel)
         {
-            m.add(data[channel].sublist(x, min ( x+10, ln)));
+            m.add(data[channel].sublist(x, min ( x + BLK_SIZE, ln)));
         }
         streamNode.send(output: 0,  data: m );
-        x += 10;
+        x += BLK_SIZE;
     }
 
     streamNode.connect(audioCtx!.destination);
