@@ -116,7 +116,9 @@ static const int BLK_SIZE = 128;
         streamNode.send(output: 0,  data: m );
         x += BLK_SIZE;
     }
-
+    streamNode.onBufferUnderflow( (int outputNo){
+      hitStopButton();
+}   );
     streamNode.connect(audioCtx!.destination);
 
     setState(() {

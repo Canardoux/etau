@@ -3845,11 +3845,12 @@ abstract class AudioWorkletNode implements AudioNode {
   EventHandler get onProcessorError;
   set onProcessorError(EventHandler value);
 }
+typedef void onAudioBufferUnderflowFn(int outputNo );
 
 abstract class AsyncWorkletNode implements AudioWorkletNode
 {
 
-
+  void onBufferUnderflow(onAudioBufferUnderflowFn f);
   void send({int output = 0,  required List<Float32List> data});
 }
 
@@ -3981,6 +3982,7 @@ typedef  Message = Map<String, dynamic>;
 abstract class MessagePort
 {
   void set onmessage(MessageFn f);
+
   MessageFn get onmessage;
   void postMessage(Message e);
 
