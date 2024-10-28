@@ -3848,6 +3848,8 @@ abstract class AudioWorkletNode implements AudioNode {
 
 abstract class AsyncWorkletNode implements AudioWorkletNode
 {
+
+
   void send({int output = 0,  required List<Float32List> data});
 }
 

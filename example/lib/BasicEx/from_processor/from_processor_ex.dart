@@ -79,8 +79,9 @@ class _FromProcessorEx extends State<FromProcessorEx> {
     //var momoParam = streamNode.parameters.get("momo");
     //momoParam.setValueAtTime(0, 'titi');
     //var params = streamNode.parameters;
-    streamNode.port.onmessage = (Map<String,dynamic> m){
-      print(m['data']);
+    streamNode.port.onmessage = (Map<String,dynamic> m)
+    {
+      print(m['msg']);
     };
     streamNode.parameters.setProperty("toto",'zozo');
     streamNode.parameters.setProperty("momo",'zozo');
@@ -106,7 +107,7 @@ class _FromProcessorEx extends State<FromProcessorEx> {
       print ('Post ${msg}');
       streamNode.port.postMessage({'data': msg});
     });
-    streamNode.port.onmessage = (Message e) => print("Rcv ${e['data']}");
+    //streamNode.port.onmessage = (Message e) => print("Rcv ${e['data']}");
 
     streamNode.connect(audioCtx!.destination);
 

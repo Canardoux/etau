@@ -45,7 +45,7 @@ class _FromAsyncProcEx extends State<FromAsyncProcEx> {
 
 
 static const String PCM_ASSET = 'assets/wav/sample2.aac'; // The asset to be played
-static const int BLK_SIZE = 50;
+static const int BLK_SIZE = 128;
 
   bool playEnabled = false;
   bool stopEnabled = false;
@@ -92,7 +92,10 @@ static const int BLK_SIZE = 50;
     );
     var streamNode = Tau().newAsyncWorkletNode(audioCtx!, "async-processor", opt);
 
-    streamNode.port.onmessage = (Message e) => print("Rcv ${e['data']}");
+    //streamNode.port.onmessage = (Message e)
+    //{
+      //print("ex Rcv");
+    //};
     assert (audioBuffer.numberOfChannels >= 1, "audioBuffer.numberOfChannels < 1");
     List<Float32List> data = [];
     for (int channel = 0; channel < audioBuffer.numberOfChannels; ++channel)

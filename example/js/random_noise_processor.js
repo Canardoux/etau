@@ -22,15 +22,15 @@ class RandomNoiseProcessor extends AudioWorkletProcessor {
   constructor(...args) {
     super(...args);
     this.port.onmessage = (e) => {
-      //console.log('Rcv ' + e.data);
+      console.log('JS:Rcv ' + e.data);
       this.port.postMessage("pong (" + e.data + ")");
     };
   }
 
   process(inputs, outputs, parameters) {
-    console.log('momo = ' + parameters.momo.toString());
-    console.log('mimi = ' +  parameters.mimi.toString());
-    console.log(parameters);
+    //console.log('momo = ' + parameters.momo.toString());
+    //console.log('mimi = ' +  parameters.mimi.toString());
+    //console.log(parameters);
     
     const output = outputs[0];
     output.forEach((channel) => {
