@@ -113,7 +113,7 @@ static const int BLK_SIZE = 128;
         {
             m.add(data[channel].sublist(x, min ( x + BLK_SIZE, ln)));
         }
-        streamNode.send(output: 0,  data: m );
+        streamNode.send(outputNo: 0,  data: m );
         x += BLK_SIZE;
     }
     streamNode.onBufferUnderflow( (int outputNo){

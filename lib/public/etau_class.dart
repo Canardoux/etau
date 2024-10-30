@@ -3851,7 +3851,7 @@ abstract class AsyncWorkletNode implements AudioWorkletNode
 {
 
   void onBufferUnderflow(onAudioBufferUnderflowFn f);
-  void send({int output = 0,  required List<Float32List> data});
+  void send({int outputNo = 0,  required List<Float32List> data});
 }
 
 
@@ -3977,7 +3977,8 @@ class WorkletGlobalScope
 }
 */
 typedef void MessageFn(Message msg);
-typedef  Message = Map<String, dynamic>;
+
+typedef  Message = dynamic;
 
 abstract class MessagePort
 {

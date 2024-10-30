@@ -79,10 +79,10 @@ class _FromProcessorEx extends State<FromProcessorEx> {
     //var momoParam = streamNode.parameters.get("momo");
     //momoParam.setValueAtTime(0, 'titi');
     //var params = streamNode.parameters;
-    streamNode.port.onmessage = (Map<String,dynamic> m)
-    {
-      print(m['msg']);
-    };
+    // [LARPOUX] streamNode.port.onmessage = (Map<String,dynamic> m)
+    //{
+      //print(m['msg']);
+    //};
     streamNode.parameters.setProperty("toto",'zozo');
     streamNode.parameters.setProperty("momo",'zozo');
 
