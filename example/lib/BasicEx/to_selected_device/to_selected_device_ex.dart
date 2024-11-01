@@ -34,17 +34,18 @@ import 'dart:io';
 /// This is a very simple example for τ beginners, that show how to playback a file.
 /// Its a translation to Dart from [Mozilla example](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
 /// This example is really basic.
-class FromSelectedDeviceEx extends StatefulWidget {
-  const FromSelectedDeviceEx({super.key});
+class ToSelectedDeviceEx extends StatefulWidget {
+  const ToSelectedDeviceEx({super.key});
   @override
-  State<FromSelectedDeviceEx> createState() => _FromSelectedDeviceEx();
+  State<ToSelectedDeviceEx> createState() => _ToSelectedDeviceEx();
 }
 
-class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
+class _ToSelectedDeviceEx extends State<ToSelectedDeviceEx> {
   //String pcmAsset = 'assets/wav/viper.ogg'; // The OGG asset to be played
 
   bool playDisabled = true;
   bool stopDisabled = true;
+  String path = '';
   List<MediaDeviceInfo> devicesInfos = [];
 // ----------------------------------------------------- This is the very simple example (the code itself) --------------------------------------------------------------------------
 
@@ -56,6 +57,7 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
   MediaElementAudioSourceNode? source;
   AudioDestinationNode? dest;
   int selectedDeviceIndex = -1;
+  MediaElement? audioElt;
 
 
   Future<List<MediaDeviceInfo>> getDevicesInfos() async {
@@ -167,29 +169,47 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
   }
 
   void hitPlayButton() async {
-    if (selectedDeviceIndex < 0)
-    {
-      return;
-    }
-    audioCtx = Tau().newAudioContext();
-    dest = audioCtx!.destination;
-    var info = devicesInfos[selectedDeviceIndex];
-    Map<String, Object> constraints = { 'deviceId' :  {'exact': info.deviceId}  };
-    //{
-    //    audio: {deviceId: audioSource ? {exact: audioSource} : undefined}
-    //};
-    var mediaStream = await Tau().getDevices().getUserMediaWithConstraints(audio: constraints);
-    var mic = audioCtx!.createMediaStreamSource(mediaStream);
-    mic.connect(dest!);
+if (selectedDeviceIndex < 0)
+{
+return;
+}
+audioCtx = Tau().newAudioContext();
+audioElt = Tau().newMediaElement(src: 'https://flutter-sound.canardoux.xyz/extract/05.mp3', );
+audioElt!.src = 'https://flutter-sound.canardoux.xyz/extract/05.mp3';
+audioElt!.crossorigin = 'anonymous';
+//MediaElementAudioSourceOptions opt = Tau().newMediaElementAudioSourceOptions(mediaElement: audioElt);
+//opt.mediaElement = audioElt;
+//source = Tau().newMediaElementAudioSourceNode(audioCtx, opt);
+source = audioCtx!.createMediaElementSource(audioElt!);
+var info = devicesInfos[selectedDeviceIndex];
+//Map<String, Object> constraints = { 'deviceId' :  {'exact': info.deviceId}  };
+//{
+//    audio: {deviceId: audioSource ? {exact: audioSource} : undefined}
+//};
+//var mediaStream = await Tau().getDevices().getUserMediaWithConstraints(audio: constraints, );
 
-    setState(() {
-      playDisabled = true;
-      stopDisabled = false;
-    });
+await audioCtx!.setSinkId(info.deviceId);
+dest = audioCtx!.destination; // audioCtx!.createMediaStreamDestination();
+//await audioCtx!.setSinkId(dest!.stream.id);
 
-  }
+source!.connect(dest!);
+//audioElement.srcObject = mediaStreamDestination.stream;
 
 
+audioElt!.play().then( (e) {
+setState(() {
+stopDisabled = false;
+});
+print(e);
+}).catchError( (e) {
+print(e);
+});
+
+setState(() {
+playDisabled = true;
+});
+
+}
   void hitStopButton() {
     audioCtx!.close();
     audioCtx!.dispose();
@@ -219,7 +239,7 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
         int i = 0;
         for (MediaDeviceInfo info in devicesInfos)
         {
-            if (info.kind == DeviceKind.audioinput)
+            if (info.kind == DeviceKind.audiooutput)
             {
                 r.add(
 
@@ -289,7 +309,7 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: const Text('Select the mic to use'),
+        title: const Text('Select output device to use'),
         actions: const <Widget>[],
       ),
       body: makeBody(),

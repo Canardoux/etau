@@ -30,6 +30,8 @@ import 'BasicEx/from_constant/from_constant_ex.dart';
 import 'BasicEx/from_selected_device/from_selected_device_ex.dart';
 import 'BasicEx/from_asset/from_asset_ex.dart';
 import 'BasicEx/from_async_proc/from_async_proc_ex.dart';
+import 'BasicEx/to_speaker/to_speaker_ex.dart';
+import 'BasicEx/to_selected_device/to_selected_device_ex.dart';
 
 /*
 import 'RustEx/stereo_panner/stereo_panner_ex.dart';
@@ -184,6 +186,28 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
       graphImage: 'FromAsyncProc',
       mod: 'Basic',
       description: '''Play from an asynchronous processor.
+'''),
+
+  Example(
+      title: 'To Speaker',
+      subTitle: 'Play to the default speaker',
+      flags: 0,
+      route: (_) => const ToSpeakerEx(),
+      graphDir: 'to_speaker',
+      graphImage: 'ToSpeaker',
+      mod: 'Basic',
+      description: '''Play to the default speaker.
+'''),
+
+  Example(
+      title: 'To Selected Device',
+      subTitle: 'Play to the selected device',
+      flags: 0,
+      route: (_) => const ToSelectedDeviceEx(),
+      graphDir: 'to_selected_device',
+      graphImage: 'ToSelectedDevice',
+      mod: 'Basic',
+      description: '''Play to the selected device.
 '''),
 ];
 

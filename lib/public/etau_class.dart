@@ -534,6 +534,10 @@ abstract class AudioContext
   /// It varies depending on the platform and the available hardware.
   double get outputLatency;
 
+
+/// Tau:
+  Future<void> setSinkId(String sinkId);
+
 }
 
 
@@ -3946,13 +3950,13 @@ abstract class MediaElement
 
 abstract class MediaStream
 {
-  
+   String get id;
 }
 
 abstract class MediaDevices
 {
   Future<MediaStream> getUserMedia({ bool audio = true, bool video = true});
-  Future<MediaStream> getUserMediaWithConstraints({ required Map<String, Object> audio, required Map<String, String>  video});
+  Future<MediaStream> getUserMediaWithConstraints({ required Map<String, Object> audio, });
   Future<List<MediaDeviceInfo>> enumerateDevices();
 }
 

@@ -28,122 +28,111 @@ import 'package:etau/etau.dart'
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:io';
-import 'dart:math';
 
 /// This is a very simple example for τ beginners, that show how to playback a file.
 /// Its a translation to Dart from [Mozilla example](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
 /// This example is really basic.
-class FromAsyncProcEx extends StatefulWidget {
-  const FromAsyncProcEx({super.key});
+class ToSpeakerEx extends StatefulWidget {
+  const ToSpeakerEx({super.key});
   @override
-  State<FromAsyncProcEx> createState() => _FromAsyncProcEx();
+  State<ToSpeakerEx> createState() => _ToSpeakerEx();
 }
 
-class _FromAsyncProcEx extends State<FromAsyncProcEx> {
+class _ToSpeakerEx extends State<ToSpeakerEx> {
+  String pcmAsset = 'assets/wav/viper.ogg'; // The OGG asset to be played
 
-// ----------------------------------------------------- This is the very simple example (the code itself) --------------------------------------------------------------------------
-
-
-static const String PCM_ASSET = 'assets/wav/sample2.aac'; // The asset to be played
-static const int BLK_SIZE = 128;
-
-  bool playEnabled = false;
-  bool stopEnabled = false;
+  bool playDisabled = true;
+  bool stopDisabled = true;
   double pannerValue = 0;
   String path = '';
-  //late AudioBuffer audioBuffer;
+// ----------------------------------------------------- This is the very simple example (the code itself) --------------------------------------------------------------------------
 
 
   // The Audio Context
   AudioContext? audioCtx;
+
   // The three nodes
-  //AudioDestinationNode? dest;
-  //int messageNo = 0;
+  MediaElementAudioSourceNode? source;
+  StereoPannerNode? pannerNode;
+  AudioDestinationNode? dest;
 
-  Future<void> init() async
-  {
-    await Tau().init();
+  MediaElement? audioElt;
 
-      setState(() {playEnabled = true;});
 
-  }
-  
   @override
   void initState() {
     super.initState();
-    init().then ((e){setState(() {playEnabled = true;});});
-   }
+    /*
+    audioElt = Tau().newMediaElement(src: 'https://flutter-sound.canardoux.xyz/extract/05.mp3', );
+    audioElt!.onplay = ()
+    {
+      audioCtx = Tau().newAudioContext();
+      dest = audioCtx.destination;
+      source =  audioCtx.createMediaElementSource(audioElt!);
+      source!.connect(dest!);
+
+    } as EventHandler?;
+     setState(() {playDisabled = false;});
+
+     */
+    Tau().init().then ((e){setState(() {playDisabled = false;});});
+  }
 
   void hitPlayButton() async {
 
     audioCtx = Tau().newAudioContext();
-    await audioCtx!.audioWorklet.addModule("./packages/tauweb/js/async_processor.js");
-    //audioBuffer = await loadAudio();
-    ByteData asset = await rootBundle.load(PCM_ASSET);
+    dest = audioCtx!.destination;
+    audioElt = Tau().newMediaElement(src: 'https://flutter-sound.canardoux.xyz/extract/05.mp3', );
+    audioElt!.src = 'https://flutter-sound.canardoux.xyz/extract/05.mp3';
+    audioElt!.crossorigin = 'anonymous';
+    //MediaElementAudioSourceOptions opt = Tau().newMediaElementAudioSourceOptions(mediaElement: audioElt);
+    //opt.mediaElement = audioElt;
+    //source = Tau().newMediaElementAudioSourceNode(audioCtx, opt);
+    source =  audioCtx!.createMediaElementSource(audioElt!);
+    pannerNode = audioCtx!.createStereoPanner();
+    pannerNode!.pan.value = pannerValue;
+    source!.connect(pannerNode!);
+    pannerNode!.connect(dest!);
 
-    var audioBuffer = await audioCtx!.decodeAudioData( asset.buffer);
 
-    AudioWorkletNodeOptions opt = Tau().newAudioWorkletNodeOptions( 
-      channelCountMode: 'explicit', 
-      channelCount: audioBuffer.numberOfChannels,
-      numberOfInputs: 0,
-      numberOfOutputs: 1, // Only one output
-      outputChannelCount:  [audioBuffer.numberOfChannels],
-    );
-    var streamNode = Tau().newAsyncWorkletNode(audioCtx!, "async-processor-1", opt);
-
-    //streamNode.port.onmessage = (Message e)
-    //{
-      //print("ex Rcv");
-    //};
-    assert (audioBuffer.numberOfChannels >= 1, "audioBuffer.numberOfChannels < 1");
-    List<Float32List> data = [];
-    for (int channel = 0; channel < audioBuffer.numberOfChannels; ++channel)
-    {
-        var d = audioBuffer.getChannelData(channel);
-        data.add(d);
-        assert (d.length == data[0].length, 'Length is not same for all the channels');
-    }
-    int x = 0;
-    int ln = data[0].length;
-    while (x < ln)
-    {
-        List<Float32List> m = [];
-        for (int channel = 0; channel < audioBuffer.numberOfChannels; ++channel)
-        {
-            m.add(data[channel].sublist(x, min ( x + BLK_SIZE, ln)));
-        }
-        streamNode.send(outputNo: 0,  data: m );
-        x += BLK_SIZE;
-    }
-    streamNode.onBufferUnderflow( (int outputNo){
-      hitStopButton();
-}   );
-    streamNode.connect(audioCtx!.destination);
+     audioElt!.play().then( (e) {
+       setState(() {
+         stopDisabled = false;
+       });
+       print(e);
+     }).catchError( (e) {
+       print(e);
+     });
 
     setState(() {
-      playEnabled = false;
-      stopEnabled = true;
+      playDisabled = true;
     });
 
   }
 
 
   void hitStopButton() {
-    audioCtx?.close();
-    audioCtx?.dispose();
+    audioCtx!.close();
+    audioCtx!.dispose();
     audioCtx = null;
 
       setState(() {
-        playEnabled = true;
-        stopEnabled = false;
+        playDisabled = false;
+        stopDisabled = true;
       });
+  }
+
+
+  void pannerChanged(double value) {
+    pannerNode?.pan.value = value;
+    setState(() {
+      pannerValue = value;
+    });
   }
 
 
   @override
   void dispose() {
-
       audioCtx?.close();
       audioCtx?.dispose();
       super.dispose();
@@ -160,7 +149,7 @@ static const int BLK_SIZE = 128;
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ElevatedButton(
-              onPressed: playEnabled ? hitPlayButton : null,
+              onPressed: playDisabled ? null : hitPlayButton,
               //color: Colors.indigo,
               child: const Text(
                 'Play',
@@ -171,7 +160,7 @@ static const int BLK_SIZE = 128;
               width: 5,
             ),
             ElevatedButton(
-              onPressed: stopEnabled ? hitStopButton : null,
+              onPressed: stopDisabled ? null : hitStopButton,
               //color: Colors.indigo,
               child: const Text(
                 'Stop',
@@ -185,14 +174,22 @@ static const int BLK_SIZE = 128;
           const SizedBox(
             height: 20,
           ),
-         ]),
+          const Text('Panner:'),
+          Slider(
+            value: pannerValue,
+            min: -1,
+            max: 1,
+            onChanged: pannerChanged,
+            //divisions: 1
+          ),
+        ]),
       );
     }
 
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: const Text('Play from a dart stream'),
+        title: const Text('Play To the default speaker'),
         actions: const <Widget>[],
       ),
       body: makeBody(),
