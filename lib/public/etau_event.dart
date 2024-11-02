@@ -15,13 +15,9 @@
  * You should have received a copy of the GNU General Public License
  * along with τ.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
 
 // See [Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/Event)
-class EventTarget
-{
-        
-}
+class EventTarget {}
 
 /*
 class EventHandler
@@ -30,13 +26,6 @@ class EventHandler
 }
 */
 
+class Event {}
 
-class Event
-{
-
-}
-
-class EventInit
-{
-
-}
+class EventInit {}

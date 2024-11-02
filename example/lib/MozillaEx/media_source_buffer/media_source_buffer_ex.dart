@@ -70,11 +70,8 @@ class _MediaSourceBufferEx extends State<MediaSourceBufferEx> {
     Tau.tau.logger.d('Une bonne journée');
   }
 
-
-
   Future<void> hitPlayButton() async {
     disposeEverything();
-
 
     dest = audioCtx!.destination();
     await loadAudio();
@@ -138,7 +135,6 @@ class _MediaSourceBufferEx extends State<MediaSourceBufferEx> {
     setState(() {});
   }
 
-
   @override
   Widget build(BuildContext context) {
     Widget makeBody() {
@@ -153,7 +149,7 @@ class _MediaSourceBufferEx extends State<MediaSourceBufferEx> {
                 style: TextStyle(color: Colors.black),
               ),
             ),
-           ]),
+          ]),
           const SizedBox(
             height: 20,
           ),

@@ -53,8 +53,7 @@ class _AudioContextStatesEx extends State<AudioContextStatesEx> {
 
   // And here is our dart code
 
-  void disposeEverything()
-  {
+  void disposeEverything() {
     if (dest != null) {
       dest!.dispose();
       dest = null;
@@ -66,24 +65,22 @@ class _AudioContextStatesEx extends State<AudioContextStatesEx> {
       audioCtx = null;
     }
     if (source != null) {
-        //source!.stop();
-        source!.dispose();
-        source = null;
+      //source!.stop();
+      source!.dispose();
+      source = null;
     }
 
-    if (oscillator != null)
-      {
-        oscillator!.dispose();
-        oscillator = null;
-      }
+    if (oscillator != null) {
+      oscillator!.dispose();
+      oscillator = null;
+    }
 
-    if (gainNode != null)
-      {
-        gainNode!.dispose();
-        gainNode = null;
-      }
-
+    if (gainNode != null) {
+      gainNode!.dispose();
+      gainNode = null;
+    }
   }
+
   @override
   void dispose() {
     disposeEverything();
@@ -118,14 +115,12 @@ class _AudioContextStatesEx extends State<AudioContextStatesEx> {
     gainNode!.connect(dest: dest!);
     oscillator!.start();
     audioCtx!.setOnStateChange(callback: (Event event) {
-      if (audioCtx == null)
-        {
-          Tau.tau.logger.i('Audio Context is null');
-        } else
-        {
-          AudioContextState state = audioCtx!.state();
-          Tau.tau.logger.i(state.toString());
-        }
+      if (audioCtx == null) {
+        Tau.tau.logger.i('Audio Context is null');
+      } else {
+        AudioContextState state = audioCtx!.state();
+        Tau.tau.logger.i(state.toString());
+      }
     });
 
     setState(() {});
@@ -133,25 +128,21 @@ class _AudioContextStatesEx extends State<AudioContextStatesEx> {
     Tau.tau.logger.d('Une bonne journée');
   }
 
-  Future<void> suspendContext() async
-  {
+  Future<void> suspendContext() async {
     AudioContextState state = audioCtx!.state();
     if (state == AudioContextState.running) {
-      await audioCtx!.suspend().then((v)  {
-      susresBtn = "Resume context";
+      await audioCtx!.suspend().then((v) {
+        susresBtn = "Resume context";
       });
     } else if (state == AudioContextState.suspended) {
       audioCtx!.resumeSync();
       susresBtn = "Suspend context";
     }
     setState(() {});
-
   }
 
-  Future<void> stopContext() async
-  {
-    audioCtx!.close().then((v)
-    {
+  Future<void> stopContext() async {
+    audioCtx!.close().then((v) {
       createContextDisabled = false;
       suspendContextDisabled = true;
       // Reset the text of the suspend/resume toggle:
@@ -159,7 +150,6 @@ class _AudioContextStatesEx extends State<AudioContextStatesEx> {
       stopContextDisabled = true;
       setState(() {});
     });
-
   }
 
   @override
@@ -182,7 +172,7 @@ class _AudioContextStatesEx extends State<AudioContextStatesEx> {
             ElevatedButton(
               onPressed: suspendContextDisabled ? null : suspendContext,
               //color: Colors.indigo,
-              child:  Text(
+              child: Text(
                 susresBtn,
                 style: const TextStyle(color: Colors.black),
               ),

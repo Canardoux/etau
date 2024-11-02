@@ -110,8 +110,7 @@ class _AudioBufferSourceEx extends State<AudioBufferSourceEx> {
       }
       buf[channel] = nowBuffering;
     }
-    AudioBuffer audioBuffer =
-      AudioBuffer.from(samples: buf, sampleRate: 48000);
+    AudioBuffer audioBuffer = AudioBuffer.from(samples: buf, sampleRate: 48000);
 
     src = audioCtx!.createBufferSource();
     src!.setBuffer(audioBuffer: audioBuffer);

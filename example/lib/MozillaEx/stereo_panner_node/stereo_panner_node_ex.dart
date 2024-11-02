@@ -49,12 +49,13 @@ class _StereoPannerNodeEx extends State<StereoPannerNodeEx> {
   // For the example, we load the the asset containing the audio data. This is just to be similar to the Mozilla example.
   Future<void> loadAudio() async {
     ByteData asset = await rootBundle.load(pcmAsset);
-    audioBuffer = await audioCtx.decodeAudioData( asset.buffer);
-    setState(() {playDisabled = false;});
+    audioBuffer = await audioCtx.decodeAudioData(asset.buffer);
+    setState(() {
+      playDisabled = false;
+    });
   }
 
 // ----------------------------------------------------- This is the very simple example (the code itself) --------------------------------------------------------------------------
-
 
   // The Audio Context
   late AudioContext audioCtx;
@@ -63,7 +64,6 @@ class _StereoPannerNodeEx extends State<StereoPannerNodeEx> {
   AudioBufferSourceNode? source;
   StereoPannerNode? pannerNode;
   AudioDestinationNode? dest;
-
 
   @override
   void initState() {
@@ -74,7 +74,6 @@ class _StereoPannerNodeEx extends State<StereoPannerNodeEx> {
   }
 
   void hitPlayButton() async {
-
     dest = audioCtx.destination;
 
     source = audioCtx.createBufferSource();
@@ -85,10 +84,8 @@ class _StereoPannerNodeEx extends State<StereoPannerNodeEx> {
 
     source!.connect(pannerNode!).connect(dest!);
     source!.loop = true;
-    source!.onended = ()
-    {
-      setState(()
-      {
+    source!.onended = () {
+      setState(() {
         playDisabled = false;
         stopDisabled = true;
       });
@@ -103,12 +100,11 @@ class _StereoPannerNodeEx extends State<StereoPannerNodeEx> {
   void hitStopButton() {
     source!.stop();
 
-      setState(() {
-        playDisabled = false;
-        stopDisabled = true;
-      });
+    setState(() {
+      playDisabled = false;
+      stopDisabled = true;
+    });
   }
-
 
   void pannerChanged(double value) {
     pannerNode?.pan.value = value;
@@ -117,17 +113,14 @@ class _StereoPannerNodeEx extends State<StereoPannerNodeEx> {
     });
   }
 
-
   @override
   void dispose() {
-      audioCtx.close();
-      audioCtx.dispose();
-      super.dispose();
+    audioCtx.close();
+    audioCtx.dispose();
+    super.dispose();
   }
 
   // ---------------------------------------------- That's all guys and girls (everything else is just dressing to run the example) ------------------------------------------------------------
-
-
 
   @override
   Widget build(BuildContext context) {

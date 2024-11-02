@@ -47,17 +47,16 @@ class _PannerNodeEx extends State<PannerNodeEx> {
   var path = '';
   AudioListener? listener;
 
+  double xPos = 200;
+  double yPos = 200;
+  double zPos = 295;
 
-double xPos = 200;
-double yPos = 200;
-double zPos = 295;
-
-double boomX = 0;
-double boomY = 0;
-double boomZoom = 10;
-double xIterator = 10;
-double leftBound = -200 + 50;
-double  rightBound =200 - 50;
+  double boomX = 0;
+  double boomY = 0;
+  double boomZoom = 10;
+  double xIterator = 10;
+  double leftBound = -200 + 50;
+  double rightBound = 200 - 50;
 
   Future<void> loadAudio() async {
     var asset = await rootBundle.load(pcmAsset);
@@ -80,8 +79,8 @@ double  rightBound =200 - 50;
     audioBuffer = audioCtx!.decodeAudioDataSync(inputPath: path);
     double duration = audioBuffer!.duration();
 
-  panner = audioCtx!.createPanner();
-    panner!.setPanningModel( value: PanningModelType.hrtf);
+    panner = audioCtx!.createPanner();
+    panner!.setPanningModel(value: PanningModelType.hrtf);
     panner!.setDistanceModel(value: DistanceModelType.inverse);
     panner!.setRefDistance(value: 1);
     panner!.setMaxDistance(value: 10000);
@@ -93,13 +92,13 @@ double  rightBound =200 - 50;
 
     listener = audioCtx!.listener();
 
-      // Standard way
-      listener!.forwardX.value = 0;
-      listener!.forwardY.value = 0;
-      listener!.forwardZ.value = -1;
-      listener!.upX.value = 0;
-      listener!.upY.value = 1;
-      listener!.upZ.value = 0;
+    // Standard way
+    listener!.forwardX.value = 0;
+    listener!.forwardY.value = 0;
+    listener!.forwardZ.value = -1;
+    listener!.upX.value = 0;
+    listener!.upY.value = 1;
+    listener!.upZ.value = 0;
 
     setState(() {});
 
@@ -150,10 +149,8 @@ double  rightBound =200 - 50;
     panner!.positionZ.value = zPos;
   }
 
-
-  void moveZoomIn()
-  {
-   boomZoom += 1;
+  void moveZoomIn() {
+    boomZoom += 1;
     zPos += 0.6;
 
     if (boomZoom > 4) {
@@ -162,10 +159,9 @@ double  rightBound =200 - 50;
     }
 
     positionPanner();
-
   }
-  void moveZoomOut()
-  {
+
+  void moveZoomOut() {
     boomZoom += -1;
     zPos += -0.6;
 
@@ -175,11 +171,10 @@ double  rightBound =200 - 50;
     }
 
     positionPanner();
-
   }
-  void left()
-  {
-   boomX += xIterator;
+
+  void left() {
+    boomX += xIterator;
     xPos += 10;
 
     if (boomX > rightBound) {
@@ -188,10 +183,9 @@ double  rightBound =200 - 50;
     }
 
     positionPanner();
-
   }
-  void right()
-  {
+
+  void right() {
     boomX += -xIterator;
     xPos += -10;
 
@@ -201,7 +195,6 @@ double  rightBound =200 - 50;
     }
 
     positionPanner();
-
   }
 
   Future<void> finished(Event event) async {
@@ -259,91 +252,83 @@ double  rightBound =200 - 50;
   Widget build(BuildContext context) {
     Widget makeBody() {
       return Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ElevatedButton(
-              onPressed: playDisabled ? null : hitPlayButton,
-              //color: Colors.indigo,
-              child: const Text(
-                'Play',
-                style: TextStyle(color: Colors.black),
-              ),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ElevatedButton(
+            onPressed: playDisabled ? null : hitPlayButton,
+            //color: Colors.indigo,
+            child: const Text(
+              'Play',
+              style: TextStyle(color: Colors.black),
             ),
-            const SizedBox(
-              width: 5,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          ElevatedButton(
+            onPressed: stopDisabled ? null : hitStopButton,
+            //color: Colors.indigo,
+            child: const Text(
+              'Stop',
+              style: TextStyle(color: Colors.black),
             ),
-            ElevatedButton(
-              onPressed: stopDisabled ? null : hitStopButton,
-              //color: Colors.indigo,
-              child: const Text(
-                'Stop',
-                style: TextStyle(color: Colors.black),
-              ),
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+        ]),
+        const SizedBox(
+          height: 20,
+        ),
+
+        //Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ElevatedButton(
+          onPressed: moveZoomIn,
+          //color: Colors.indigo,
+          child: const Text(
+            'move zoom-in',
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+
+        const SizedBox(
+          height: 20,
+        ),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ElevatedButton(
+            onPressed: left,
+            //color: Colors.indigo,
+            child: const Text(
+              'left',
+              style: TextStyle(color: Colors.black),
             ),
-            const SizedBox(
-              width: 5,
-            ),
-          ]),
+          ),
           const SizedBox(
             height: 20,
-
           ),
-
-         //Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ElevatedButton(
-              onPressed: moveZoomIn,
-              //color: Colors.indigo,
-              child: const Text(
-                'move zoom-in',
-                style: TextStyle(color: Colors.black),
-              ),
+          ElevatedButton(
+            onPressed: right,
+            //color: Colors.indigo,
+            child: const Text(
+              'right',
+              style: TextStyle(color: Colors.black),
             ),
-
-         const SizedBox(
-            height: 20,
-
           ),
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ElevatedButton(
-              onPressed: left,
-              //color: Colors.indigo,
-              child: const Text(
-                'left',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
+        ]),
 
-         const SizedBox(
-            height: 20,
+        const SizedBox(
+          height: 20,
+        ),
 
+        ElevatedButton(
+          onPressed: moveZoomOut,
+          //color: Colors.indigo,
+          child: const Text(
+            'move zoom-out',
+            style: TextStyle(color: Colors.black),
           ),
-           ElevatedButton(
-              onPressed: right,
-              //color: Colors.indigo,
-              child: const Text(
-                'right',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-      ]),
-
-          const SizedBox(
-            height: 20,
-
-          ),
-
-            ElevatedButton(
-              onPressed:  moveZoomOut,
-              //color: Colors.indigo,
-              child: const Text(
-                'move zoom-out',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-
-
+        ),
       ]));
-
     }
 
     return Scaffold(

@@ -68,25 +68,24 @@ class _ScriptProcessorEx extends State<ScriptProcessorEx> {
     ));
     await loadAudio();
     audioBuffer = audioCtx!.decodeAudioDataSync(inputPath: path);
-   dest = audioCtx!.destination();
+    dest = audioCtx!.destination();
     setState(() {});
 
     Tau.tau.logger.d('Une bonne journée');
   }
 
-
   void pressButton() {
-    scriptProcessor =  audioCtx!.createScriptProcessor(bufferSize: 4096, numberOfInputChannels: 1, numberOfOutputChannels: 1);
-    scriptProcessor!.setOnaudioprocess(callback: (event)
-    {
+    scriptProcessor = audioCtx!.createScriptProcessor(
+        bufferSize: 4096, numberOfInputChannels: 1, numberOfOutputChannels: 1);
+    scriptProcessor!.setOnaudioprocess(callback: (event) {
       AudioBuffer inputBuffer = event.inputBuffer;
       AudioBuffer outputBuffer = event.outputBuffer;
-      for (int channel = 0; channel < outputBuffer.numberOfChannels(); ++channel)
-      {
+      for (int channel = 0;
+          channel < outputBuffer.numberOfChannels();
+          ++channel) {
         var inputData = inputBuffer.getChannelData(channelNumber: channel);
         var outputData = outputBuffer.getChannelData(channelNumber: channel);
-        for (int sample = 0; sample< inputBuffer.length(); ++sample)
-        {
+        for (int sample = 0; sample < inputBuffer.length(); ++sample) {
           //var x = inputBuffer.getAt(channelNumber: channel, index: sample);
           var x = inputData[sample];
           x += (Random().nextDouble() * 2 - 1) * 0.1;
@@ -100,13 +99,14 @@ class _ScriptProcessorEx extends State<ScriptProcessorEx> {
     source = audioCtx!.createBufferSource();
     source!.setBuffer(audioBuffer: audioBuffer!);
 
-    source!.connect(dest:scriptProcessor!);
+    source!.connect(dest: scriptProcessor!);
     scriptProcessor!.connect(dest: dest!);
     source!.start();
-    source!.setOnEnded(callback: (event){source!.disconnect(); scriptProcessor!.disconnect();});
-    setState(() {
-
+    source!.setOnEnded(callback: (event) {
+      source!.disconnect();
+      scriptProcessor!.disconnect();
     });
+    setState(() {});
   }
 
   // Good citizens must dispose nodes and Audio Context
@@ -156,16 +156,14 @@ class _ScriptProcessorEx extends State<ScriptProcessorEx> {
     Widget makeBody() {
       return Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-
-            ElevatedButton(
-              onPressed: pressButton,
-              //color: Colors.indigo,
-              child:  Text(
-                dataActive ? 'Stop' : 'Start',
-                style: const TextStyle(color: Colors.black),
-              ),
+          ElevatedButton(
+            onPressed: pressButton,
+            //color: Colors.indigo,
+            child: Text(
+              dataActive ? 'Stop' : 'Start',
+              style: const TextStyle(color: Colors.black),
             ),
-
+          ),
         ]),
       );
     }

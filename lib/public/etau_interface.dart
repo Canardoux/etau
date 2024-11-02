@@ -19,59 +19,40 @@
 import 'etau_class.dart';
 import 'etau_event.dart';
 
-
-
-abstract class TauInterface
-{
-
-
-
+abstract class TauInterface {
 // =================================================================================================
 //                          Specific to τ
 // =================================================================================================
 
+  Future<void> init();
 
-    Future<void> init();
-
-    MediaDevices getDevices();
-    
-
+  MediaDevices getDevices();
 
 // =================================================================================================
 //                          Web Audio API factories
 // =================================================================================================
-    
-    AudioContext newAudioContext([AudioContextOptions contextOptions]);
 
+  AudioContext newAudioContext([AudioContextOptions contextOptions]);
 
-
-
-    AudioContextOptions newAudioContextOptions({
+  AudioContextOptions newAudioContextOptions({
     TauAny latencyHint,
     TauSampleRate sampleRate,
     TauAny sinkId,
     TauAny renderSizeHint,
   });
 
-
-
   AudioSinkOptions newAudioSinkOptions({required AudioSinkType type});
-
-
 
   AudioTimestamp newAudioTimestamp({
     TauTime contextTime,
     TauHighResTimeStamp performanceTime,
   });
 
-
-
   OfflineAudioContext newOfflineAudioContext(
     TauAny contextOptionsOrNumberOfChannels, [
     int length,
     TauSampleRate sampleRate,
   ]);
-
 
   OfflineAudioContextOptions newOfflineAudioContextOptions({
     int numberOfChannels,
@@ -80,16 +61,10 @@ abstract class TauInterface
     TauAny renderSizeHint,
   });
 
-
-
-
   OfflineAudioCompletionEvent newOfflineAudioCompletionEvent(
     String type,
     OfflineAudioCompletionEventInit eventInitDict,
   );
-
-
-
 
   OfflineAudioCompletionEventInit newOfflineAudioCompletionEventInit({
     bool bubbles,
@@ -98,11 +73,7 @@ abstract class TauInterface
     required AudioBuffer renderedBuffer,
   });
 
-
   AudioBuffer newAudioBuffer(AudioBufferOptions options);
-
-
-
 
   AudioBufferOptions newAudioBufferOptions({
     int numberOfChannels,
@@ -110,22 +81,16 @@ abstract class TauInterface
     required TauSampleRate sampleRate,
   });
 
-
-
   AudioNodeOptions newAudioNodeOptions({
     int channelCount,
     ChannelCountMode newchannelCountMode,
     ChannelInterpretation channelInterpretation,
   });
 
-
-
   AnalyserNode newAnalyserNode(
     BaseAudioContext context, [
     AnalyserOptions options,
   ]);
-
-
 
   AnalyserOptions newAnalyserOptions({
     int channelCount,
@@ -137,15 +102,10 @@ abstract class TauInterface
     TauTime smoothingTimeConstant,
   });
 
-
-
   AudioBufferSourceNode newAudioBufferSourceNode(
     BaseAudioContext context, [
     AudioBufferSourceOptions options,
   ]);
-
-
-
 
   AudioBufferSourceOptions newAudioBufferSourceOptions({
     AudioBuffer? buffer,
@@ -156,15 +116,10 @@ abstract class TauInterface
     num playbackRate,
   });
 
-
-
   AudioProcessingEvent newAudioProcessingEvent(
     String type,
     AudioProcessingEventInit eventInitDict,
   );
-
-
-
 
   AudioProcessingEventInit newAudioProcessingEventInit({
     bool bubbles,
@@ -175,15 +130,10 @@ abstract class TauInterface
     required AudioBuffer outputBuffer,
   });
 
-
-
-
   BiquadFilterNode newBiquadFilterNode(
     BaseAudioContext context, [
     BiquadFilterOptions options,
   ]);
-
-
 
   BiquadFilterOptions newBiquadFilterOptions({
     int channelCount,
@@ -196,30 +146,22 @@ abstract class TauInterface
     num gain,
   });
 
-
-
   ChannelMergerNode newChannelMergerNode(
     BaseAudioContext context, [
     ChannelMergerOptions options,
   ]);
 
-
-
- ChannelMergerOptions newChannelMergerOptions({
+  ChannelMergerOptions newChannelMergerOptions({
     int channelCount,
     ChannelCountMode channelCountMode,
     ChannelInterpretation channelInterpretation,
     int numberOfInputs,
   });
 
-
-
   ChannelSplitterNode newChannelSplitterNode(
     BaseAudioContext context, [
     ChannelSplitterOptions options,
   ]);
-
-
 
   ChannelSplitterOptions newChannelSplitterOptions({
     int channelCount,
@@ -228,22 +170,16 @@ abstract class TauInterface
     int numberOfOutputs,
   });
 
-
-
   ConstantSourceNode newConstantSourceNode(
     BaseAudioContext context, [
     ConstantSourceOptions options,
   ]);
-
-
 
   ConstantSourceOptions newConstantSourceOptions({num offset});
   ConvolverNode newConvolverNode(
     BaseAudioContext context, [
     ConvolverOptions options,
   ]);
-
-
 
   ConvolverOptions newConvolverOptions({
     int channelCount,
@@ -253,14 +189,10 @@ abstract class TauInterface
     bool disableNormalization,
   });
 
-
-
   DelayNode newDelayNode(
     BaseAudioContext context, [
     DelayOptions options,
   ]);
-
-
 
   DelayOptions newDelayOptions({
     int channelCount,
@@ -270,14 +202,10 @@ abstract class TauInterface
     TauTime delayTime,
   });
 
-
-
   DynamicsCompressorNode newDynamicsCompressorNode(
     BaseAudioContext context, [
     DynamicsCompressorOptions options,
   ]);
-
-
 
   DynamicsCompressorOptions newDynamicsCompressorOptions({
     int channelCount,
@@ -290,14 +218,10 @@ abstract class TauInterface
     num threshold,
   });
 
-
-
   GainNode newGainNode(
     BaseAudioContext context, [
     GainOptions options,
   ]);
-
-
 
   GainOptions newGainOptions({
     int channelCount,
@@ -306,16 +230,10 @@ abstract class TauInterface
     num gain,
   });
 
-
-
-
   IIRFilterNode newIIRFilterNode(
     BaseAudioContext context,
     IIRFilterOptions options,
   );
-
-
-
 
   IIRFilterOptions newIIRFilterOptions({
     int channelCount,
@@ -325,59 +243,39 @@ abstract class TauInterface
     required TauArray<TauNumber> feedback,
   });
 
-
   MediaElementAudioSourceNode newMediaElementAudioSourceNode(
     AudioContext context,
     MediaElementAudioSourceOptions options,
   );
 
-
-
-
   MediaElementAudioSourceOptions newMediaElementAudioSourceOptions(
       {required MediaElement mediaElement});
-
-
 
   MediaStreamAudioDestinationNode newMediaStreamAudioDestinationNode(
     AudioContext context, [
     AudioNodeOptions options,
   ]);
 
-
-
-
   MediaStreamAudioSourceNode newMediaStreamAudioSourceNode(
     AudioContext context,
     MediaStreamAudioSourceOptions options,
   );
 
-
-
   MediaStreamAudioSourceOptions newMediaStreamAudioSourceOptions(
       {required MediaStream mediaStream});
-
-
-
 
   MediaStreamTrackAudioSourceNode newMediaStreamTrackAudioSourceNode(
     AudioContext context,
     MediaStreamTrackAudioSourceOptions options,
   );
 
-
-
   MediaStreamTrackAudioSourceOptions newMediaStreamTrackAudioSourceOptions(
       {required MediaStreamTrack mediaStreamTrack});
-
-
 
   OscillatorNode newOscillatorNode(
     BaseAudioContext context, [
     OscillatorOptions options,
   ]);
-
-
 
   OscillatorOptions newOscillatorOptions({
     int channelCount,
@@ -389,15 +287,10 @@ abstract class TauInterface
     PeriodicWave periodicWave,
   });
 
-
-
   PannerNode newPannerNode(
     BaseAudioContext context, [
     PannerOptions options,
   ]);
-
-
-
 
   PannerOptions newPannerOptions({
     int channelCount,
@@ -419,20 +312,13 @@ abstract class TauInterface
     num coneOuterGain,
   });
 
-
-
   PeriodicWave newPeriodicWave(
     BaseAudioContext context, [
     PeriodicWaveOptions options,
   ]);
 
-
-
-  PeriodicWaveConstraints newPeriodicWaveConstraints({bool disableNormalization});
-
-
-
-
+  PeriodicWaveConstraints newPeriodicWaveConstraints(
+      {bool disableNormalization});
 
   PeriodicWaveOptions newPeriodicWaveOptions({
     bool disableNormalization,
@@ -440,15 +326,10 @@ abstract class TauInterface
     TauArray<TauNumber> imag,
   });
 
-
-
-
   StereoPannerNode newStereoPannerNode(
     BaseAudioContext context, [
     StereoPannerOptions options,
   ]);
-
-
 
   StereoPannerOptions newStereoPannerOptions({
     int channelCount,
@@ -457,14 +338,10 @@ abstract class TauInterface
     num pan,
   });
 
-
-
   WaveShaperNode newWaveShaperNode(
     BaseAudioContext context, [
     WaveShaperOptions options,
   ]);
-
-
 
   WaveShaperOptions newWaveShaperOptions({
     int channelCount,
@@ -474,16 +351,11 @@ abstract class TauInterface
     OverSampleType oversample,
   });
 
-
- AudioWorkletNode newAudioWorkletNode(
+  AudioWorkletNode newAudioWorkletNode(
     BaseAudioContext context,
     String name, [
     AudioWorkletNodeOptions options,
   ]);
-
-
-
-
 
   AudioWorkletNodeOptions newAudioWorkletNodeOptions({
     int channelCount,
@@ -496,19 +368,14 @@ abstract class TauInterface
     ProcessorOptions processorOptions,
   });
 
-
-
   AudioWorkletProcessor newAudioWorkletProcessor();
 
-  AsyncWorkletNode newAsyncWorkletNode(BaseAudioContext context, String name, [AudioWorkletNodeOptions opt]);
-
+  AsyncWorkletNode newAsyncWorkletNode(BaseAudioContext context, String name,
+      [AudioWorkletNodeOptions opt]);
 
   ParameterData newParameterData(Map<String, dynamic> m);
 
-
   ProcessorOptions newProcessorOptions(Map<String, dynamic> m);
-
-
 
 // =================================================================================================
 //                          Added because of Tau_web
@@ -516,20 +383,19 @@ abstract class TauInterface
 
   MediaStream newMediaStream();
 
-
-
   // MediaStreamTrack newMediaStreamTrack();
-
 
   // Worklet newWorklet()
   // WorkletGlobalScope newWorkletGlobalScope()
 
   // MessagePort newMessagePort();
 
-  MediaElement newMediaElement({required String src, });
-  
+  MediaElement newMediaElement({
+    required String src,
+  });
+
   //TauStreamSourceNode newTauStreamSourceNode(BaseAudioContext context, Stream stream);
-  
+
   //TauStreamDestinationNode newTauStreamDestinationNode(BaseAudioContext context, Stream stream);
 
   //TauStreamNode newTauStreamNode(BaseAudioContext context, String name, [TauStreamNodeOptions options,]);
@@ -553,8 +419,4 @@ abstract class TauInterface
   });
 
 */
- 
-
-
-
 }

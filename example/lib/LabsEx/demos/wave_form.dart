@@ -12,7 +12,6 @@ class WaveFormPage extends StatefulWidget {
 }
 
 class _WaveFormPageState extends State<WaveFormPage> {
-
   List<double> waveData = [];
   AudioBus? musicBus;
 
@@ -33,27 +32,26 @@ class _WaveFormPageState extends State<WaveFormPage> {
     });
   }
 
-
   generate(int width) async {
     final startTime = DateTime.now();
     final channel = musicBus?.channel(1);
-    if(channel == null) return;
+    if (channel == null) return;
     final int length = channel.length;
     final binSize = length ~/ width;
     final data = channel.getData();
 
     final List<double> wave = [];
-    for(int i = 0; i < width; i += 1) {
+    for (int i = 0; i < width; i += 1) {
       final subList = data.skip(i * binSize).take(binSize).toList();
-      final maxValue = subList.reduce((value, element) => max(element.abs(), value));
+      final maxValue =
+          subList.reduce((value, element) => max(element.abs(), value));
       wave.add(maxValue);
     }
-     setState(() {
-       this.waveData = wave;
-       this.time = DateTime.now().difference(startTime);
-     });
+    setState(() {
+      this.waveData = wave;
+      this.time = DateTime.now().difference(startTime);
+    });
   }
-
 
   @override
   void initState() {
@@ -64,26 +62,32 @@ class _WaveFormPageState extends State<WaveFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('WaveFormPage'),),
+      appBar: AppBar(
+        title: Text('WaveFormPage'),
+      ),
       body: Column(
         children: [
-          if(musicBus == null)Text("loading data"),
+          if (musicBus == null) Text("loading data"),
           Container(
             height: 200,
             child: Row(
               children: [
-                for(final db in waveData)Container(
-                  color: Colors.green,
-                  width: 1,
-                  height: 200 * db,
-                ),
+                for (final db in waveData)
+                  Container(
+                    color: Colors.green,
+                    width: 1,
+                    height: 200 * db,
+                  ),
               ],
             ),
           ),
-          if(musicBus != null)OutlinedButton(onPressed: () {
-            generate(MediaQuery.of(context).size.width.toInt());
-          }, child: Text("generate")),
-          if(time != null)Text("${time!.inMilliseconds}ms"),
+          if (musicBus != null)
+            OutlinedButton(
+                onPressed: () {
+                  generate(MediaQuery.of(context).size.width.toInt());
+                },
+                child: Text("generate")),
+          if (time != null) Text("${time!.inMilliseconds}ms"),
         ],
       ),
     );

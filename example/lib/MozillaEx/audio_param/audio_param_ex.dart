@@ -80,10 +80,6 @@ class _AudioParamEx extends State<AudioParamEx> {
     Tau.tau.logger.d('Une bonne journée');
   }
 
-
-
-
-
   @override
   void dispose() {
     if (audioCtx != null) {
@@ -110,7 +106,7 @@ class _AudioParamEx extends State<AudioParamEx> {
     initPlatformState();
   }
 
-   List<double> waveArray =  [0.5, 1, 0.5, 0, 0.5, 1, 0, 0.5];
+  List<double> waveArray = [0.5, 1, 0.5, 0, 0.5, 1, 0, 0.5];
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +115,11 @@ class _AudioParamEx extends State<AudioParamEx> {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ElevatedButton(
-              onPressed: (){curGain += 0.25; gainNode!.gain.setValueAtTime(value: curGain, startTime: audioCtx!.currentTime() + 1);},
+              onPressed: () {
+                curGain += 0.25;
+                gainNode!.gain.setValueAtTime(
+                    value: curGain, startTime: audioCtx!.currentTime() + 1);
+              },
               //color: Colors.indigo,
               child: const Text(
                 'Set Gain +0.25 in 1 second',
@@ -130,7 +130,11 @@ class _AudioParamEx extends State<AudioParamEx> {
               width: 5,
             ),
             ElevatedButton(
-              onPressed:  (){curGain -= 0.25; gainNode!.gain.setValueAtTime(value: curGain, startTime: audioCtx!.currentTime() + 1);},
+              onPressed: () {
+                curGain -= 0.25;
+                gainNode!.gain.setValueAtTime(
+                    value: curGain, startTime: audioCtx!.currentTime() + 1);
+              },
               //color: Colors.indigo,
               child: const Text(
                 'Set Gain -0.25 in 1 second',
@@ -141,9 +145,13 @@ class _AudioParamEx extends State<AudioParamEx> {
           const SizedBox(
             height: 20,
           ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ElevatedButton(
-              onPressed:  (){curGain =1.0; gainNode!.gain.linearRampToValueAtTime(value: curGain, endTime:  audioCtx!.currentTime() + 2);},
+              onPressed: () {
+                curGain = 1.0;
+                gainNode!.gain.linearRampToValueAtTime(
+                    value: curGain, endTime: audioCtx!.currentTime() + 2);
+              },
               //color: Colors.indigo,
               child: const Text(
                 'Linear ramp gain to 1 in 2 seconds',
@@ -154,7 +162,11 @@ class _AudioParamEx extends State<AudioParamEx> {
               width: 5,
             ),
             ElevatedButton(
-              onPressed: (){curGain =0.0; gainNode!.gain.linearRampToValueAtTime(value: curGain, endTime:  audioCtx!.currentTime() + 2);},
+              onPressed: () {
+                curGain = 0.0;
+                gainNode!.gain.linearRampToValueAtTime(
+                    value: curGain, endTime: audioCtx!.currentTime() + 2);
+              },
               //color: Colors.indigo,
               child: const Text(
                 'Linear ramp gain to 0 in 2 seconds',
@@ -165,9 +177,13 @@ class _AudioParamEx extends State<AudioParamEx> {
           const SizedBox(
             height: 20,
           ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ElevatedButton(
-              onPressed:  (){curGain =1.0; gainNode!.gain.exponentialRampToValueAtTime(value: curGain, endTime:  audioCtx!.currentTime() + 2);},
+              onPressed: () {
+                curGain = 1.0;
+                gainNode!.gain.exponentialRampToValueAtTime(
+                    value: curGain, endTime: audioCtx!.currentTime() + 2);
+              },
               //color: Colors.indigo,
               child: const Text(
                 'Exponential ramp gain to 1 in 2 seconds',
@@ -178,7 +194,11 @@ class _AudioParamEx extends State<AudioParamEx> {
               width: 5,
             ),
             ElevatedButton(
-              onPressed:  (){curGain =0.01; gainNode!.gain.exponentialRampToValueAtTime(value: 0.01, endTime:  audioCtx!.currentTime() + 2);},
+              onPressed: () {
+                curGain = 0.01;
+                gainNode!.gain.exponentialRampToValueAtTime(
+                    value: 0.01, endTime: audioCtx!.currentTime() + 2);
+              },
               //color: Colors.indigo,
               child: const Text(
                 'Exponential ramp gain to 0 in 2 seconds',
@@ -189,9 +209,15 @@ class _AudioParamEx extends State<AudioParamEx> {
           const SizedBox(
             height: 20,
           ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ElevatedButton(
-              onPressed:  (){curGain =1.0; gainNode!.gain.setTargetAtTime(value: curGain, startTime:  audioCtx!.currentTime() + 1, timeConstant: 0.5);},
+              onPressed: () {
+                curGain = 1.0;
+                gainNode!.gain.setTargetAtTime(
+                    value: curGain,
+                    startTime: audioCtx!.currentTime() + 1,
+                    timeConstant: 0.5);
+              },
               //color: Colors.indigo,
               child: const Text(
                 'Target at time 1 in 1s',
@@ -202,7 +228,13 @@ class _AudioParamEx extends State<AudioParamEx> {
               width: 5,
             ),
             ElevatedButton(
-              onPressed: (){curGain =0.0; gainNode!.gain.setTargetAtTime(value: curGain, startTime:  audioCtx!.currentTime() + 1, timeConstant: 0.5);},
+              onPressed: () {
+                curGain = 0.0;
+                gainNode!.gain.setTargetAtTime(
+                    value: curGain,
+                    startTime: audioCtx!.currentTime() + 1,
+                    timeConstant: 0.5);
+              },
               //color: Colors.indigo,
               child: const Text(
                 'Target at time 0 in 1s',
@@ -213,18 +245,23 @@ class _AudioParamEx extends State<AudioParamEx> {
           const SizedBox(
             height: 20,
           ),
-                      ElevatedButton(
-              onPressed:  (){ gainNode!.gain.setValueCurveAtTime(values: waveArray, startTime: audioCtx!.currentTime() , duration: 2);},
-              //color: Colors.indigo,
-              child: const Text(
-                'Value curve',
-                style: TextStyle(color: Colors.black),
-              ),
+          ElevatedButton(
+            onPressed: () {
+              gainNode!.gain.setValueCurveAtTime(
+                  values: waveArray,
+                  startTime: audioCtx!.currentTime(),
+                  duration: 2);
+            },
+            //color: Colors.indigo,
+            child: const Text(
+              'Value curve',
+              style: TextStyle(color: Colors.black),
             ),
-
+          ),
         ]),
       );
     }
+
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(

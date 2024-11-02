@@ -42,7 +42,6 @@ class _DialState extends State<Dial> {
   ];
 
   Widget button(String name, int x, int y) {
-
     OscillatorNode? oscillatorLow;
     OscillatorNode? oscillatorHigh;
 
@@ -92,14 +91,11 @@ class _DialState extends State<Dial> {
         buttonLine.add(button(name, x, y));
         x++;
       });
-      buttonWidgets.add(
-        Row(
-          children: buttonLine,
-        )
-      );
+      buttonWidgets.add(Row(
+        children: buttonLine,
+      ));
       y++;
     });
-
 
     return Scaffold(
       appBar: AppBar(),

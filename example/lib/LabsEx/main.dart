@@ -78,7 +78,6 @@ class _MyAppState extends State<MyApp> {
                     MaterialPageRoute(builder: (context) => LabSoundExamples()),
                   );
                 }),
-
             ListTile(
                 title: Text("Print device"),
                 onTap: () {

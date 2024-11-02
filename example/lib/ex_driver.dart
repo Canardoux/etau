@@ -1,22 +1,20 @@
 /*
  * Copyright 2024 Canardoux.
  *
- * This file is part of the τ Project.
+ * This file is part of the τ project.
  *
- * τ (Tau) is free software: you can redistribute it and/or modify
- * it under the terms of the Mozilla Public License version 2 (MPL2.0),
- * as published by the Mozilla organization.
+ * τ is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 (GPL3), as published by
+ * the Free Software Foundation.
  *
  * τ is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * MPL General Public License for more details.
+ * GNU General Public License for more details.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ * You should have received a copy of the GNU General Public License
+ * along with τ.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 
 import 'package:flutter/material.dart';
 import 'display_graph.dart';
@@ -93,7 +91,6 @@ final List<Example> basicExampleTable = [
       description: '''Shows How to playback from a buffer.
 The buffer is loaded from an asset.
 '''),
-
   Example(
       title: 'From URI',
       subTitle: 'Play From file/URI',
@@ -104,7 +101,6 @@ The buffer is loaded from an asset.
       mod: 'Basic',
       description: '''Shows How to playback from a file or a remote URI.
 '''),
-
   Example(
       title: 'From Mic',
       subTitle: 'Play From microphone',
@@ -117,7 +113,6 @@ The buffer is loaded from an asset.
 This is a loop between the mic and speaker.
 This example shows the latency during processing.
 '''),
-
   Example(
       title: 'From Processor',
       subTitle: 'Play From a custom processor',
@@ -129,7 +124,6 @@ This example shows the latency during processing.
       description: '''Shows How to play from a custom processor.
 In this example the processor generates random noise.
 '''),
-
   Example(
       title: 'From Oscillator',
       subTitle: 'Play From an oscillator',
@@ -140,7 +134,6 @@ In this example the processor generates random noise.
       mod: 'Basic',
       description: '''Shows How to generate sound from an oscillator.
 '''),
-
   Example(
       title: 'From Constant',
       subTitle: 'Play From a constant generator',
@@ -149,11 +142,11 @@ In this example the processor generates random noise.
       graphDir: 'from_constant',
       graphImage: 'FromConstant',
       mod: 'Basic',
-      description: '''A ConstantSourceNode is created to allow one slider control to change the gain on two GainNodes.
+      description:
+          '''A ConstantSourceNode is created to allow one slider control to change the gain on two GainNodes.
 This code starts by creating the gain nodes and setting them and the volume control that will adjust their value all to 0.5. Then the ConstantSourceNode is created by calling AudioContext.createConstantSource(), and the gain parameters of each of the two gain nodes are connected to the ConstantSourceNode. After starting the constant source by calling its start() method. Finally, the two gain nodes are connected to the audio destination (typically speakers or headphones).
 Now, whenever the value of constantNode.offset changes, the gain on both gainNode2 and gainNode3 will change to have that same value.
 '''),
-
   Example(
       title: 'From Selected Device',
       subTitle: 'Play From a selected mic',
@@ -162,9 +155,9 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
       graphDir: 'from_selected_device',
       graphImage: 'FromSelectedDevice',
       mod: 'Basic',
-      description: '''The user can select which input device (microphone) to use, and connect it to the destination (speaker)
+      description:
+          '''The user can select which input device (microphone) to use, and connect it to the destination (speaker)
 '''),
-
   Example(
       title: 'From Asset',
       subTitle: 'Play From an asset',
@@ -175,8 +168,6 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
       mod: 'Basic',
       description: '''Play from an asset file.
 '''),
-
-
   Example(
       title: 'From Async Processor',
       subTitle: 'Play From an asynchronous processor',
@@ -187,7 +178,6 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
       mod: 'Basic',
       description: '''Play from an asynchronous processor.
 '''),
-
   Example(
       title: 'To Speaker',
       subTitle: 'Play to the default speaker',
@@ -198,7 +188,6 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
       mod: 'Basic',
       description: '''Play to the default speaker.
 '''),
-
   Example(
       title: 'To Selected Device',
       subTitle: 'Play to the selected device',
@@ -210,7 +199,6 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
       description: '''Play to the selected device.
 '''),
 ];
-
 
 final List<Example> mozillaExampleTable = [
   /*

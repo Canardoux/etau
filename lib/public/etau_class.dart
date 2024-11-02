@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with τ.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
@@ -62,12 +62,7 @@ typedef PanningModelType = String;
 typedef DistanceModelType = String;
 typedef OverSampleType = String;
 
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `BaseAudioContext` of the
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -370,7 +365,6 @@ abstract class BaseAudioContext implements EventTarget {
   EventHandler get onstatechange;
   set onstatechange(EventHandler value);
 
-
 // =================================================================================================
 //                          Added specific to Tau
 // =================================================================================================
@@ -380,14 +374,9 @@ abstract class BaseAudioContext implements EventTarget {
   //TauStreamNode createTauStreamNode(String name, [TauStreamNodeOptions? options]);
 
   void dispose();
- }
-
-
-
+}
 
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `AudioContext` represents an audio-processing graph built from
 /// audio modules linked together, each represented by an [AudioNode].
@@ -403,9 +392,7 @@ abstract class BaseAudioContext implements EventTarget {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext).
-abstract class AudioContext
-    implements BaseAudioContext {
-
+abstract class AudioContext implements BaseAudioContext {
   /// The
   /// **`getOutputTimestamp()`** method of the
   /// [AudioContext] returns a new `AudioTimestamp` object
@@ -476,8 +463,7 @@ abstract class AudioContext
   ///
   /// For more details about media stream audio source nodes, check out the
   /// [MediaStreamAudioSourceNode] reference page.
-  MediaStreamAudioSourceNode createMediaStreamSource(
-      MediaStream mediaStream);
+  MediaStreamAudioSourceNode createMediaStreamSource(MediaStream mediaStream);
 
   /// The **`createMediaStreamTrackSource()`** method of the [AudioContext]
   /// creates and returns a [MediaStreamTrackAudioSourceNode] which
@@ -534,19 +520,11 @@ abstract class AudioContext
   /// It varies depending on the platform and the available hardware.
   double get outputLatency;
 
-
-/// Tau:
+  /// Tau:
   Future<void> setSinkId(String sinkId);
-
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 abstract class AudioContextOptions implements EventTarget {
   TauAny get latencyHint;
@@ -559,41 +537,23 @@ abstract class AudioContextOptions implements EventTarget {
   set renderSizeHint(TauAny value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
-class AudioSinkOptions
-{
+class AudioSinkOptions {
   //AudioSinkType get type;
   //set type(AudioSinkType value);
-
 }
-
-
 
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class AudioTimestamp {
-
   TauTime get contextTime;
   set contextTime(TauTime value);
   TauTime get performanceTime;
   set performanceTime(TauHighResTimeStamp value);
 }
 
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `OfflineAudioContext` is an [AudioContext] interface
 /// representing an audio-processing graph built from linked together
@@ -607,7 +567,6 @@ abstract class AudioTimestamp {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OfflineAudioContext).
 abstract class OfflineAudioContext implements BaseAudioContext {
-
   /// The `startRendering()` method of the [OfflineAudioContext] Interface
   /// starts rendering the audio graph, taking into account the current
   /// connections and the current scheduled changes.
@@ -658,16 +617,9 @@ abstract class OfflineAudioContext implements BaseAudioContext {
   set oncomplete(EventHandler value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class OfflineAudioContextOptions {
-
   int get numberOfChannels;
   set numberOfChannels(int value);
   int get length;
@@ -678,14 +630,7 @@ abstract class OfflineAudioContextOptions {
   set renderSizeHint(TauAny value);
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -703,35 +648,20 @@ abstract class OfflineAudioContextOptions {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OfflineAudioCompletionEvent).
 abstract class OfflineAudioCompletionEvent implements Event {
-
   /// The **`renderedBuffer`** read-only property of the
   /// [OfflineAudioCompletionEvent] is an [AudioBuffer]
   /// containing the result of processing an [OfflineAudioContext].
   AudioBuffer get renderedBuffer;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
-
 abstract class OfflineAudioCompletionEventInit implements EventInit {
-
   AudioBuffer get renderedBuffer;
   set renderedBuffer(AudioBuffer value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`AudioBuffer`** represents a short audio asset residing in
 /// memory, created from an audio file using the
@@ -801,16 +731,9 @@ abstract class AudioBuffer {
   int get numberOfChannels;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class AudioBufferOptions {
-
   int get numberOfChannels;
   set numberOfChannels(int value);
   int get length;
@@ -819,12 +742,7 @@ abstract class AudioBufferOptions {
   set sampleRate(TauSampleRate value);
 }
 
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`AudioNode`** is a generic for representing an
 /// audio processing module.
@@ -852,41 +770,37 @@ abstract class AudioNode implements EventTarget {
   /// `AudioNode` (thereby directing the sound data to the specified node).
   /// See also [AudioNode.connectParam]
   AudioNode connect(
-    AudioNode destinationNode, 
-   [
+    AudioNode destinationNode, [
     int output,
     int input,
   ]);
-
 
   /// This is a variant of [AudioNode.connect] with a `DestinationParam` argument instead of an `AudioNode`.
   /// Note : The W3C recommandation uses just one verb for both.
   void connectParam(
     AudioParam destinationParam, //TauObject destinationNodeOrDestinationParam,
-   [
+    [
     int output,
     int input,
   ]);
-
 
   /// The **`disconnect()`** method of the [AudioNode] lets you
   /// disconnect one or more nodes from the node on which the method is called.
   /// See also [AudioNode.disconnectParam]
   void disconnect([
-    AudioNode destinationParamOrOutput, // TauAny destinationNodeOrDestinationParamOrOutput,
+    AudioNode
+        destinationParamOrOutput, // TauAny destinationNodeOrDestinationParamOrOutput,
     int output,
     int input,
   ]);
 
- /// This is a variant of [AudioNode.disconnect] with a `DestinationParam` argument instead of an `AudioNode`.
+  /// This is a variant of [AudioNode.disconnect] with a `DestinationParam` argument instead of an `AudioNode`.
   /// Note : The W3C recommandation uses just one verb for both.
   void disconnectParam(
-    AudioParam DestinationParam,
-   [
+    AudioParam DestinationParam, [
     int output,
     int input,
   ]);
-
 
   /// The read-only `context` property of the
   /// [AudioNode] returns the associated
@@ -942,17 +856,9 @@ abstract class AudioNode implements EventTarget {
   set channelInterpretation(ChannelInterpretation value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
-
 abstract class AudioNodeOptions {
-
   int get channelCount;
   set channelCount(int value);
   ChannelCountMode get channelCountMode;
@@ -961,12 +867,7 @@ abstract class AudioNodeOptions {
   set channelInterpretation(ChannelInterpretation value);
 }
 
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The Web Audio API's `AudioParam` represents an audio-related
 /// parameter, usually a parameter of an [AudioNode] (such as [GainNode.gain]).
@@ -1092,12 +993,7 @@ abstract class AudioParam {
   double get maxValue;
 }
 
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `AudioScheduledSourceNode` interface—part of the Web Audio API—is a
 /// parent for several types of audio source node interfaces which
@@ -1142,14 +1038,7 @@ abstract class AudioScheduledSourceNode implements AudioNode {
   set onended(EventHandler value);
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`AnalyserNode`** represents a node able to provide real-time
 /// frequency and time-domain analysis information. It is an [AudioNode] that
@@ -1192,7 +1081,6 @@ abstract class AudioScheduledSourceNode implements AudioNode {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode).
 abstract class AnalyserNode implements AudioNode {
-
   /// The **`getFloatFrequencyData()`** method of the [AnalyserNode] Interface
   /// copies the current frequency data into a `Float32Array` array passed into
   /// it. Each array value is a _sample_, the magnitude of the signal at a
@@ -1280,16 +1168,9 @@ abstract class AnalyserNode implements AudioNode {
   set smoothingTimeConstant(TauTime value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class AnalyserOptions implements AudioNodeOptions {
-
   int get fftSize;
   set fftSize(int value);
   double get maxDecibels;
@@ -1300,13 +1181,7 @@ abstract class AnalyserOptions implements AudioNodeOptions {
   set smoothingTimeConstant(TauTime value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`AudioBufferSourceNode`** is an [AudioScheduledSourceNode]
 /// which represents an audio source consisting of in-memory audio data, stored
@@ -1439,16 +1314,9 @@ abstract class AudioBufferSourceNode implements AudioScheduledSourceNode {
   set loopEnd(num value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class AudioBufferSourceOptions {
-
   AudioBuffer? get buffer;
   set buffer(AudioBuffer? value);
   double get detune;
@@ -1463,14 +1331,7 @@ abstract class AudioBufferSourceOptions {
   set playbackRate(num value);
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `AudioDestinationNode` represents the end destination of an
 /// audio graph in a given context — usually the speakers of your device. It can
@@ -1525,12 +1386,7 @@ abstract class AudioDestinationNode implements AudioNode {
   int get maxChannelCount;
 }
 
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `AudioListener` represents the position and orientation of the
 /// unique person listening to the audio scene, and is used in
@@ -1567,7 +1423,6 @@ abstract class AudioListener {
     num y,
     num z,
   );
-
 
   /// The `setOrientation()` method of the [AudioListener] defines the
   /// orientation of the listener.
@@ -1678,12 +1533,7 @@ abstract class AudioListener {
   AudioParam get upZ;
 }
 
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `AudioProcessingEvent` of the
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -1703,7 +1553,6 @@ abstract class AudioListener {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioProcessingEvent).
 abstract class AudioProcessingEvent implements Event {
-
   /// The **`playbackTime`** read-only property of the [AudioProcessingEvent]
   /// represents the time when the audio will be played. It is in the
   /// same coordinate system as the time used by the [AudioContext].
@@ -1732,15 +1581,9 @@ abstract class AudioProcessingEvent implements Event {
   AudioBuffer get outputBuffer;
 }
 
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class AudioProcessingEventInit implements EventInit {
-
   TauTime get playbackTime;
   set playbackTime(TauTime value);
   AudioBuffer get inputBuffer;
@@ -1749,13 +1592,7 @@ abstract class AudioProcessingEventInit implements EventInit {
   set outputBuffer(AudioBuffer value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `BiquadFilterNode` represents a simple low-order filter, and
 /// is created using the [BaseAudioContext.createBiquadFilter] method. It is an
@@ -1793,7 +1630,6 @@ abstract class AudioProcessingEventInit implements EventInit {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode).
 abstract class BiquadFilterNode implements AudioNode {
-
   /// The `getFrequencyResponse()` method of the [BiquadFilterNode] interface
   /// takes the current filtering algorithm's settings and calculates the
   /// frequency response for frequencies specified in a specified array of
@@ -1853,16 +1689,9 @@ abstract class BiquadFilterNode implements AudioNode {
   AudioParam get gain;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class BiquadFilterOptions implements AudioNodeOptions {
-
   BiquadFilterType get type;
   set type(BiquadFilterType value);
   double get Q;
@@ -1875,13 +1704,7 @@ abstract class BiquadFilterOptions implements AudioNodeOptions {
   set gain(num value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `ChannelMergerNode` interface, often used in conjunction with its
 /// opposite, [ChannelSplitterNode], reunites different mono inputs into a
@@ -1931,31 +1754,16 @@ abstract class BiquadFilterOptions implements AudioNodeOptions {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ChannelMergerNode).
-abstract class ChannelMergerNode implements AudioNode {
-}
-
-
-
-
+abstract class ChannelMergerNode implements AudioNode {}
 
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class ChannelMergerOptions implements AudioNodeOptions {
- 
   int get numberOfInputs;
   set numberOfInputs(int value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
-
 
 /// The `ChannelSplitterNode` interface, often used in conjunction with its
 /// opposite, [ChannelMergerNode], separates the different channels of an audio
@@ -2008,31 +1816,16 @@ abstract class ChannelMergerOptions implements AudioNodeOptions {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ChannelSplitterNode).
-abstract class ChannelSplitterNode implements AudioNode {
-}
-
-
-
-
+abstract class ChannelSplitterNode implements AudioNode {}
 
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class ChannelSplitterOptions implements AudioNodeOptions {
-
   int get numberOfOutputs;
   set numberOfOutputs(int value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
-
 
 /// The `ConstantSourceNode` interface—part of the Web Audio API—represents an
 /// audio source (based upon [AudioScheduledSourceNode]) whose output is single
@@ -2064,7 +1857,6 @@ abstract class ChannelSplitterOptions implements AudioNodeOptions {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ConstantSourceNode).
 abstract class ConstantSourceNode implements AudioScheduledSourceNode {
-
   /// The read-only `offset` property of the [ConstantSourceNode]
   /// returns a [AudioParam] object indicating the numeric
   /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
@@ -2082,28 +1874,14 @@ abstract class ConstantSourceNode implements AudioScheduledSourceNode {
   AudioParam get offset;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class ConstantSourceOptions {
- 
   double get offset;
   set offset(num value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
-
 
 /// The `ConvolverNode` is an [AudioNode] that performs a Linear
 /// Convolution on a given [AudioBuffer], often used to achieve a reverb effect.
@@ -2143,7 +1921,6 @@ abstract class ConstantSourceOptions {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode).
 abstract class ConvolverNode implements AudioNode {
-
   /// The **`buffer`** property of the [ConvolverNode] represents a
   /// mono, stereo, or 4-channel [AudioBuffer] containing the (possibly
   /// multichannel) impulse response used by the `ConvolverNode` to create the
@@ -2180,29 +1957,16 @@ abstract class ConvolverNode implements AudioNode {
   set normalize(bool value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class ConvolverOptions implements AudioNodeOptions {
-
   AudioBuffer? get buffer;
   set buffer(AudioBuffer? value);
   bool get disableNormalization;
   set disableNormalization(bool value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`DelayNode`** represents a
 /// [delay-line](https://en.wikipedia.org/wiki/Digital_delay_line); an
@@ -2249,7 +2013,6 @@ abstract class ConvolverOptions implements AudioNodeOptions {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode).
 abstract class DelayNode implements AudioNode {
-
   /// The `delayTime` property of the [DelayNode] is an
   /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
   /// [AudioParam] representing the amount of delay to apply.
@@ -2263,29 +2026,16 @@ abstract class DelayNode implements AudioNode {
   AudioParam get delayTime;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class DelayOptions implements AudioNodeOptions {
-
   TauTime get maxDelayTime;
   set maxDelayTime(TauTime value);
   TauTime get delayTime;
   set delayTime(TauTime value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `DynamicsCompressorNode` provides a compression effect, which
 /// lowers the volume of the loudest parts of the signal in order to help
@@ -2324,7 +2074,6 @@ abstract class DelayOptions implements AudioNodeOptions {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode).
 abstract class DynamicsCompressorNode implements AudioNode {
-
   /// The `threshold` property of the [DynamicsCompressorNode] is a
   /// [k-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
   /// [AudioParam] representing the decibel value above which the compression
@@ -2391,16 +2140,9 @@ abstract class DynamicsCompressorNode implements AudioNode {
   AudioParam get release;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class DynamicsCompressorOptions implements AudioNodeOptions {
-
   double get attack;
   set attack(num value);
   double get knee;
@@ -2413,14 +2155,7 @@ abstract class DynamicsCompressorOptions implements AudioNodeOptions {
   set threshold(num value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
-
 
 /// The `GainNode` represents a change in volume. It is an [AudioNode]
 /// audio-processing module that causes a given gain to be applied to the input
@@ -2464,35 +2199,21 @@ abstract class DynamicsCompressorOptions implements AudioNodeOptions {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GainNode).
-abstract class GainNode  implements AudioNode{
-
+abstract class GainNode implements AudioNode {
   /// The `gain` property of the [GainNode] is an
   /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
   /// [AudioParam] representing the amount of gain to apply.
   AudioParam get gain;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class GainOptions implements AudioNodeOptions {
-
   double get gain;
   set gain(num value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`IIRFilterNode`** of the
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -2552,7 +2273,6 @@ abstract class GainOptions implements AudioNodeOptions {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IIRFilterNode).
 abstract class IIRFilterNode implements AudioNode {
-
   /// The `getFrequencyResponse()` method of the [IIRFilterNode]
   /// takes the current filtering algorithm's settings and calculates
   /// the
@@ -2570,31 +2290,16 @@ abstract class IIRFilterNode implements AudioNode {
   );
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
-abstract class IIRFilterOptions
-    implements AudioNodeOptions {
-
+abstract class IIRFilterOptions implements AudioNodeOptions {
   TauArray<TauNumber> get feedforward;
   set feedforward(TauArray<TauNumber> value);
   TauArray<TauNumber> get feedback;
   set feedback(TauArray<TauNumber> value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
-
 
 /// The `MediaElementAudioSourceNode` represents an audio source
 /// consisting of an HTML `audio` or `video` element. It is an [AudioNode] that
@@ -2632,7 +2337,6 @@ abstract class IIRFilterOptions
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode).
 abstract class MediaElementAudioSourceNode implements AudioNode {
-
   /// The [MediaElementAudioSourceNode] interface's
   /// read-only **`mediaElement`** property indicates the
   /// [HTMLMediaElement] that contains the audio track from which the node is
@@ -2644,27 +2348,14 @@ abstract class MediaElementAudioSourceNode implements AudioNode {
   MediaElement get mediaElement;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 abstract class MediaElementAudioSourceOptions {
   MediaElement get mediaElement;
   set mediaElement(MediaElement value);
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `MediaStreamAudioDestinationNode` represents an audio
 /// destination consisting of a
@@ -2705,7 +2396,6 @@ abstract class MediaElementAudioSourceOptions {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode).
 abstract class MediaStreamAudioDestinationNode implements AudioNode {
-
   /// The `stream` property of the [AudioContext] represents a
   /// [MediaStream] containing a single audio [MediaStreamTrack] with the same
   /// number of channels as the node itself.
@@ -2716,14 +2406,7 @@ abstract class MediaStreamAudioDestinationNode implements AudioNode {
   MediaStream get stream;
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`MediaStreamAudioSourceNode`** is a type of [AudioNode]
 /// which operates as an audio source whose media is received from a
@@ -2770,7 +2453,6 @@ abstract class MediaStreamAudioDestinationNode implements AudioNode {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode).
 abstract class MediaStreamAudioSourceNode implements AudioNode {
-
   /// The [MediaStreamAudioSourceNode] interface's
   /// read-only **`mediaStream`** property indicates the
   /// [MediaStream] that contains the audio track from which the node is
@@ -2782,27 +2464,14 @@ abstract class MediaStreamAudioSourceNode implements AudioNode {
   MediaStream get mediaStream;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 abstract class MediaStreamAudioSourceOptions {
   MediaStream get mediaStream;
   set mediaStream(MediaStream value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
-
 
 /// The **`MediaStreamTrackAudioSourceNode`** is a type of [AudioNode]
 /// which represents a source of audio data taken from a specific
@@ -2847,29 +2516,16 @@ abstract class MediaStreamAudioSourceOptions {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrackAudioSourceNode).
-abstract class MediaStreamTrackAudioSourceNode implements AudioNode {
-}
-
-
-
-
+abstract class MediaStreamTrackAudioSourceNode implements AudioNode {}
 
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 abstract class MediaStreamTrackAudioSourceOptions {
   MediaStreamTrack get mediaStreamTrack;
   set mediaStreamTrack(MediaStreamTrack value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`OscillatorNode`** represents a periodic waveform, such as a
 /// sine wave. It is an [AudioScheduledSourceNode] audio-processing module that
@@ -2906,7 +2562,6 @@ abstract class MediaStreamTrackAudioSourceOptions {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode).
 abstract class OscillatorNode implements AudioScheduledSourceNode {
-
   /// The **`setPeriodicWave()`** method of the [OscillatorNode] is
   /// used to point to a [PeriodicWave]
   /// defining a periodic waveform that can be used to shape the oscillator's
@@ -2942,16 +2597,9 @@ abstract class OscillatorNode implements AudioScheduledSourceNode {
   AudioParam get detune;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class OscillatorOptions implements AudioNodeOptions {
-
   OscillatorType get type;
   set type(OscillatorType value);
   double get frequency;
@@ -2962,14 +2610,7 @@ abstract class OscillatorOptions implements AudioNodeOptions {
   set periodicWave(PeriodicWave value);
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `PannerNode` defines an audio-processing object that
 /// represents the location, direction, and behavior of an audio source signal
@@ -3336,16 +2977,9 @@ abstract class PannerNode implements AudioNode {
   set coneOuterGain(num value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class PannerOptions implements AudioNodeOptions {
-
   PanningModelType get panningModel;
   set panningModel(PanningModelType value);
   DistanceModelType get distanceModel;
@@ -3376,14 +3010,7 @@ abstract class PannerOptions implements AudioNodeOptions {
   set coneOuterGain(num value);
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`PeriodicWave`** defines a periodic waveform that can be
 /// used to shape the output of an [OscillatorNode].
@@ -3399,27 +3026,14 @@ abstract class PannerOptions implements AudioNodeOptions {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PeriodicWave).
 abstract class PeriodicWave {}
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class PeriodicWaveConstraints {
-
   bool get disableNormalization;
   set disableNormalization(bool value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 abstract class PeriodicWaveOptions implements PeriodicWaveConstraints {
   TauArray<TauNumber> get real;
@@ -3428,13 +3042,7 @@ abstract class PeriodicWaveOptions implements PeriodicWaveConstraints {
   set imag(TauArray<TauNumber> value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `ScriptProcessorNode` allows the generation, processing, or
 /// analyzing of audio using JavaScript.
@@ -3510,14 +3118,7 @@ abstract class ScriptProcessorNode implements AudioNode {
   int get bufferSize;
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The `StereoPannerNode` of the
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -3565,7 +3166,6 @@ abstract class ScriptProcessorNode implements AudioNode {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode).
 abstract class StereoPannerNode implements AudioNode {
-
   /// The `pan` property of the [StereoPannerNode] is an
   /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
   /// [AudioParam] representing the amount of panning to apply. The value can
@@ -3573,28 +3173,14 @@ abstract class StereoPannerNode implements AudioNode {
   AudioParam get pan;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class StereoPannerOptions implements AudioNodeOptions {
-
   double get pan;
   set pan(num value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
-
 
 /// The **`WaveShaperNode`** represents a non-linear distorter.
 ///
@@ -3634,7 +3220,6 @@ abstract class StereoPannerOptions implements AudioNodeOptions {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode).
 abstract class WaveShaperNode implements AudioNode {
-
   /// The `curve` property of the [WaveShaperNode] is a `Float32Array`
   /// of numbers describing the distortion to apply.
   ///
@@ -3671,30 +3256,16 @@ abstract class WaveShaperNode implements AudioNode {
   set oversample(OverSampleType value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
 
-
-
 abstract class WaveShaperOptions implements AudioNodeOptions {
-
   TauArray<TauNumber> get curve;
   set curve(TauArray<TauNumber> value);
   OverSampleType get oversample;
   set oversample(OverSampleType value);
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`AudioWorklet`** of the
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -3712,19 +3283,11 @@ abstract class WaveShaperOptions implements AudioNodeOptions {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet).
-abstract class AudioWorklet
-{
+abstract class AudioWorklet {
   addModule(String script);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
-
 
 /// The **`AudioWorkletGlobalScope`** of the
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -3772,13 +3335,7 @@ abstract class AudioWorkletGlobalScope {
   TauSampleRate get sampleRate;
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// The **`AudioParamMap`** of the
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -3793,22 +3350,14 @@ abstract class AudioWorkletGlobalScope {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioParamMap).
-abstract class AudioParamMap 
-{
-  dynamic? getProperty(String key) ;
-  void setProperty(String key, dynamic value) ;
+abstract class AudioParamMap {
+  dynamic? getProperty(String key);
+  void setProperty(String key, dynamic value);
   //int get size;
   //dynamic get(String key);
 }
 
-
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 /// > **Note:** Although the is available outside
 /// > [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts),
@@ -3827,7 +3376,6 @@ abstract class AudioParamMap
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode).
 abstract class AudioWorkletNode implements AudioNode {
- 
   /// The read-only **`parameters`** property of the
   /// [AudioWorkletNode] returns the associated
   /// [AudioParamMap] — that is, a `Map`-like collection of
@@ -3849,36 +3397,26 @@ abstract class AudioWorkletNode implements AudioNode {
   EventHandler get onProcessorError;
   set onProcessorError(EventHandler value);
 }
-typedef void onAudioBufferUnderflowFn(int outputNo );
 
-abstract class AsyncWorkletNode implements AudioWorkletNode
-{
+typedef void onAudioBufferUnderflowFn(int outputNo);
 
+abstract class AsyncWorkletNode implements AudioWorkletNode {
   void onBufferUnderflow(onAudioBufferUnderflowFn f);
-  void send({int outputNo = 0,  required List<Float32List> data});
+  void send({int outputNo = 0, required List<Float32List> data});
 }
 
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
 
 abstract class ProcessorOptions //implements AudioNodeOptions
 {
   /* ctor */ ProcessorOptions(Map<String, dynamic> m);
-
 }
 
-
-abstract class ParameterData
-{
+abstract class ParameterData {
   /* ctor */ ParameterData(Map<String, dynamic> m);
-
 }
-
 
 abstract class AudioWorkletNodeOptions implements AudioNodeOptions {
-
   int get numberOfInputs;
   set numberOfInputs(int value);
   int get numberOfOutputs;
@@ -3891,14 +3429,7 @@ abstract class AudioWorkletNodeOptions implements AudioNodeOptions {
   //set processorOptions(ProcessorOptions value);
 }
 
-
-
-
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
-
 
 /// The **`AudioWorkletProcessor`** of the
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -3921,50 +3452,45 @@ abstract class AudioWorkletProcessor {
   MessagePort get port;
 }
 
-
 // =================================================================================================
 //                          Added because of Tau_web
 // =================================================================================================
 
-
-
-abstract class MediaElement
-{
-    /* ctor */ MediaElement({required String src,});
-    TauTime get currentTime;
-    set currentTime(TauTime currentTime);
-    bool get loop;
-    set loop(bool loop);
-    Future<Object?> play();
-    pause();
-    bool paused();
-    TauSampleRate get playbackRate;
-    set playbackRate(TauSampleRate sampleRate);
-    String get src;
-    set src(String src);
-    String? get crossorigin;
-    set crossorigin(String? crossorigin);
-    //EventHandler?  get onplay;
-    set onplay (EventHandler? e);
+abstract class MediaElement {
+  /* ctor */ MediaElement({
+    required String src,
+  });
+  TauTime get currentTime;
+  set currentTime(TauTime currentTime);
+  bool get loop;
+  set loop(bool loop);
+  Future<Object?> play();
+  pause();
+  bool paused();
+  TauSampleRate get playbackRate;
+  set playbackRate(TauSampleRate sampleRate);
+  String get src;
+  set src(String src);
+  String? get crossorigin;
+  set crossorigin(String? crossorigin);
+  //EventHandler?  get onplay;
+  set onplay(EventHandler? e);
 }
 
-abstract class MediaStream
-{
-   String get id;
+abstract class MediaStream {
+  String get id;
 }
 
-abstract class MediaDevices
-{
-  Future<MediaStream> getUserMedia({ bool audio = true, bool video = true});
-  Future<MediaStream> getUserMediaWithConstraints({ required Map<String, Object> audio, });
+abstract class MediaDevices {
+  Future<MediaStream> getUserMedia({bool audio = true, bool video = true});
+  Future<MediaStream> getUserMediaWithConstraints({
+    required Map<String, Object> audio,
+  });
   Future<List<MediaDeviceInfo>> enumerateDevices();
 }
 
-
-abstract class MediaStreamTrack
-{
+abstract class MediaStreamTrack {
   // !!! Missing many methods, here
-
 }
 
 /*
@@ -3982,35 +3508,34 @@ class WorkletGlobalScope
 */
 typedef void MessageFn(Message msg);
 
-typedef  Message = dynamic;
+typedef Message = dynamic;
 
-abstract class MessagePort
-{
+abstract class MessagePort {
   void set onmessage(MessageFn f);
 
   MessageFn get onmessage;
   void postMessage(Message e);
-
 }
 
-enum DeviceKind
-{
+enum DeviceKind {
   unknown,
   videoinput,
   audioinput,
   audiooutput,
 }
 
-class MediaDeviceInfo
-{
-   late String deviceId ;
-   late String groupId ;
-   late DeviceKind kind ;
-   late String label ;
+class MediaDeviceInfo {
+  late String deviceId;
+  late String groupId;
+  late DeviceKind kind;
+  late String label;
 
-   /* ctor */ MediaDeviceInfo({required this.deviceId, required this.groupId, required this.kind, required this.label});
+  /* ctor */ MediaDeviceInfo(
+      {required this.deviceId,
+      required this.groupId,
+      required this.kind,
+      required this.label});
 }
-
 
 /*
 

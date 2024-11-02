@@ -83,29 +83,25 @@ class _CompressorEx extends State<CompressorEx> {
     Tau.tau.logger.d('Une bonne journée');
   }
 
-
-
-  void removeCompression()  {
+  void removeCompression() {
     source!.disconnect();
     compressor!.disconnect();
     source!.connect(dest: dest!);
     dataActive = false;
-      if (mounted) {
+    if (mounted) {
       setState(() {});
     }
   }
 
-  void addCompression()  {
-
+  void addCompression() {
     source!.disconnect();
     source!.connect(dest: compressor!);
     compressor!.connect(dest: dest!);
     dataActive = true;
-      if (mounted) {
+    if (mounted) {
       setState(() {});
     }
   }
-
 
   // Good citizens must dispose nodes and Audio Context
   void disposeEverything() {
@@ -154,16 +150,14 @@ class _CompressorEx extends State<CompressorEx> {
     Widget makeBody() {
       return Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-
-            ElevatedButton(
-              onPressed: dataActive ? removeCompression : addCompression,
-              //color: Colors.indigo,
-              child:  Text(
-                dataActive ? 'Remove compression' : 'Add compression',
-                style: const TextStyle(color: Colors.black),
-              ),
+          ElevatedButton(
+            onPressed: dataActive ? removeCompression : addCompression,
+            //color: Colors.indigo,
+            child: Text(
+              dataActive ? 'Remove compression' : 'Add compression',
+              style: const TextStyle(color: Colors.black),
             ),
-
+          ),
         ]),
       );
     }

@@ -57,7 +57,8 @@ class _RenderAudioPageState extends State<RenderAudioPage> {
                     final audioSample =
                         AudioSampleNode(audioContext, resource: musicBus);
                     final recorder = RecorderNode(audioContext);
-                    final dynamicsCompressorNode = DynamicsCompressorNode(audioContext);
+                    final dynamicsCompressorNode =
+                        DynamicsCompressorNode(audioContext);
 
                     final oscillator = OscillatorNode(audioContext);
                     oscillator.start();

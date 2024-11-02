@@ -70,17 +70,13 @@ class _OutputTimestampEx extends State<OutputTimestampEx> {
     Tau.tau.logger.d('Une bonne journée');
   }
 
-
-  void timerFn(Timer timer)
-  {
+  void timerFn(Timer timer) {
     outputTimestamps();
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   Future<void> hitPlayButton() async {
     disposeEverything();
-
 
     dest = audioCtx!.destination();
     await loadAudio();
@@ -104,17 +100,15 @@ class _OutputTimestampEx extends State<OutputTimestampEx> {
     disposeEverything();
     playDisabled = false;
     stopDisabled = true;
-    if (timer != null)
-    {
+    if (timer != null) {
       timer!.cancel();
       timer = null;
     }
 
-      if (mounted) {
+    if (mounted) {
       setState(() {});
     }
   }
-
 
   // Good citizens must dispose nodes and Audio Context
   void disposeEverything() {
@@ -158,15 +152,13 @@ class _OutputTimestampEx extends State<OutputTimestampEx> {
     initPlatformState();
   }
 
-
-    // Helper function to output timestamps
-    void outputTimestamps() {
-      var ts = audioCtx!.currentTime();
-      var milli = (ts*200).floor();
-      outputText = 'Context time: $milli ms';
-      //rAF = requestAnimationFrame(outputTimestamps); // Reregister itself
-    }
-
+  // Helper function to output timestamps
+  void outputTimestamps() {
+    var ts = audioCtx!.currentTime();
+    var milli = (ts * 200).floor();
+    outputText = 'Context time: $milli ms';
+    //rAF = requestAnimationFrame(outputTimestamps); // Reregister itself
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +192,7 @@ class _OutputTimestampEx extends State<OutputTimestampEx> {
           const SizedBox(
             height: 20,
           ),
-           Text(outputText),
+          Text(outputText),
         ]),
       );
     }

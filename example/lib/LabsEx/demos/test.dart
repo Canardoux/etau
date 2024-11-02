@@ -60,8 +60,8 @@ class _TestPageState extends State<TestPage> {
       loaded = true;
     });
   }
-  AnalyserBuffer<int>? testAnalyser;
 
+  AnalyserBuffer<int>? testAnalyser;
 
   double? userPosition;
 
@@ -73,23 +73,23 @@ class _TestPageState extends State<TestPage> {
       ),
       body: loaded
           ? ListView(
-        padding: EdgeInsets.all(16.0),
-        children: [
-          Text("音乐: "),
-          ElevatedButton(
-              child: Text("Play Music"),
-              onPressed: () async {
-                // audioNode.clearSchedules();
-                audioNode.schedule();
-              }),
-          ElevatedButton(
-              child: Text("Stop Music"),
-              onPressed: () async {
-                audioNode.clearSchedules();
-                audioNode.stop();
-              }),
-        ],
-      )
+              padding: EdgeInsets.all(16.0),
+              children: [
+                Text("音乐: "),
+                ElevatedButton(
+                    child: Text("Play Music"),
+                    onPressed: () async {
+                      // audioNode.clearSchedules();
+                      audioNode.schedule();
+                    }),
+                ElevatedButton(
+                    child: Text("Stop Music"),
+                    onPressed: () async {
+                      audioNode.clearSchedules();
+                      audioNode.stop();
+                    }),
+              ],
+            )
           : Center(child: Text("LOADING")),
     );
   }

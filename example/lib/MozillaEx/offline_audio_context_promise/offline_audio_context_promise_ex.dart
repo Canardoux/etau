@@ -29,17 +29,19 @@ import 'dart:io';
 class OfflineAudioContextPromiseEx extends StatefulWidget {
   const OfflineAudioContextPromiseEx({super.key});
   @override
-  State<OfflineAudioContextPromiseEx> createState() => _OfflineAudioContextPromiseEx();
+  State<OfflineAudioContextPromiseEx> createState() =>
+      _OfflineAudioContextPromiseEx();
 }
 
-class _OfflineAudioContextPromiseEx extends State<OfflineAudioContextPromiseEx> {
+class _OfflineAudioContextPromiseEx
+    extends State<OfflineAudioContextPromiseEx> {
   String pcmAsset = 'assets/wav/sample2.aac'; // The Wav asset to be played
 
   AudioContext? audioCtx;
   OfflineAudioContext? offlineCtx;
   AudioDestinationNode? dest;
   AudioBufferSourceNode? source;
-  AudioBufferSourceNode? song ;
+  AudioBufferSourceNode? song;
   AudioBuffer? audioBuffer;
   final channels = 1;
   bool playDisabled = false;
@@ -59,7 +61,7 @@ class _OfflineAudioContextPromiseEx extends State<OfflineAudioContextPromiseEx> 
   }
 
   void initPlatformState() async {
-     audioCtx = AudioContext(
+    audioCtx = AudioContext(
         options: const AudioContextOptions(
       latencyHint: AudioContextLatencyCategory.playback(),
       sinkId: '',
@@ -67,38 +69,38 @@ class _OfflineAudioContextPromiseEx extends State<OfflineAudioContextPromiseEx> 
       //sampleRate: 44100,
     ));
 
-      setState(() {});
+    setState(() {});
 
     Tau.tau.logger.d('Une bonne journée');
   }
 
-  Future<void> hitPlayButton() async
-  {
-    offlineCtx =  OfflineAudioContext(numberOfChannels: 2, length: 44100 * 100,sampleRate: 44100);
+  Future<void> hitPlayButton() async {
+    offlineCtx = OfflineAudioContext(
+        numberOfChannels: 2, length: 44100 * 100, sampleRate: 44100);
 
-    loadAudio().then((_){return audioCtx!.decodeAudioDataSync(inputPath: path);})
-        .then( (decodedBuffer)
-    {
+    loadAudio().then((_) {
+      return audioCtx!.decodeAudioDataSync(inputPath: path);
+    }).then((decodedBuffer) {
       source = offlineCtx!.createBufferSource();
       source!.setBuffer(audioBuffer: decodedBuffer);
       dest = offlineCtx!.destination();
       source!.connect(dest: dest!);
       return source!.start();
-    })
-        .then( (_){return offlineCtx!.startRendering();})
-        .then ((renderedBuffer){
-       song = audioCtx!.createBufferSource();
+    }).then((_) {
+      return offlineCtx!.startRendering();
+    }).then((renderedBuffer) {
+      song = audioCtx!.createBufferSource();
       song!.setBuffer(audioBuffer: renderedBuffer);
       var onLineDest = audioCtx!.destination();
-      song!.connect(dest:onLineDest);
+      song!.connect(dest: onLineDest);
       song!.start();
     });
     playDisabled = true;
     stopDisabled = false;
 
-          if (mounted) {
-            setState(() {});
-          }
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future<void> hitStopButton() async {
@@ -110,7 +112,6 @@ class _OfflineAudioContextPromiseEx extends State<OfflineAudioContextPromiseEx> 
       setState(() {});
     }
   }
-
 
   @override
   void dispose() {
@@ -163,11 +164,9 @@ class _OfflineAudioContextPromiseEx extends State<OfflineAudioContextPromiseEx> 
                 style: TextStyle(color: Colors.black),
               ),
             ),
-
           ]),
 
-
-            //divisions: 1
+          //divisions: 1
         ]),
       );
     }

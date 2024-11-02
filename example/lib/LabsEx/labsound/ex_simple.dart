@@ -8,7 +8,7 @@ import 'package:open_file/open_file.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 double randomFloat(double min, double max) {
-  return Random().nextDouble()* (max - min) + min;
+  return Random().nextDouble() * (max - min) + min;
 }
 
 List<AudioStreamConfig?> getDefaultAudioDeviceConfiguration(
@@ -48,8 +48,7 @@ List<AudioStreamConfig?> getDefaultAudioDeviceConfiguration(
   return [inputConfig, outputConfig];
 }
 
-
-Future<AudioBus> makeBusFromSampleFile(String path) async{
+Future<AudioBus> makeBusFromSampleFile(String path) async {
   final tempDir = await getTemporaryDirectory();
   final file = File(tempDir.path + '/' + path);
   await file.writeAsBytes(
@@ -89,7 +88,7 @@ class ExSimple {
 class ExSimple2 {
   play() async {
     final defaultAudioDeviceConfigurations =
-    getDefaultAudioDeviceConfiguration();
+        getDefaultAudioDeviceConfiguration();
     final context = AudioContext(
         outputConfig: defaultAudioDeviceConfigurations.last,
         inputConfig: defaultAudioDeviceConfigurations.first);
@@ -118,14 +117,16 @@ class ExSimple2 {
 class ExOscPop {
   play() async {
     final defaultAudioDeviceConfigurations =
-    getDefaultAudioDeviceConfiguration();
-    print("defaultAudioDeviceConfigurations: $defaultAudioDeviceConfigurations");
+        getDefaultAudioDeviceConfiguration();
+    print(
+        "defaultAudioDeviceConfigurations: $defaultAudioDeviceConfigurations");
     final context = AudioContext(
         outputConfig: defaultAudioDeviceConfigurations.last,
         inputConfig: defaultAudioDeviceConfigurations.first);
 
     final oscillator = OscillatorNode(context);
-    final recorder = RecorderNode.fromConfig(context, defaultAudioDeviceConfigurations.last!);
+    final recorder = RecorderNode.fromConfig(
+        context, defaultAudioDeviceConfigurations.last!);
     final gain = GainNode(context);
 
     gain.gain.value = 1;
@@ -138,8 +139,7 @@ class ExOscPop {
     recorder.startRecording();
     gain.connect(recorder);
 
-    for (double i = 0; i < 5.0; i += 1.0)
-    {
+    for (double i = 0; i < 5.0; i += 1.0) {
       oscillator.start(when: 0);
       oscillator.stop(when: 0.5);
       await Future.delayed(Duration(seconds: 1));
@@ -150,7 +150,7 @@ class ExOscPop {
 
     final tempDir = await getTemporaryDirectory();
     final file = File(tempDir.path + '/ex_osc_pop.wav');
-    if(file.existsSync()) file.deleteSync();
+    if (file.existsSync()) file.deleteSync();
 
     recorder.writeRecordingToWav(file.path);
     OpenFile.open(file.path);
@@ -163,7 +163,7 @@ class ExOscPop {
 class ExPlaybackEvents {
   play() async {
     final defaultAudioDeviceConfigurations =
-    getDefaultAudioDeviceConfiguration();
+        getDefaultAudioDeviceConfiguration();
     final context = AudioContext(
         outputConfig: defaultAudioDeviceConfigurations.last,
         inputConfig: defaultAudioDeviceConfigurations.first);
@@ -186,11 +186,13 @@ class ExPlaybackEvents {
 
 class ExOfflineRendering {
   play() async {
-
-    final offlineConfig = AudioStreamConfig(deviceIndex: 0, desiredSampleRate: 48000, desiredChannels: 2);
+    final offlineConfig = AudioStreamConfig(
+        deviceIndex: 0, desiredSampleRate: 48000, desiredChannels: 2);
     final int recordingTimeMs = 1000;
 
-    final context = AudioContext.offline(outputConfig: offlineConfig, duration: Duration(milliseconds: recordingTimeMs));
+    final context = AudioContext.offline(
+        outputConfig: offlineConfig,
+        duration: Duration(milliseconds: recordingTimeMs));
 
     final oscillator = OscillatorNode(context);
     final musicClip = await makeBusFromSampleFile("stereo-music-clip.wav");
@@ -221,10 +223,9 @@ class ExOfflineRendering {
     recorder.stopRecording();
     context.removeAutomaticPullNode(recorder);
 
-
     final tempDir = await getTemporaryDirectory();
     final file = File(tempDir.path + '/ex_osc_pop.wav');
-    if(file.existsSync()) file.deleteSync();
+    if (file.existsSync()) file.deleteSync();
 
     recorder.writeRecordingToWav(file.path);
 
@@ -239,7 +240,7 @@ class ExOfflineRendering {
 class ExTremolo {
   play() async {
     final defaultAudioDeviceConfigurations =
-    getDefaultAudioDeviceConfiguration();
+        getDefaultAudioDeviceConfiguration();
     final context = AudioContext(
         outputConfig: defaultAudioDeviceConfigurations.last,
         inputConfig: defaultAudioDeviceConfigurations.first);
@@ -269,7 +270,7 @@ class ExTremolo {
 class ExFrequencyModulation {
   play() async {
     final defaultAudioDeviceConfigurations =
-    getDefaultAudioDeviceConfiguration();
+        getDefaultAudioDeviceConfiguration();
     final context = AudioContext(
         outputConfig: defaultAudioDeviceConfigurations.last,
         inputConfig: defaultAudioDeviceConfigurations.first);
@@ -282,7 +283,6 @@ class ExFrequencyModulation {
     final signalGain = GainNode(context);
     final feedbackTap = GainNode(context);
     final chainDelay = DelayNode(context);
-
 
     modulator.type = OscillatorType.square;
     modulator.start();
@@ -305,7 +305,7 @@ class ExFrequencyModulation {
     chainDelay.connect(signalGain);
     signalGain.connect(context.device);
     double nowInMs = 0;
-    while (true){
+    while (true) {
       final carrierFreq = randomFloat(80, 440);
       osc.frequency.value = carrierFreq;
 
@@ -336,12 +336,9 @@ class ExFrequencyModulation {
 // In most examples, nodes are not disconnected during playback. This sample shows how nodes
 // can be arbitrarily connected/disconnected during runtime while the graph is live.
 class ExRuntimeGraphUpdate {
-
-
   play() async {
-
     final defaultAudioDeviceConfigurations =
-    getDefaultAudioDeviceConfiguration();
+        getDefaultAudioDeviceConfiguration();
     final context = AudioContext(
         outputConfig: defaultAudioDeviceConfigurations.last,
         inputConfig: defaultAudioDeviceConfigurations.first);
@@ -383,7 +380,6 @@ class ExRuntimeGraphUpdate {
     await Future.delayed(Duration(milliseconds: 200));
     context.dispose();
   }
-
 }
 
 class ExMicrophone {
@@ -393,7 +389,8 @@ class ExMicrophone {
     }
     final context = AudioContext(
         outputConfig: AudioStreamConfig(desiredChannels: 0),
-        inputConfig: AudioStreamConfig(deviceIndex: 0, desiredChannels: 1, desiredSampleRate: 44100));
+        inputConfig: AudioStreamConfig(
+            deviceIndex: 0, desiredChannels: 1, desiredSampleRate: 44100));
     final input = context.makeAudioHardwareInputNode();
 
     final recorder = RecorderNode(context, 1);
@@ -409,7 +406,7 @@ class ExMicrophone {
 
     final tempDir = await getTemporaryDirectory();
     final file = File(tempDir.path + '/ExMicrophone.wav');
-    if(file.existsSync()) file.deleteSync();
+    if (file.existsSync()) file.deleteSync();
     recorder.writeRecordingToWav(file.path);
     final bus = recorder.createBusFromRecording();
     print("bus.length: ${bus!.length}");
@@ -419,6 +416,7 @@ class ExMicrophone {
     context.dispose();
   }
 }
+
 class ExMicrophoneLoopback {
   play() async {
     if (!await Permission.microphone.request().isGranted) {
@@ -430,8 +428,10 @@ class ExMicrophoneLoopback {
     // final defaultAudioDeviceConfigurations = getDefaultAudioDeviceConfiguration(true);
     // print("defaultAudioDeviceConfigurations: $defaultAudioDeviceConfigurations");
     final context = AudioContext(
-        outputConfig: AudioStreamConfig(desiredChannels: 2, desiredSampleRate: 48000),
-        inputConfig: AudioStreamConfig(desiredChannels: 1, desiredSampleRate: 48000));
+        outputConfig:
+            AudioStreamConfig(desiredChannels: 2, desiredSampleRate: 48000),
+        inputConfig:
+            AudioStreamConfig(desiredChannels: 1, desiredSampleRate: 48000));
     final input = context.makeAudioHardwareInputNode();
     input.connect(context.device);
     await Future.delayed(Duration(seconds: 10));

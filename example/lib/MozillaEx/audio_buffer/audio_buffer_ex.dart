@@ -116,51 +116,48 @@ class _AudioBufferEx extends State<AudioBufferEx> {
 
       */
 
-      // Create an empty two second stereo buffer at the
-      // sample rate of the AudioContext
+    // Create an empty two second stereo buffer at the
+    // sample rate of the AudioContext
     var sampleRate = audioCtx!.sampleRate();
     var frameCount = (sampleRate * 2.0).ceil();
-    AudioBufferOptions options = AudioBufferOptions
-    (
-        numberOfChannels: channels,
-        length: frameCount,
-        sampleRate: sampleRate,
+    AudioBufferOptions options = AudioBufferOptions(
+      numberOfChannels: channels,
+      length: frameCount,
+      sampleRate: sampleRate,
     );
-    var buffer = AudioBuffer
-    (
-        options: options
-    );
-      // Fill the buffer with white noise;
-      // just random values between -1.0 and 1.0
-    for (int channel = 0; channel < channels; channel++)
-    {
-        // This gives us the actual array that contains the data
-        //var nowBuffering = buffer.getChannelData(channel);
-        var rng = Random();
-        var x = List<double>.filled(frameCount, 0.0);
-        for (int i = 0; i < frameCount; i++) {
-          // Math.random() is in [0; 1.0]
-          // audio needs to be in [-1.0; 1.0]
-          var value = rng.nextDouble();
-          value = value * 2 - 1;
+    var buffer = AudioBuffer(options: options);
+    // Fill the buffer with white noise;
+    // just random values between -1.0 and 1.0
+    for (int channel = 0; channel < channels; channel++) {
+      // This gives us the actual array that contains the data
+      //var nowBuffering = buffer.getChannelData(channel);
+      var rng = Random();
+      var x = List<double>.filled(frameCount, 0.0);
+      for (int i = 0; i < frameCount; i++) {
+        // Math.random() is in [0; 1.0]
+        // audio needs to be in [-1.0; 1.0]
+        var value = rng.nextDouble();
+        value = value * 2 - 1;
 
-          x[i] = value;
-          //buffer.setAt(channelNumber: channel, index: i, value: value);
-        }
-        buffer.setChannelData(source: x, channelNumber: channel);
+        x[i] = value;
+        //buffer.setAt(channelNumber: channel, index: i, value: value);
+      }
+      buffer.setChannelData(source: x, channelNumber: channel);
     }
-      // Get an AudioBufferSourceNode.
-      // This is the AudioNode to use when we want to play an AudioBuffer
+    // Get an AudioBufferSourceNode.
+    // This is the AudioNode to use when we want to play an AudioBuffer
     source = audioCtx!.createBufferSource();
-      // Set the buffer in the AudioBufferSourceNode
+    // Set the buffer in the AudioBufferSourceNode
     source!.setBuffer(audioBuffer: buffer);
 
-      // Connect the AudioBufferSourceNode to the
-      // destination so we can hear the sound
+    // Connect the AudioBufferSourceNode to the
+    // destination so we can hear the sound
     dest = audioCtx!.destination();
     source!.connect(dest: dest!);
-    source!.setOnEnded(callback: (event){Tau.tau.logger.i("White noise finished");});
-      // start the source playing
+    source!.setOnEnded(callback: (event) {
+      Tau.tau.logger.i("White noise finished");
+    });
+    // start the source playing
     source!.start();
 
     if (mounted) {

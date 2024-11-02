@@ -36,8 +36,7 @@ class AudioAnalyserEx extends StatefulWidget {
   State<AudioAnalyserEx> createState() => _AudioAnalyserEx();
 }
 
-class _AudioAnalyserEx extends State<AudioAnalyserEx>
-{
+class _AudioAnalyserEx extends State<AudioAnalyserEx> {
   AudioContext? audioCtx;
   AudioDestinationNode? dest;
   AudioBufferSourceNode? sourceNode;
@@ -48,7 +47,6 @@ class _AudioAnalyserEx extends State<AudioAnalyserEx>
   final Color sinColor = Colors.blue;
   final limitCount = 1024;
   List<FlSpot> sinPoints = <FlSpot>[];
-
 
   Future<Float32List> getAssetData(String path) async {
     var asset = await rootBundle.load(path);
@@ -243,8 +241,8 @@ class _AudioAnalyserEx extends State<AudioAnalyserEx>
 
     // Set up the event handler that is triggered every time enough samples have been collected
     // then trigger the audio analysis and draw the results
-    javascriptNode!.setOnaudioprocess(callback: (AudioProcessingEvent event) async
-    {
+    javascriptNode!.setOnaudioprocess(
+        callback: (AudioProcessingEvent event) async {
       // Read the frequency values
       int frequencyBinCount = analyserNode!.frequencyBinCount();
 
@@ -256,7 +254,7 @@ class _AudioAnalyserEx extends State<AudioAnalyserEx>
       //var state = await audioCtx!.state();
       //if (state == AudioContextState.running)
       //{
-        /*
+      /*
         // Draw the time domain in the canvas
         for (int i = 0; i < amplitudeArray.length; ++i)
           {
@@ -271,27 +269,25 @@ class _AudioAnalyserEx extends State<AudioAnalyserEx>
           }
 
          */
-        /*
+      /*
         await controller.callAsyncJavaScript(
             functionBody: 'drawAmplitude(amplitudeArray)',
             arguments: {'amplitudeArray': amplitudeArray});
 
          */
-       //}
+      //}
       //while (sinPoints.length > limitCount) {
-        //sinPoints.removeAt(0);
+      //sinPoints.removeAt(0);
       //}
       sinPoints = <FlSpot>[];
       xValue = 0;
-      for (int i = 0; i < amplitudeArray.length; ++i)
-        {
-          sinPoints.add(FlSpot(xValue, amplitudeArray[i] ));
-          xValue += step;
-
-        }
+      for (int i = 0; i < amplitudeArray.length; ++i) {
+        sinPoints.add(FlSpot(xValue, amplitudeArray[i]));
+        xValue += step;
+      }
       setState(() {
         sinPoints;
-       });
+      });
       return null;
     });
   }
@@ -299,9 +295,15 @@ class _AudioAnalyserEx extends State<AudioAnalyserEx>
   // Good citizens must dispose nodes and Audio Context
   void disposeEverything() {
     Tau.tau.logger.d("dispose");
-    if (audioCtx != null) {audioCtx!.close(); audioCtx!.dispose();}
+    if (audioCtx != null) {
+      audioCtx!.close();
+      audioCtx!.dispose();
+    }
     if (dest != null) dest!.dispose();
-    if (sourceNode != null) {sourceNode!.stop();sourceNode!.dispose();}
+    if (sourceNode != null) {
+      sourceNode!.stop();
+      sourceNode!.dispose();
+    }
     if (analyserNode != null) analyserNode!.dispose();
     if (javascriptNode != null) javascriptNode!.dispose();
     audioCtx = null;
@@ -330,8 +332,8 @@ class _AudioAnalyserEx extends State<AudioAnalyserEx>
         show: false,
       ),
       //gradient: const LinearGradient(
-        //colors: [Colors.blue, Colors.black],
-        //stops: [0.0, 0.0],
+      //colors: [Colors.blue, Colors.black],
+      //stops: [0.0, 0.0],
       //),
       color: Colors.black,
       barWidth: 1,
@@ -341,15 +343,13 @@ class _AudioAnalyserEx extends State<AudioAnalyserEx>
 
   @override
   Widget build(BuildContext context) {
-    Widget makeBody()
-    {
+    Widget makeBody() {
       return LineChart(
         LineChartData(
           minY: -0.5,
           maxY: 0.5,
           minX: 0,
           maxX: 1024,
-
           lineTouchData: const LineTouchData(enabled: false),
           clipData: const FlClipData.all(),
           gridData: const FlGridData(
