@@ -31,11 +31,11 @@ if [ $? -ne 0 ]; then
     echo "Error: analyze example/lib"
 #    exit -1
 fi
-#dart format lib
-#if [ $? -ne 0 ]; then
+dart format lib
+if [ $? -ne 0 ]; then
     echo "Error: format example/lib"
     #exit -1
-#fi
+fi
 cd ..
 
 rm -rf _*.tgz 2>/dev/null
