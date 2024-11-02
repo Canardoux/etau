@@ -101,12 +101,7 @@ flutter:
   # see https://flutter.dev/to/font-from-package
 
   assets:
-  - assets/
-  - assets/samples/
   - assets/samples/sample.mp3
-  - assets/noises/
-  #- assets/extract/
-  - assets/samples-f32/
   - assets/samples-f32/sample-f32-48000-32kb_s.pcm
   - assets/samples-f32/loop-f32-41000-s16le.pcm
   - assets/wav/
@@ -123,27 +118,3 @@ flutter:
 
   - js/random_noise_processor.js
  
-  - lib/RustEx/stereo_panner/RustEx_StereoPanner_graph.png
-  - lib/MozillaEx/audio_basics/MozillaEx_AudioBasics_graph.png
-  - lib/MozillaEx/audio_analyser/MozillaEx_AudioAnalyser_graph.png
-  - lib/MozillaEx/audio_buffer_source/MozillaEx_AudioBufferSource_graph.png
-  - lib/MozillaEx/audio_buffer/MozillaEx_AudioBuffer_graph.png
-  - lib/MozillaEx/loop/MozillaEx_Loop_graph.png
-  - lib/MozillaEx/audio_worklet/MozillaEx_AudioWorklet_graph.png
-  - lib/MozillaEx/iir_filter_node/MozillaEx_IirFilterNode_graph.png
-  - lib/MozillaEx/playback_rate/MozillaEx_PlaybackRate_graph.png
-  - lib/MozillaEx/offline_audio_context/MozillaEx_OfflineAudioContext_graph.png
-  - lib/MozillaEx/audio_context_states/MozillaEx_AudioContextStates_graph.png
-  - lib/MozillaEx/stereo_panner_node/MozillaEx_StereoPannerNode_graph.png
-  - lib/MozillaEx/multi_track/MozillaEx_MultiTrack_graph.png
-  - lib/MozillaEx/output_timestamp/MozillaEx_OutputTimestamp_graph.png
-  - lib/MozillaEx/media_stream_destination/MozillaEx_MediaStreamDestination_graph.png
-  - lib/MozillaEx/media_source_buffer/MozillaEx_MediaSourceBuffer_graph.png
-  - lib/MozillaEx/audio_param/MozillaEx_AudioParam_graph.png
-  - lib/MozillaEx/compressor/MozillaEx_Compressor_graph.png
-  - lib/MozillaEx/script_processor/MozillaEx_ScriptProcessor_graph.png
-  - lib/MozillaEx/panner_node/MozillaEx_PannerNode_graph.png
-  - lib/MozillaEx/offline_audio_context_promise/MozillaEx_OfflineAudioContextPromise_graph.png
-  - lib/MozillaEx/step_sequencer/MozillaEx_StepSequencer_graph.png
-
-  
