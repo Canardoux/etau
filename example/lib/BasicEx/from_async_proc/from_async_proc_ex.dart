@@ -20,14 +20,12 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:etau/etau.dart';
-import 'package:etau/etau.dart'
-    if (dart.library.js_interop) 'package:tauweb/tauweb.dart' show Tau
-    if (dart.library.io) 'package:tauwars/tauwars.dart' show Tau;
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:io';
 import 'dart:math';
+import 'package:etau/etau.dart';
+import 'package:tauweb/dummy.dart' show Tau
+  if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
+  if (dart.library.io) 'package:tauwars/tauwars.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 /// This is a very simple example for τ beginners, that show how to playback a file.
 /// Its a translation to Dart from [Mozilla example](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)

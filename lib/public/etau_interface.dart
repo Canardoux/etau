@@ -17,14 +17,17 @@
  */
 
 import 'etau_class.dart';
-import 'etau_event.dart';
+import 'package:logger/logger.dart' as log;
+
 
 abstract class TauInterface {
 // =================================================================================================
 //                          Specific to τ
 // =================================================================================================
 
-  Future<void> init();
+  Future<void> init([log.Level loglevel = log.Level.debug]);
+
+  log.Logger logger();
 
   MediaDevices getDevices();
 

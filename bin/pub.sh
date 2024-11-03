@@ -16,7 +16,7 @@ bin/reldev.sh REL
 flutter analyze lib
 if [ $? -ne 0 ]; then
     echo "Error: analyze ./lib"
-#    exit -1
+    exit -1
 fi
 dart format lib
 if [ $? -ne 0 ]; then
@@ -29,13 +29,13 @@ cd example
 flutter analyze lib
 if [ $? -ne 0 ]; then
     echo "Error: analyze example/lib"
-#    exit -1
+    exit -1
 fi
-dart format lib
-if [ $? -ne 0 ]; then
-    echo "Error: format example/lib"
+#dart format lib
+#if [ $? -ne 0 ]; then
+#    echo "Error: format example/lib"
     #exit -1
-fi
+#fi
 cd ..
 
 rm -rf _*.tgz 2>/dev/null
@@ -53,7 +53,7 @@ fi
 flutter pub publish
 if [ $? -ne 0 ]; then
     echo "Error: flutter pub publish[etau]"
-    #!!!!!exit -1
+    exit -1
 fi
 
 

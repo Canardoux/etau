@@ -17,16 +17,13 @@
  */
 
 import 'dart:async';
-import 'dart:typed_data';
 
+import 'package:logger/logger.dart' as log;
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:etau/etau.dart'
-    if (dart.library.js_interop) 'package:tauweb/tauweb.dart' show Tau
-    if (dart.library.io) 'package:tauwars/tauwars.dart' show Tau;
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:io';
+import 'package:tauweb/dummy.dart' show Tau
+    if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
+    if (dart.library.io) 'package:tauwars/tauwars.dart';
 
 /// This is a very simple example for τ beginners, that show how to playback a file.
 /// Its a translation to Dart from [Mozilla example](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
@@ -53,7 +50,7 @@ class _FromProcessorEx extends State<FromProcessorEx> {
 
   Future<void> init() async
   {
-    await Tau().init();
+    await Tau().init(log.Level.trace);
   }
   
   @override
@@ -85,14 +82,14 @@ class _FromProcessorEx extends State<FromProcessorEx> {
     streamNode.parameters.setProperty("toto",'zozo');
     streamNode.parameters.setProperty("momo",'zozo');
 
-    AudioParamMap parameters = streamNode.parameters;
-    var momo = parameters.getProperty('momo');
-    var mimi = parameters.getProperty('mimi');
-    var data = parameters.getProperty('data');
+    //AudioParamMap parameters = streamNode.parameters;
+    //var momo = parameters.getProperty('momo');
+    //var mimi = parameters.getProperty('mimi');
+    //var data = parameters.getProperty('data');
     //var n1 = parameters.length;
     //var k1 = parameters.keys;
     //var v1 = parameters.values;
-    var totoParam = streamNode.parameters.getProperty("toto");
+    //var totoParam = streamNode.parameters.getProperty("toto");
     //var totoParam2 = parameters["toto"];
 
     // send the message containing 'ping' string
@@ -100,10 +97,10 @@ class _FromProcessorEx extends State<FromProcessorEx> {
     //setInterval(() => streamNode.port.postMessage("ping"), 1000);
 
     // runs every 1 second
-    timer = Timer.periodic(new Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       ++messageNo;
-      String msg = 'Ping ${messageNo}';
-      print ('Post ${msg}');
+      String msg = 'Ping $messageNo';
+      Tau().logger ().t('Post $msg');
       streamNode.port.postMessage({'data': msg});
     });
     //streamNode.port.onmessage = (Message e) => print("Rcv ${e['data']}");

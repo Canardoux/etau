@@ -797,7 +797,7 @@ abstract class AudioNode implements EventTarget {
   /// This is a variant of [AudioNode.disconnect] with a `DestinationParam` argument instead of an `AudioNode`.
   /// Note : The W3C recommandation uses just one verb for both.
   void disconnectParam(
-    AudioParam DestinationParam, [
+    AudioParam destinationParam, [
     int output,
     int input,
   ]);
@@ -1242,6 +1242,7 @@ abstract class AudioBufferSourceNode implements AudioScheduledSourceNode {
   /// is used to schedule playback of the audio data contained in the
   /// buffer, or
   /// to begin playback immediately.
+  @override
   void start([
     num? when,
     num? offset,
@@ -3351,7 +3352,7 @@ abstract class AudioWorkletGlobalScope {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioParamMap).
 abstract class AudioParamMap {
-  dynamic? getProperty(String key);
+  dynamic getProperty(String key);
   void setProperty(String key, dynamic value);
   //int get size;
   //dynamic get(String key);
@@ -3398,10 +3399,11 @@ abstract class AudioWorkletNode implements AudioNode {
   set onProcessorError(EventHandler value);
 }
 
-typedef void onAudioBufferUnderflowFn(int outputNo);
+//typedef void OnAudioBufferUnderflowFn(int outputNo);
+typedef OnAudioBufferUnderflowFn = void Function(int outputNo);
 
 abstract class AsyncWorkletNode implements AudioWorkletNode {
-  void onBufferUnderflow(onAudioBufferUnderflowFn f);
+  void onBufferUnderflow(OnAudioBufferUnderflowFn f);
   void send({int outputNo = 0, required List<Float32List> data});
 }
 
@@ -3506,12 +3508,13 @@ class WorkletGlobalScope
 
 }
 */
-typedef void MessageFn(Message msg);
+//typedef void MessageFn(Message msg);
+typedef MessageFn = void Function(Message msg);
 
 typedef Message = dynamic;
 
 abstract class MessagePort {
-  void set onmessage(MessageFn f);
+  set onmessage(MessageFn f);
 
   MessageFn get onmessage;
   void postMessage(Message e);

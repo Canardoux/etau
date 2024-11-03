@@ -19,8 +19,6 @@
 import 'package:flutter/material.dart';
 //import 'RustEx/rust_ex.dart';
 import 'ex_driver.dart';
-import 'package:etau/etau.dart';
-import 'package:logger/logger.dart' as lg;
 
 void main() {
   //Tau().init(lev: lg.Level.trace);
@@ -103,7 +101,7 @@ class _ExamplesHomePageState extends State<ExamplesAppHomePage> {
                       builder: (context) => const ExDriver(mod: 'Basic')));
                 }),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Center(
@@ -116,7 +114,7 @@ class _ExamplesHomePageState extends State<ExamplesAppHomePage> {
                       builder: (context) => const ExDriver(mod: 'Mozilla')));
                 }),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Center(
@@ -130,7 +128,7 @@ class _ExamplesHomePageState extends State<ExamplesAppHomePage> {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Center(
@@ -144,7 +142,7 @@ class _ExamplesHomePageState extends State<ExamplesAppHomePage> {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Center(

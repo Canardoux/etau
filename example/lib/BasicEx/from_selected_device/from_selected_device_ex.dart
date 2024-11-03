@@ -17,17 +17,12 @@
  */
 
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:etau/etau.dart'
-    if (dart.library.js_interop) 'package:tauweb/tauweb.dart' show Tau
-    if (dart.library.io) 'package:tauwars/tauwars.dart' show Tau
-;
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:io';
+import 'package:tauweb/dummy.dart' show Tau
+    if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
+    if (dart.library.io) 'package:tauwars/tauwars.dart';
 
 
 /// This is a very simple example for τ beginners, that show how to playback a file.
@@ -77,14 +72,14 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
     //var y =  await dev!.enumerateDevices().toDart;
     //var yyy = y.toDart;
 
-    for (final toto in devicesInfos)
-    {
-      print(toto.deviceId);
-      print(toto.groupId);
-      print(toto.kind);
-      print(toto.label);
-      print('');
-    }
+    //for (final toto in devicesInfos)
+    //{
+    //  print(toto.deviceId);
+    //  print(toto.groupId);
+    //  print(toto.kind);
+    //  print(toto.label);
+    //  print('');
+    //}
     return devicesInfos;
     //var y2 =  await dev2!.enumerateDevices();
 
