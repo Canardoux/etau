@@ -21,7 +21,7 @@ import 'dart:async';
 import 'package:logger/logger.dart' as log;
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:tauweb/dummy.dart' show Tau
+import 'package:tauweb/dummy.dart' show tau
     if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
     if (dart.library.io) 'package:tauwars/tauwars.dart';
 
@@ -50,7 +50,7 @@ class _FromProcessorEx extends State<FromProcessorEx> {
 
   Future<void> init() async
   {
-    await Tau().init(log.Level.trace);
+    await tau().init(log.Level.trace);
   }
   
   @override
@@ -62,15 +62,15 @@ class _FromProcessorEx extends State<FromProcessorEx> {
   void hitPlayButton() async {
 
 
-    audioCtx = Tau().newAudioContext();
+    audioCtx = tau().newAudioContext();
     //await audioCtx!.audioWorklet.addModule("./packages/tauweb/js/stream_processor.js");
     await audioCtx!.audioWorklet.addModule("js/random_noise_processor.js");
     //var paramData = ParameterData();
-    var paramData = Tau().newParameterData({'momo':'riri','jojo':'riton'});
-    var procOpt = Tau().newProcessorOptions({'momo':'tom','maman':'pass@123'});
-    AudioWorkletNodeOptions opt = Tau().newAudioWorkletNodeOptions( channelCountMode: 'explicit', parameterData: paramData, processorOptions: procOpt);
+    var paramData = tau().newParameterData({'momo':'riri','jojo':'riton'});
+    var procOpt = tau().newProcessorOptions({'momo':'tom','maman':'pass@123'});
+    AudioWorkletNodeOptions opt = tau().newAudioWorkletNodeOptions( channelCountMode: 'explicit', parameterData: paramData, processorOptions: procOpt);
     //var streamNode =  audioCtx!.createAudioWorkletNode("random-noise-processor", opt);
-    var streamNode = Tau().newAudioWorkletNode(audioCtx!, "random-noise-processor", opt);
+    var streamNode = tau().newAudioWorkletNode(audioCtx!, "random-noise-processor", opt);
 
     //var momoParam = streamNode.parameters.get("momo");
     //momoParam.setValueAtTime(0, 'titi');
@@ -100,7 +100,7 @@ class _FromProcessorEx extends State<FromProcessorEx> {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       ++messageNo;
       String msg = 'Ping $messageNo';
-      Tau().logger ().t('Post $msg');
+      tau().logger ().t('Post $msg');
       streamNode.port.postMessage({'data': msg});
     });
     //streamNode.port.onmessage = (Message e) => print("Rcv ${e['data']}");

@@ -22,7 +22,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:etau/etau.dart';
-import 'package:tauweb/dummy.dart' show Tau
+import 'package:tauweb/dummy.dart' show tau
   if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
   if (dart.library.io) 'package:tauwars/tauwars.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -41,8 +41,8 @@ class _FromAsyncProcEx extends State<FromAsyncProcEx> {
 // ----------------------------------------------------- This is the very simple example (the code itself) --------------------------------------------------------------------------
 
 
-static const String PCM_ASSET = 'assets/wav/sample2.aac'; // The asset to be played
-static const int BLK_SIZE = 128;
+static const String pcmAsset = 'assets/wav/sample2.aac'; // The asset to be played
+static const int blkSize = 128;
 
   bool playEnabled = false;
   bool stopEnabled = false;
@@ -59,7 +59,7 @@ static const int BLK_SIZE = 128;
 
   Future<void> init() async
   {
-    await Tau().init();
+    await tau().init();
 
       setState(() {playEnabled = true;});
 
@@ -73,21 +73,21 @@ static const int BLK_SIZE = 128;
 
   void hitPlayButton() async {
 
-    audioCtx = Tau().newAudioContext();
+    audioCtx = tau().newAudioContext();
     await audioCtx!.audioWorklet.addModule("./packages/tauweb/js/async_processor.js");
     //audioBuffer = await loadAudio();
-    ByteData asset = await rootBundle.load(PCM_ASSET);
+    ByteData asset = await rootBundle.load(pcmAsset);
 
     var audioBuffer = await audioCtx!.decodeAudioData( asset.buffer);
 
-    AudioWorkletNodeOptions opt = Tau().newAudioWorkletNodeOptions( 
+    AudioWorkletNodeOptions opt = tau().newAudioWorkletNodeOptions(
       channelCountMode: 'explicit', 
       channelCount: audioBuffer.numberOfChannels,
       numberOfInputs: 0,
       numberOfOutputs: 1, // Only one output
       outputChannelCount:  [audioBuffer.numberOfChannels],
     );
-    var streamNode = Tau().newAsyncWorkletNode(audioCtx!, "async-processor-1", opt);
+    var streamNode = tau().newAsyncWorkletNode(audioCtx!, "async-processor-1", opt);
 
     //streamNode.port.onmessage = (Message e)
     //{
@@ -108,10 +108,10 @@ static const int BLK_SIZE = 128;
         List<Float32List> m = [];
         for (int channel = 0; channel < audioBuffer.numberOfChannels; ++channel)
         {
-            m.add(data[channel].sublist(x, min ( x + BLK_SIZE, ln)));
+            m.add(data[channel].sublist(x, min ( x + blkSize, ln)));
         }
         streamNode.send(outputNo: 0,  data: m );
-        x += BLK_SIZE;
+        x += blkSize;
     }
     streamNode.onBufferUnderflow( (int outputNo){
       hitStopButton();

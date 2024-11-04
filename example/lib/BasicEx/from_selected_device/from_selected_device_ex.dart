@@ -20,7 +20,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:tauweb/dummy.dart' show Tau
+import 'package:tauweb/dummy.dart' show tau
     if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
     if (dart.library.io) 'package:tauwars/tauwars.dart';
 
@@ -53,8 +53,8 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
 
 
   Future<List<MediaDeviceInfo>> getDevicesInfos() async {
-    MediaDevices devices = Tau().getDevices();
-    await Tau().getDevices().getUserMedia(); // Necessary for the following enumerateDevices() !
+    MediaDevices devices = tau().getDevices();
+    await tau().getDevices().getUserMedia(); // Necessary for the following enumerateDevices() !
     devicesInfos = await devices.enumerateDevices();
    //var nav = w.window.navigator;
     //var nav2 = h.window.navigator;
@@ -148,7 +148,7 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
 
   Future<void> init() async
   {
-    await Tau().init();
+    await tau().init();
     devicesInfos = await getDevicesInfos();
     //devicesInfo = [];
   }
@@ -165,14 +165,14 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
     {
       return;
     }
-    audioCtx = Tau().newAudioContext();
+    audioCtx = tau().newAudioContext();
     dest = audioCtx!.destination;
     var info = devicesInfos[selectedDeviceIndex];
     Map<String, Object> constraints = { 'deviceId' :  {'exact': info.deviceId}  };
     //{
     //    audio: {deviceId: audioSource ? {exact: audioSource} : undefined}
     //};
-    var mediaStream = await Tau().getDevices().getUserMediaWithConstraints(audio: constraints);
+    var mediaStream = await tau().getDevices().getUserMediaWithConstraints(audio: constraints);
     var mic = audioCtx!.createMediaStreamSource(mediaStream);
     mic.connect(dest!);
 

@@ -20,7 +20,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:tauweb/dummy.dart' show Tau
+import 'package:tauweb/dummy.dart' show tau
     if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
     if (dart.library.io) 'package:tauwars/tauwars.dart';
 
@@ -56,8 +56,8 @@ class _ToSelectedDeviceEx extends State<ToSelectedDeviceEx> {
 
 
   Future<List<MediaDeviceInfo>> getDevicesInfos() async {
-    MediaDevices devices = Tau().getDevices();
-    await Tau().getDevices().getUserMedia(); // Necessary for the following enumerateDevices() !
+    MediaDevices devices = tau().getDevices();
+    await tau().getDevices().getUserMedia(); // Necessary for the following enumerateDevices() !
     devicesInfos = await devices.enumerateDevices();
    //var nav = w.window.navigator;
     //var nav2 = h.window.navigator;
@@ -151,7 +151,7 @@ class _ToSelectedDeviceEx extends State<ToSelectedDeviceEx> {
 
   Future<void> init() async
   {
-    await Tau().init();
+    await tau().init();
     devicesInfos = await getDevicesInfos();
     //devicesInfo = [];
   }
@@ -168,8 +168,8 @@ if (selectedDeviceIndex < 0)
 {
 return;
 }
-audioCtx = Tau().newAudioContext();
-audioElt = Tau().newMediaElement(src: 'https://flutter-sound.canardoux.xyz/extract/05.mp3', );
+audioCtx = tau().newAudioContext();
+audioElt = tau().newMediaElement(src: 'https://flutter-sound.canardoux.xyz/extract/05.mp3', );
 audioElt!.src = 'https://flutter-sound.canardoux.xyz/extract/05.mp3';
 audioElt!.crossorigin = 'anonymous';
 //MediaElementAudioSourceOptions opt = Tau().newMediaElementAudioSourceOptions(mediaElement: audioElt);
@@ -192,13 +192,14 @@ source!.connect(dest!);
 
 
 audioElt!.play().then( (e) {
-setState(() {
-stopDisabled = false;
+    setState(() {
+        stopDisabled = false;
+    });
 });
-print(e);
-}).catchError( (e) {
-print(e);
-});
+//print(e);
+//}).catchError( (e) {
+//print(e);
+//});
 
 setState(() {
 playDisabled = true;

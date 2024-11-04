@@ -3,8 +3,6 @@
 if [ "_$1" = "_REL" ] ; then
   
 
-# flutter_sound/example/pubspec.yaml
-#-----------------------------------
         gsed -i  "s/^ *tauweb: *#* *\(.*\)$/  tauweb: \1/"                                                                                                 example/pubspec.yaml
         gsed -i  "s/^ *path: \.\.\/\.\.\/tauweb # tauweb Dir$/#    path: \.\.\/\.\.\/tauweb # tauweb Dir/"                                                 example/pubspec.yaml
 
@@ -19,8 +17,6 @@ if [ "_$1" = "_REL" ] ; then
 elif [ "_$1" = "_DEV" ]; then
  
 
-# flutter_sound/example/pubspec.yaml
-#-----------------------------------
         gsed -i  "s/^ *tauweb: *#* *\(.*\)$/  tauweb: # \1/"                                                                                              example/pubspec.yaml
         gsed -i  "s/^# *path: \.\.\/\.\.\/tauweb # tauweb Dir$/    path: \.\.\/\.\.\/tauweb # tauweb Dir/"                                                example/pubspec.yaml
 

@@ -19,7 +19,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:tauweb/dummy.dart' show Tau
+import 'package:tauweb/dummy.dart' show tau
     if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
     if (dart.library.io) 'package:tauwars/tauwars.dart';
 
@@ -69,14 +69,14 @@ class _FromUriEx extends State<FromUriEx> {
      setState(() {playDisabled = false;});
 
      */
-    Tau().init().then ((e){setState(() {playDisabled = false;});});
+    tau().init().then ((e){setState(() {playDisabled = false;});});
   }
 
   void hitPlayButton() async {
 
-    audioCtx = Tau().newAudioContext();
+    audioCtx = tau().newAudioContext();
     dest = audioCtx!.destination;
-    audioElt = Tau().newMediaElement(src: 'https://flutter-sound.canardoux.xyz/extract/05.mp3', );
+    audioElt = tau().newMediaElement(src: 'https://flutter-sound.canardoux.xyz/extract/05.mp3', );
     audioElt!.src = 'https://flutter-sound.canardoux.xyz/extract/05.mp3';
     audioElt!.crossorigin = 'anonymous';
     //MediaElementAudioSourceOptions opt = Tau().newMediaElementAudioSourceOptions(mediaElement: audioElt);
@@ -93,9 +93,9 @@ class _FromUriEx extends State<FromUriEx> {
        setState(() {
          stopDisabled = false;
        });
-       Tau().logger().d(e);
+       tau().logger().d(e);
      }).catchError( (e) {
-        Tau().logger().d(e);
+        tau().logger().d(e);
      });
 
     setState(() {

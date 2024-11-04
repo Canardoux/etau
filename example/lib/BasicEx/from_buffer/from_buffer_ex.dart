@@ -22,7 +22,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
 
-import 'package:tauweb/dummy.dart' show Tau
+import 'package:tauweb/dummy.dart' show tau
   if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
   if (dart.library.io) 'package:tauwars/tauwars.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -67,8 +67,8 @@ class _FromBufferEx extends State<FromBufferEx> {
   @override
   void initState() {
     super.initState();
-    Tau().init().then ((e){
-    audioCtx = Tau().newAudioContext();
+    tau().init().then ((e){
+    audioCtx = tau().newAudioContext();
     setState(() 
     {
       playDisabled = false;}

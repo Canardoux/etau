@@ -19,7 +19,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:tauweb/dummy.dart' show Tau
+import 'package:tauweb/dummy.dart' show tau
     if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
     if (dart.library.io) 'package:tauwars/tauwars.dart';
 
@@ -56,15 +56,15 @@ class _FromMicEx extends State<FromMicEx> {
   @override
   void initState() {
     super.initState();
-    Tau().init().then ((e){setState(() {playDisabled = false;});});
+    tau().init().then ((e){setState(() {playDisabled = false;});});
   }
 
   void hitPlayButton() async {
 
-    audioCtx = Tau().newAudioContext();
+    audioCtx = tau().newAudioContext();
     dest = audioCtx!.destination;
 
-    var mediaStream = await Tau().getDevices().getUserMedia();
+    var mediaStream = await tau().getDevices().getUserMedia();
     var mic = audioCtx!.createMediaStreamSource(mediaStream);
     pannerNode = audioCtx!.createStereoPanner();
     pannerNode!.pan.value = pannerValue;

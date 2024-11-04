@@ -19,7 +19,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:tauweb/dummy.dart' show Tau
+import 'package:tauweb/dummy.dart' show tau
   if (dart.library.js_interop) 'package:tauweb/tauweb.dart'
   if (dart.library.io) 'package:tauwars/tauwars.dart';
 
@@ -54,8 +54,8 @@ class _FromConstantEx extends State<FromConstantEx> {
   late GainNode gainNode3;
 
   Future<void> setup() async {
-    await Tau().init();
-    audioCtx = Tau().newAudioContext();
+    await tau().init();
+    audioCtx = tau().newAudioContext();
 
     //gainNode1 = audioCtx.createGain();
     //gainNode1.gain.value = 0.5;
@@ -63,14 +63,14 @@ class _FromConstantEx extends State<FromConstantEx> {
     //gainNode2 = Tau().newGainNode(audioCtx, Tau().newGainOptions(gain: gainNode1.gain.value));
     //gainNode3 = Tau().newGainNode(audioCtx, Tau().newGainOptions(gain: gainNode1.gain.value));
 
-    gainNode1 = Tau().newGainNode(audioCtx,); gainNode1.gain.value = 0.5;
-    gainNode2 = Tau().newGainNode(audioCtx,); gainNode2.gain.value = gainNode1.gain.value;
-    gainNode3 = Tau().newGainNode(audioCtx,); gainNode3.gain.value = gainNode1.gain.value;
+    gainNode1 = tau().newGainNode(audioCtx,); gainNode1.gain.value = 0.5;
+    gainNode2 = tau().newGainNode(audioCtx,); gainNode2.gain.value = gainNode1.gain.value;
+    gainNode3 = tau().newGainNode(audioCtx,); gainNode3.gain.value = gainNode1.gain.value;
 
     volumeValue = gainNode1.gain.value;
 
     //constantNode = Tau().newConstantSourceNode(audioCtx, Tau().newConstantSourceOptions(offset: volumeValue,));
-    constantNode = Tau().newConstantSourceNode(audioCtx); constantNode.offset.value = volumeValue;
+    constantNode = tau().newConstantSourceNode(audioCtx); constantNode.offset.value = volumeValue;
     constantNode.connectParam(gainNode2.gain);
     constantNode.connectParam(gainNode3.gain);
     constantNode.start();
@@ -88,21 +88,21 @@ class _FromConstantEx extends State<FromConstantEx> {
       //type: "sine",
       //frequency: 261.625565300598634, // middle C$
     //));
-    oscNode1 = Tau().newOscillatorNode(audioCtx,); oscNode1!.type = 'sine'; oscNode1!.frequency.value = 261.625565300598634; // middle C$
+    oscNode1 = tau().newOscillatorNode(audioCtx,); oscNode1!.type = 'sine'; oscNode1!.frequency.value = 261.625565300598634; // middle C$
     oscNode1!.connect(gainNode1);
 
     //oscNode2 = Tau().newOscillatorNode(audioCtx, Tau().newOscillatorOptions(
       //type: "sine",
       //frequency: 329.627556912869929, // E
     //));
-    oscNode2 = Tau().newOscillatorNode(audioCtx,); oscNode2!.type = 'sine'; oscNode2!.frequency.value = 329.627556912869929; // E
+    oscNode2 = tau().newOscillatorNode(audioCtx,); oscNode2!.type = 'sine'; oscNode2!.frequency.value = 329.627556912869929; // E
     oscNode2!.connect(gainNode2);
 
     //oscNode2 = Tau().newOscillatorNode(audioCtx, Tau().newOscillatorOptions(
       //type: "sine",
       //frequency: 391.995435981749294, // G
     //));
-    oscNode3 = Tau().newOscillatorNode(audioCtx,); oscNode3!.type = 'sine'; oscNode3!.frequency.value = 391.995435981749294; // G
+    oscNode3 = tau().newOscillatorNode(audioCtx,); oscNode3!.type = 'sine'; oscNode3!.frequency.value = 391.995435981749294; // G
     oscNode3!.connect(gainNode3);
 
     oscNode1!.start();

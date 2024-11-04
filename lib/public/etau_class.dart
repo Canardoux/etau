@@ -49,6 +49,7 @@ typedef EventHandler = void Function();
 typedef DecodeErrorCallback = void Function();
 typedef DecodeSuccessCallback = void Function();
 typedef AudioWorkletProcessorConstructor = void Function();
+typedef OnAudioBufferUnderflowFn = void Function(int outputNo);
 typedef AudioContextState = String;
 typedef AudioContextRenderSizeCategory = String;
 typedef AudioContextLatencyCategory = String;
@@ -3398,9 +3399,6 @@ abstract class AudioWorkletNode implements AudioNode {
   EventHandler get onProcessorError;
   set onProcessorError(EventHandler value);
 }
-
-//typedef void OnAudioBufferUnderflowFn(int outputNo);
-typedef OnAudioBufferUnderflowFn = void Function(int outputNo);
 
 abstract class AsyncWorkletNode implements AudioWorkletNode {
   void onBufferUnderflow(OnAudioBufferUnderflowFn f);

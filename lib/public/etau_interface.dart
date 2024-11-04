@@ -19,7 +19,6 @@
 import 'etau_class.dart';
 import 'package:logger/logger.dart' as log;
 
-
 abstract class TauInterface {
 // =================================================================================================
 //                          Specific to τ
@@ -86,7 +85,7 @@ abstract class TauInterface {
 
   AudioNodeOptions newAudioNodeOptions({
     int channelCount,
-    ChannelCountMode newchannelCountMode,
+    ChannelCountMode channelCountMode,
     ChannelInterpretation channelInterpretation,
   });
 

@@ -20,6 +20,8 @@ VERSION_CODE=${VERSION_CODE//+/}
 
 gsed -i  "s/^\( *version: *\).*$/\1$VERSION/"                                           pubspec.yaml
 gsed -i  "s/^\( *version: *\).*$/\1$VERSION/"                                           example/pubspec.yaml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       example/pubspec.yaml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tauweb/pubspec.yaml
 
 #gsed -i  "s/^\( *## \).*$/\1$VERSION/"                                                  flutter_sound/CHANGELOG.md
 
