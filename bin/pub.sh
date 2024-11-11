@@ -13,7 +13,7 @@ VERSION_CODE=${VERSION_CODE#+/}
 bin/setver.sh $VERSION
 bin/reldev.sh REL
 
-cp ../tau_doc/pages/etau/etau_README.md README.md
+#cp ../tau_doc/pages/etau/etau_README.md README.md
 flutter analyze lib
 if [ $? -ne 0 ]; then
     echo "Error: analyze ./lib"
