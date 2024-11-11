@@ -40,6 +40,14 @@ fi
 #fi
 cd ..
 
+cd ../tau_doc
+bin/pub.sh
+if [ $? -ne 0 ]; then
+    echo "Error: tau_doc/bin/pub.sh"
+    exit -1
+fi
+cd ../etau
+
 rm -rf _*.tgz 2>/dev/null
 
 git add .
