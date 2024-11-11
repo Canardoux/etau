@@ -48,6 +48,7 @@ if [ $? -ne 0 ]; then
 fi
 cd ../etau
 
+
 rm -rf _*.tgz 2>/dev/null
 
 git add .
@@ -65,6 +66,15 @@ if [ $? -ne 0 ]; then
     echo "Error: flutter pub publish[etau]"
     exit -1
 fi
+
+
+cd example
+flutter build web
+if [ $? -ne 0 ]; then
+    echo "Error"
+    exit -1
+fi
+cd ..
 
 
 
