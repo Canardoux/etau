@@ -1,5 +1,5 @@
 ![pub version](https://img.shields.io/pub/v/etau.svg?style=flat-square)
-![The τ Project](https://tau-doc.canardoux.xyz/images/banner7.png)
+![The τ Project](https://tau-doc.canardoux.xyz/images/banner2.png)
 
 - ## Etau user: your [documentation is there](https://tau-doc.canardoux.xyz/etau_README.html)
 - ## The [CHANGELOG file is here](https://tau-doc.canardoux.xyz/etau_CHANGELOG.html)
