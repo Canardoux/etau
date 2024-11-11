@@ -1,3 +1,4 @@
-## 0.0.1
+## 0.0.3
 
-* TODO: Describe initial release.
+- ## The [CHANGELOG file is here](https://tau-doc.canardoux.xyz/etau_CHANGELOG.html)
+

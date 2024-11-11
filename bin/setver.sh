@@ -14,4 +14,5 @@ gsed -i  "s/^\( *version: *\).*$/\1$VERSION/"                                   
 gsed -i  "s/^\( *version: *\).*$/\1$VERSION/"                                           example/pubspec.yaml
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       example/pubspec.yaml
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_web/pubspec.yaml
+gsed -i  "s/^\( *## \).*$/\1$VERSION/"                                                  CHANGELOG.md
 
