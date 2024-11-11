@@ -40,14 +40,6 @@ fi
 #fi
 cd ..
 
-cd ../tau_doc
-bin/pub.sh
-if [ $? -ne 0 ]; then
-    echo "Error: tau_doc/bin/pub.sh"
-    exit -1
-fi
-cd ../etau
-
 
 rm -rf _*.tgz 2>/dev/null
 
@@ -67,6 +59,8 @@ if [ $? -ne 0 ]; then
     exit -1
 fi
 
+read -p "Press enter to continue"
+
 
 cd example
 flutter build web
@@ -78,7 +72,13 @@ cd ..
 
 
 
-
+cd ../tau_doc
+bin/pub.sh
+if [ $? -ne 0 ]; then
+    echo "Error: tau_doc/bin/pub.sh"
+    exit -1
+fi
+cd ../etau
 
 
 echo 'E.O.J'
