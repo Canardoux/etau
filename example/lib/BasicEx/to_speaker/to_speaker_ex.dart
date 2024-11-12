@@ -33,7 +33,7 @@ class ToSpeakerEx extends StatefulWidget {
 }
 
 class _ToSpeakerEx extends State<ToSpeakerEx> {
-  String pcmAsset = 'assets/wav/viper.ogg'; // The OGG asset to be played
+  String pcmAsset = 'assets/viper.ogg'; // The OGG asset to be played
 
   bool playDisabled = true;
   bool stopDisabled = true;

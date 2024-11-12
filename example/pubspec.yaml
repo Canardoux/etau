@@ -31,11 +31,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  etau: ^0.0.13
-#    path: ../ # etau Dir
+  etau: # ^0.0.13
+    path: ../ # etau Dir
 
-  tau_web: ^0.0.1
-#    path: ../../tau_web # tau_web Dir
+  tau_web: # ^0.0.1
+    path: ../../tau_web # tau_web Dir
 
  ## tau_wars: ^0.0.1
  ##    path: ../../tau_wars # tau_wars Dir
@@ -101,20 +101,6 @@ flutter:
   # see https://flutter.dev/to/font-from-package
 
   assets:
-  - assets/samples/sample.mp3
-  - assets/samples-f32/sample-f32-48000-32kb_s.pcm
-  - assets/samples-f32/loop-f32-41000-s16le.pcm
-  - assets/wav/
-  - assets/wav/rnb-lofi-melody-loop.wav
-  - assets/wav/sample2.aac
-  - assets/wav/outfoxing.mp3
-  - assets/wav/viper.ogg
-  - assets/wav/viper.mp3
-  - assets/wav/bassguitar.mp3
-  - assets/wav/clav.mp3
-  - assets/wav/drums.mp3
-  - assets/wav/horns.mp3
-  - assets/wav/leadguitar.mp3
-
-  - js/random_noise_processor.js
- 
+    - assets/
+    - assets/js/
+    - js/

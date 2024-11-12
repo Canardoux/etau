@@ -64,7 +64,7 @@ class _FromProcessorEx extends State<FromProcessorEx> {
 
     audioCtx = tau().newAudioContext();
     //await audioCtx!.audioWorklet.addModule("./packages/tau_web/js/stream_processor.js");
-    await audioCtx!.audioWorklet.addModule("js/random_noise_processor.js");
+    await audioCtx!.audioWorklet.addModule("assets/js/random_noise_processor.js");
     //var paramData = ParameterData();
     var paramData = tau().newParameterData({'momo':'riri','jojo':'riton'});
     var procOpt = tau().newProcessorOptions({'momo':'tom','maman':'pass@123'});

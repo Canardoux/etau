@@ -41,7 +41,7 @@ class _FromAsyncProcEx extends State<FromAsyncProcEx> {
 // ----------------------------------------------------- This is the very simple example (the code itself) --------------------------------------------------------------------------
 
 
-static const String pcmAsset = 'assets/wav/sample2.aac'; // The asset to be played
+static const String pcmAsset = 'assets/sample2.aac'; // The asset to be played
 static const int blkSize = 128;
 
   bool playEnabled = false;
@@ -74,7 +74,7 @@ static const int blkSize = 128;
   void hitPlayButton() async {
 
     audioCtx = tau().newAudioContext();
-    await audioCtx!.audioWorklet.addModule("./packages/tau_web/js/async_processor.js");
+    await audioCtx!.audioWorklet.addModule("./assets/packages/tau_web/assets/js/async_processor.js");
     //audioBuffer = await loadAudio();
     ByteData asset = await rootBundle.load(pcmAsset);
 
