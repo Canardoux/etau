@@ -61,6 +61,8 @@ if [ $? -ne 0 ]; then
 fi
 cd ..
 
+dart doc .
+
 
 git add .
 git commit -m "Etau : Version $VERSION"

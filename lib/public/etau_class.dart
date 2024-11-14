@@ -50,6 +50,7 @@ typedef DecodeErrorCallback = void Function();
 typedef DecodeSuccessCallback = void Function();
 typedef AudioWorkletProcessorConstructor = void Function();
 typedef OnAudioBufferUnderflowFn = void Function(int outputNo);
+typedef OnReceiveDataFn = void Function(int inputNo, List<Float32List> data);
 typedef AudioContextState = String;
 typedef AudioContextRenderSizeCategory = String;
 typedef AudioContextLatencyCategory = String;
@@ -3402,6 +3403,7 @@ abstract class AudioWorkletNode implements AudioNode {
 
 abstract class AsyncWorkletNode implements AudioWorkletNode {
   void onBufferUnderflow(OnAudioBufferUnderflowFn f);
+  void onReceiveData(OnReceiveDataFn f);
   void send({int outputNo = 0, required List<Float32List> data});
 }
 

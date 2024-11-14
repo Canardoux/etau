@@ -20,111 +20,113 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:etau/etau.dart';
 import 'package:tau_web/dummy.dart' show tau
-  if (dart.library.js_interop) 'package:_/tau_web.dart'
+  if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
   if (dart.library.io) 'package:tau_wars/tau_wars.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-/// This is a very simple example for τ beginners, that shows how to playback a file from an asset.
-/// The buffer is loaded from an Asset.
+/// This is a very simple example for τ beginners, that show how to playback a file.
+/// Its a translation to Dart from [Mozilla example](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
 /// This example is really basic.
-class FromAssetEx extends StatefulWidget {
-  const FromAssetEx({super.key});
+class ThrewAsyncProcEx extends StatefulWidget {
+  const ThrewAsyncProcEx({super.key});
   @override
-  State<FromAssetEx> createState() => _FromAssetEx();
+  State<ThrewAsyncProcEx> createState() => _ThrewAsyncProcEx();
 }
 
-class _FromAssetEx extends State<FromAssetEx> {
+class _ThrewAsyncProcEx extends State<ThrewAsyncProcEx> {
 
 // ----------------------------------------------------- This is the very simple example (the code itself) --------------------------------------------------------------------------
 
-  String pcmAsset = 'assets/viper.ogg'; // The OGG asset to be played
 
-  bool playDisabled = true;
-  bool stopDisabled = true;
-  double pannerValue = 0;
+static const String pcmAsset = 'assets/sample2.aac'; // The asset to be played
+
+  bool playEnabled = false;
+  bool stopEnabled = false;
   String path = '';
   AudioBuffer? audioBuffer;
 
   // The Audio Context
-  late AudioContext audioCtx;
+  late AudioContext? audioCtx;
+
 
   // The three nodes
   AudioBufferSourceNode? source;
-  StereoPannerNode? pannerNode;
-  AudioDestinationNode? dest;
 
 
-  // For the example, we load the the asset containing the audio data. This is just to be similar to the Mozilla example.
-  Future<void> loadAudio() async {
-    ByteData asset = await rootBundle.load(pcmAsset);
-    audioBuffer = await audioCtx.decodeAudioData( asset.buffer);
-    setState(() {playDisabled = false;});
+  Future<void> init() async
+  {
+    await tau().init();
+
+      setState(() {playEnabled = true;});
+
   }
-
+  
   @override
   void initState() {
     super.initState();
-    tau().init().then ((e){
-    audioCtx = tau().newAudioContext();
-    setState(() 
-    {
-      playDisabled = false;}
-    );});
-    loadAudio();
-    setState(() {});
-  }
+    init().then ((e){setState(() {playEnabled = true;});});
+   }
 
   void hitPlayButton() async {
 
-    dest = audioCtx.destination;
+    audioCtx = tau().newAudioContext();
+    await audioCtx!.audioWorklet.addModule("./assets/packages/tau_web/assets/js/async_processor.js");
+    //audioBuffer = await loadAudio();
+    ByteData asset = await rootBundle.load(pcmAsset);
 
-    source = audioCtx.createBufferSource();
+    var audioBuffer = await audioCtx!.decodeAudioData( asset.buffer);
+
+    AudioWorkletNodeOptions opt = tau().newAudioWorkletNodeOptions(
+      channelCountMode: 'explicit', 
+      channelCount: audioBuffer.numberOfChannels,
+      numberOfInputs: 1,
+      numberOfOutputs: 1, // Only one output
+      outputChannelCount: [audioBuffer.numberOfChannels],
+    );
+    var streamNode = tau().newAsyncWorkletNode(audioCtx!, "async-processor-1", opt);
+    source = audioCtx!.createBufferSource();
     source!.buffer = audioBuffer;
-
-    pannerNode = audioCtx.createStereoPanner();
-    pannerNode!.pan.value = pannerValue;
-
-    source!.connect(pannerNode!).connect(dest!);
-    //source!.loop = true;
-    source!.onended = ()
-    {
-      setState(()
+    streamNode.onReceiveData(
+      (int inputNo, List<Float32List> data)
       {
-        playDisabled = false;
-        stopDisabled = true;
+          streamNode.send(outputNo: inputNo, data: data);
       });
-    };
+      streamNode.onBufferUnderflow( (int outputNo){
+        //hitStopButton();
+      tau().logger().d('onBufferUnderflow($outputNo)');
+      }   );
+
+    source!.connect(streamNode).connect(audioCtx!.destination);
     source!.start();
-    setState(() {
-      playDisabled = true;
-      stopDisabled = false;
+
+setState(() {
+      playEnabled = false;
+      stopEnabled = true;
     });
+
   }
+
 
   void hitStopButton() {
-    source!.stop();
+    audioCtx?.close();
+    audioCtx?.dispose();
+    audioCtx = null;
 
       setState(() {
-        playDisabled = false;
-        stopDisabled = true;
+        playEnabled = true;
+        stopEnabled = false;
       });
-  }
-
-
-  void pannerChanged(double value) {
-    pannerNode?.pan.value = value;
-    setState(() {
-      pannerValue = value;
-    });
   }
 
 
   @override
   void dispose() {
-      audioCtx.close();
-      audioCtx.dispose();
+
+      audioCtx?.close();
+      audioCtx?.dispose();
       super.dispose();
   }
 
@@ -139,7 +141,7 @@ class _FromAssetEx extends State<FromAssetEx> {
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             ElevatedButton(
-              onPressed: playDisabled ? null : hitPlayButton,
+              onPressed: playEnabled ? hitPlayButton : null,
               //color: Colors.indigo,
               child: const Text(
                 'Play',
@@ -150,7 +152,7 @@ class _FromAssetEx extends State<FromAssetEx> {
               width: 5,
             ),
             ElevatedButton(
-              onPressed: stopDisabled ? null : hitStopButton,
+              onPressed: stopEnabled ? hitStopButton : null,
               //color: Colors.indigo,
               child: const Text(
                 'Stop',
@@ -164,22 +166,14 @@ class _FromAssetEx extends State<FromAssetEx> {
           const SizedBox(
             height: 20,
           ),
-          const Text('Panner:'),
-          Slider(
-            value: pannerValue,
-            min: -1,
-            max: 1,
-            onChanged: pannerChanged,
-            //divisions: 1
-          ),
-        ]),
+         ]),
       );
     }
 
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: const Text('Play from an Asset'),
+        title: const Text('Play threw and async processor'),
         actions: const <Widget>[],
       ),
       body: makeBody(),
