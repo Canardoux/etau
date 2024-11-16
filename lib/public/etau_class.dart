@@ -46,11 +46,13 @@ typedef TauUint8Array = Uint8List;
 typedef TauHighResTimeStamp = double;
 
 typedef EventHandler = void Function();
+typedef DataEventHandler = void Function(Float32List);
 typedef DecodeErrorCallback = void Function();
 typedef DecodeSuccessCallback = void Function();
 typedef AudioWorkletProcessorConstructor = void Function();
 typedef OnAudioBufferUnderflowFn = void Function(int outputNo);
 typedef OnReceiveDataFn = void Function(int inputNo, List<Float32List> data);
+typedef OnDataAvailableFn = void Function(Float32List data);
 typedef AudioContextState = String;
 typedef AudioContextRenderSizeCategory = String;
 typedef AudioContextLatencyCategory = String;
@@ -2411,6 +2413,45 @@ abstract class MediaStreamAudioDestinationNode implements AudioNode {
 
 // ------------------------------------------------------------------------------------------------------------------
 
+abstract class MediaRecorder {
+  /* ctor */ MediaRecorder(MediaStream stream, [MediaRecorderOptions? options]);
+
+  String get mimeType;
+  String get state;
+  MediaStream get stream;
+  int get videoBitsPerSecond;
+  int get audioBitsPerSecond;
+  int get audioBitrateMode;
+  void pause();
+  void requestData();
+  void resume();
+  void start([int? timeSlice]);
+  void stop();
+  //void addEventListener(String eventType, EventHandler eventHandler);
+  void ondataavailable(OnDataAvailableFn f) ;
+  //set ondataavailable(DataEventHandler eventHandler);
+  EventHandler get onerror ;
+  set onerror(EventHandler eventHandler);
+  EventHandler get onpause ;
+  set onpause(EventHandler eventHandler);
+  EventHandler get onresume ;
+  set onresume(EventHandler eventHandler);
+  EventHandler get onstart ;
+  set onstart(EventHandler eventHandler);
+  EventHandler get onstop ;
+  set onstop(EventHandler eventHandler);
+}
+
+
+// ------------------------------------------------------------------------------------------------------------------
+
+
+abstract class MediaRecorderOptions {
+}
+
+
+// ------------------------------------------------------------------------------------------------------------------
+
 /// The **`MediaStreamAudioSourceNode`** is a type of [AudioNode]
 /// which operates as an audio source whose media is received from a
 /// [MediaStream] obtained using the WebRTC or Media Capture and Streams APIs.
@@ -3457,6 +3498,7 @@ abstract class AudioWorkletProcessor {
 // =================================================================================================
 //                          Added because of Tau_web
 // =================================================================================================
+
 
 abstract class MediaElement {
   /* ctor */ MediaElement({

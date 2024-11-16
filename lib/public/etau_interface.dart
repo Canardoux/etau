@@ -258,6 +258,11 @@ abstract class TauInterface {
     AudioNodeOptions options,
   ]);
 
+  MediaRecorder newMediaRecorder(
+      MediaStream stream, [
+      MediaRecorderOptions options,
+  ]);
+
   MediaStreamAudioSourceNode newMediaStreamAudioSourceNode(
     AudioContext context,
     MediaStreamAudioSourceOptions options,
