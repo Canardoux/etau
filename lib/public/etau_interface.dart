@@ -258,11 +258,6 @@ abstract class TauInterface {
     AudioNodeOptions options,
   ]);
 
-  MediaRecorder newMediaRecorder(
-      MediaStream stream, [
-      MediaRecorderOptions options,
-  ]);
-
   MediaStreamAudioSourceNode newMediaStreamAudioSourceNode(
     AudioContext context,
     MediaStreamAudioSourceOptions options,
@@ -388,42 +383,30 @@ abstract class TauInterface {
 //                          Added because of Tau_web
 // =================================================================================================
 
+
+
   MediaStream newMediaStream();
-
-  // MediaStreamTrack newMediaStreamTrack();
-
-  // Worklet newWorklet()
-  // WorkletGlobalScope newWorkletGlobalScope()
-
-  // MessagePort newMessagePort();
 
   MediaElement newMediaElement({
     required String src,
   });
 
-  //TauStreamSourceNode newTauStreamSourceNode(BaseAudioContext context, Stream stream);
 
-  //TauStreamDestinationNode newTauStreamDestinationNode(BaseAudioContext context, Stream stream);
+  TauRecorder newTauRecorder(
+      MediaStream stream, [
+        MediaRecorderOptions options,
+      ]);
 
-  //TauStreamNode newTauStreamNode(BaseAudioContext context, String name, [TauStreamNodeOptions options,]);
-
-  /*
-  TauStreamNodeOptions newTauStreamNodeOptions({
-    String momo = 'maman',
-    //int channelCount,
-    //ChannelCountMode channelCountMode,
-    //ChannelInterpretation channelInterpretation,
-    //num pan,
-    int channelCount = 2,
-    ChannelCountMode channelCountMode = 'exact',
-    ChannelInterpretation channelInterpretation = 'speakers',
-    int numberOfInputs = 1,
-    int numberOfOutputs = 1,
-    List<int> outputChannelCount = const [2],
-    ParameterData parameterData,
-    ProcessorOptions processorOptions,
+  MediaRecorderOptions newMediaRecorderOptions(
+  {
+    String mimeType,
+    int audioBitsPerSecond,
+    int videoBitsPerSecond,
+    int bitsPerSecond,
+    BitrateMode audioBitrateMode,
+    Duration videoKeyFrameIntervalDuration,
+    int videoKeyFrameIntervalCount,
 
   });
 
-*/
 }

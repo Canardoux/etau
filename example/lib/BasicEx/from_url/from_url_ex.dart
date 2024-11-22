@@ -26,13 +26,13 @@ import 'package:tau_web/dummy.dart' show tau
 /// This is a very simple example for τ beginners, that show how to playback a file.
 /// Its a translation to Dart from [Mozilla example](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
 /// This example is really basic.
-class FromUriEx extends StatefulWidget {
-  const FromUriEx({super.key});
+class FromUrlEx extends StatefulWidget {
+  const FromUrlEx({super.key});
   @override
-  State<FromUriEx> createState() => _FromUriEx();
+  State<FromUrlEx> createState() => _FromUrlEx();
 }
 
-class _FromUriEx extends State<FromUriEx> {
+class _FromUrlEx extends State<FromUrlEx> {
   String pcmAsset = 'assets/wav/viper.ogg'; // The OGG asset to be played
 
   bool playDisabled = true;
@@ -183,7 +183,7 @@ class _FromUriEx extends State<FromUriEx> {
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: const Text('Play from a remote URI'),
+        title: const Text('Play from a remote URL'),
         actions: const <Widget>[],
       ),
       body: makeBody(),

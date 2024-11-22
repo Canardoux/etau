@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'display_graph.dart';
 
 import 'BasicEx/from_buffer/from_buffer_ex.dart';
-import 'BasicEx/from_uri/from_uri_ex.dart';
+import 'BasicEx/from_url/from_url_ex.dart';
 import 'BasicEx/from_mic/from_mic_ex.dart';
 import 'BasicEx/from_processor/from_processor_ex.dart';
 import 'BasicEx/from_oscillator/from_oscillator_ex.dart';
@@ -31,7 +31,7 @@ import 'BasicEx/from_async_proc/from_async_proc_ex.dart';
 import 'BasicEx/to_speaker/to_speaker_ex.dart';
 import 'BasicEx/to_selected_device/to_selected_device_ex.dart';
 import 'BasicEx/threw_async_proc/threw_async_proc_ex.dart';
-import 'BasicEx/to_recorder/to_recorder_ex.dart';
+import 'BasicEx/to_url/to_url_ex.dart';
 
 /*
 import 'RustEx/stereo_panner/stereo_panner_ex.dart';
@@ -94,14 +94,14 @@ final List<Example> basicExampleTable = [
 The buffer is loaded from an asset.
 '''),
   Example(
-      title: 'From URI',
-      subTitle: 'Play From file/URI',
+      title: 'From URL',
+      subTitle: 'Play From a remoteURL',
       flags: 0,
-      route: (_) => const FromUriEx(),
-      graphDir: 'from_uri',
-      graphImage: 'FromUri',
+      route: (_) => const FromUrlEx(),
+      graphDir: 'from_url',
+      graphImage: 'FromUrl',
       mod: 'Basic',
-      description: '''Shows How to playback from a file or a remote URI.
+      description: '''Shows How to playback from a file or a remote URL.
 '''),
   Example(
       title: 'From Mic',
@@ -212,14 +212,14 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
 '''),
 
   Example(
-      title: 'To Recorder',
-      subTitle: 'Play to a recorder',
+      title: 'To URL',
+      subTitle: 'Play to a URL',
       flags: 0,
-      route: (_) => const ToRecorderEx(),
-      graphDir: 'to_recorder',
-      graphImage: 'ToRecorder',
+      route: (_) => const ToUrlEx(),
+      graphDir: 'to_url',
+      graphImage: 'ToUrl',
       mod: 'Basic',
-      description: '''Play to a recorder.
+      description: '''Play to a URL.
 '''),
 ];
 

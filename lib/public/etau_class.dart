@@ -34,7 +34,7 @@ import 'dart:typed_data';
 import 'etau_event.dart';
 
 typedef TauSampleRate = double;
-typedef TauTime = double;
+typedef TauTime = int;
 typedef TauAny = Object;
 typedef TauNumber = num;
 typedef TauArray<T> = List<T>;
@@ -44,7 +44,11 @@ typedef TauFloat32Array = Float32List;
 typedef TauObject = Object;
 typedef TauUint8Array = Uint8List;
 typedef TauHighResTimeStamp = double;
-
+typedef RecordingState = String; // Enum
+typedef BitrateMode = String;
+typedef DOMHighResTimeStamp = int;
+typedef BlobPart = TauAny;
+typedef EndingType = String;
 typedef EventHandler = void Function();
 typedef DataEventHandler = void Function(Float32List);
 typedef DecodeErrorCallback = void Function();
@@ -554,7 +558,7 @@ abstract class AudioTimestamp {
   TauTime get contextTime;
   set contextTime(TauTime value);
   TauTime get performanceTime;
-  set performanceTime(TauHighResTimeStamp value);
+  set performanceTime(TauTime value);
 }
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -2412,41 +2416,216 @@ abstract class MediaStreamAudioDestinationNode implements AudioNode {
 }
 
 // ------------------------------------------------------------------------------------------------------------------
-
 abstract class MediaRecorder {
   /* ctor */ MediaRecorder(MediaStream stream, [MediaRecorderOptions? options]);
 
-  String get mimeType;
-  String get state;
-  MediaStream get stream;
-  int get videoBitsPerSecond;
-  int get audioBitsPerSecond;
-  int get audioBitrateMode;
-  void pause();
-  void requestData();
-  void resume();
-  void start([int? timeSlice]);
+  /// The **`isTypeSupported()`** static method of the [MediaRecorder] interface
+  /// returns a `Boolean` which is `true` if the MIME media type specified is
+  /// one the user agent should be able to successfully record.
+  bool isTypeSupported(String type);
+
+  /// The **`start()`** method of the [MediaRecorder] interface begins recording
+  /// media into one or more [Blob] objects.
+  ///
+  /// You can
+  /// record the entire duration of the media into a single `Blob` (or until you
+  /// call [MediaRecorder.requestData]), or you can specify the
+  /// number of milliseconds to record at a time. Then, each time that amount of
+  /// media has
+  /// been recorded, an event will be delivered to let you act upon the recorded
+  /// media, while
+  /// a new `Blob` is created to record the next slice of the media.
+  ///
+  /// Assuming the `MediaRecorder`'s [MediaRecorder.state]
+  /// is `inactive`, `start()` sets the `state` to
+  /// `recording`, then begins capturing media from the input stream. A
+  /// `Blob` is created and the data is collected in it until the time slice
+  /// period
+  /// elapses or the source media ends. Each time a `Blob` is filled up to that
+  /// point (the timeslice duration or the end-of-media, if no slice duration
+  /// was provided), a
+  /// [MediaRecorder.dataavailable_event] event is sent to the `MediaRecorder`
+  /// with the
+  /// recorded data. If the source is still playing, a new `Blob` is created and
+  /// recording continues into that, and so forth.
+  ///
+  /// When the source stream ends, `state` is set to `inactive` and
+  /// data gathering stops. A final [MediaRecorder.dataavailable_event] event is
+  /// sent to the
+  /// `MediaRecorder`, followed by a [MediaRecorder.stop_event] event.
+  ///
+  /// > **Note:** If the browser is unable to start recording or continue
+  /// > recording, it will raise an [MediaRecorder.error_event] event, followed
+  /// > by a
+  /// > [MediaRecorder.dataavailable_event] event containing the `Blob` it
+  /// > has gathered, followed by the [MediaRecorder.stop_event] event.
+  void start([int timeslice]);
+
+  /// The **`stop()`** method of the [MediaRecorder] interface is
+  /// used to stop media capture.
+  ///
+  /// When the `stop()` method is invoked, the UA queues a task that runs the
+  /// following steps:
+  ///
+  /// 1. If [MediaRecorder.state] is "inactive", raise a DOM
+  /// `InvalidState` error and terminate these steps. If the
+  /// [MediaRecorder.state] is not "inactive", continue on to the next step.
+  /// 2. Set the [MediaRecorder.state] to "inactive" and stop capturing media.
+  /// 3. Raise a `dataavailable` event containing the Blob of data that has been
+  /// gathered.
+  /// 4. Raise a `stop` event.
   void stop();
-  //void addEventListener(String eventType, EventHandler eventHandler);
-  void ondataavailable(OnDataAvailableFn f) ;
-  //set ondataavailable(DataEventHandler eventHandler);
-  EventHandler get onerror ;
-  set onerror(EventHandler eventHandler);
-  EventHandler get onpause ;
-  set onpause(EventHandler eventHandler);
-  EventHandler get onresume ;
-  set onresume(EventHandler eventHandler);
-  EventHandler get onstart ;
-  set onstart(EventHandler eventHandler);
-  EventHandler get onstop ;
-  set onstop(EventHandler eventHandler);
+
+  /// The **`pause()`** method of the [MediaRecorder] interface is used
+  /// to pause recording of media streams.
+  ///
+  /// When a `MediaRecorder` object's `pause()`method is called, the
+  /// browser queues a task that runs the below steps:
+  ///
+  /// 1. If [MediaRecorder.state] is "inactive", raise a DOM
+  /// `InvalidState` error and terminate these steps. If not, continue to the
+  /// next step.
+  /// 2. Set [MediaRecorder.state] to "paused".
+  /// 3. Stop gathering data into the current [Blob], but keep it available so
+  /// that recording can be resumed later on.
+  /// 4. Raise a [MediaRecorder.pause_event] event.
+  void pause();
+
+  /// The **`resume()`** method of the [MediaRecorder] interface is used to
+  /// resume media recording when it has been previously paused.
+  ///
+  /// If [MediaRecorder.state] is already "recording", calling `resume()` has no
+  /// effect.
+  ///
+  /// When the `resume()` method is invoked, the browser queues a task that runs
+  /// the following steps:
+  ///
+  /// 1. If [MediaRecorder.state] is "inactive", raise a DOM
+  /// `InvalidStateError` exception and terminate these steps. If
+  /// [MediaRecorder.state] is not "inactive", continue to the next step.
+  /// 2. Set [MediaRecorder.state] to "recording".
+  /// 3. Continue gathering data into the current [Blob].
+  /// 4. Raise a `resume` event.
+  void resume();
+
+  /// The **`requestData()`**
+  /// method of the [MediaRecorder] interface is used to raise a
+  /// [MediaRecorder.dataavailable_event] event containing a
+  /// [Blob] object of the captured media as it was when the method was
+  /// called. This can then be grabbed and manipulated as you wish.
+  ///
+  /// When the `requestData()` method is invoked, the browser queues a task that
+  /// runs the following steps:
+  ///
+  /// 1. If [MediaRecorder.state] is "inactive", raise a DOM
+  /// `InvalidState` error and terminate these steps. If
+  /// [MediaRecorder.state] is not "inactive", continue to the next step.
+  /// 2. Raise a [MediaRecorder.dataavailable_event] event containing a [Blob]
+  /// of the
+  /// currently captured data (the Blob is available under the event's `data`
+  /// attribute.)
+  /// 3. Create a new Blob and place subsequently captured data into it.
+  void requestData();
+
+  /// The **`stream`** read-only property of the [MediaRecorder] interface
+  /// returns the stream that was passed into the [MediaRecorder.MediaRecorder]
+  /// constructor when the `MediaRecorder` was created.
+  MediaStream get stream;
+
+  /// The **`mimeType`** read-only property of the [MediaRecorder] interface
+  /// returns the  media type that was specified when creating the
+  /// [MediaRecorder] object, or, if none was specified, which was chosen by the
+  /// browser.
+  /// This is the file format of the file that would result from writing all of
+  /// the recorded data to disk.
+  ///
+  /// Keep in mind that not all codecs are supported by a given container; if
+  /// you write media using a codec that is not supported by a given media
+  /// container, the resulting file may not work reliably if at all when you try
+  /// to play it back.
+  /// See our
+  /// [media type and format guide](https://developer.mozilla.org/en-US/docs/Web/Media/Formats)
+  /// for information about container and codec support across browsers.
+  ///
+  /// > **Note:** The term "MIME type" is officially considered to be
+  /// > historical; these strings are now officially known as **media types**.
+  /// > MDN Web Docs content uses the terms interchangeably.
+  String get mimeType;
+
+  /// The **`state`** read-only property of the [MediaRecorder] interface
+  /// returns the current state of the current `MediaRecorder` object.
+  RecordingState get state;
+  //EventHandler get onstart;
+  set onstart(EventHandler value);
+  //EventHandler get onstop;
+  set onstop(EventHandler value);
+  //EventHandler get ondataavailable;
+  set ondataavailable(EventHandler value);
+  //EventHandler get onpause;
+  set onpause(EventHandler value);
+  //EventHandler get onresume;
+  set onresume(EventHandler value);
+  //EventHandler get onerror;
+  set onerror(EventHandler value);
+
+  /// The **`videoBitsPerSecond`** read-only
+  /// property of the [MediaRecorder] interface returns the video encoding
+  /// bit rate in use.
+  ///
+  /// This may differ from the bit rate specified in the
+  /// constructor, if it was provided.
+  int get videoBitsPerSecond;
+
+  /// The **`audioBitsPerSecond`** read-only
+  /// property of the [MediaRecorder] interface returns the audio encoding bit
+  /// rate in use.
+  ///
+  /// This may differ from the bit rate specified in the constructor (if
+  /// it was provided).
+  int get audioBitsPerSecond;
+
+}
+
+
+abstract class TauRecorder  extends MediaRecorder {
+  /* ctor */ TauRecorder(MediaStream stream, [MediaRecorderOptions? options]) : super(stream, options);
+
+  String makeUrl();
+  void  makeFile(fileName);
+  void start([int? timeslice]);
+
+
+
 }
 
 
 // ------------------------------------------------------------------------------------------------------------------
 
-
 abstract class MediaRecorderOptions {
+  /* ctor */ MediaRecorderOptions({
+    String? mimeType,
+    int? audioBitsPerSecond,
+    int? videoBitsPerSecond,
+    int? bitsPerSecond,
+    BitrateMode? audioBitrateMode,
+    DOMHighResTimeStamp? videoKeyFrameIntervalDuration,
+    int? videoKeyFrameIntervalCount,
+  });
+
+  String get mimeType;
+  set mimeType(String value);
+  int get audioBitsPerSecond;
+  set audioBitsPerSecond(int value);
+  int get videoBitsPerSecond;
+  set videoBitsPerSecond(int value);
+  int get bitsPerSecond;
+  set bitsPerSecond(int value);
+  BitrateMode get audioBitrateMode;
+  set audioBitrateMode(BitrateMode value);
+  int get videoKeyFrameIntervalDuration;
+  set videoKeyFrameIntervalDuration(DOMHighResTimeStamp value);
+  int get videoKeyFrameIntervalCount;
+  set videoKeyFrameIntervalCount(int value);
 }
 
 
@@ -3500,6 +3679,10 @@ abstract class AudioWorkletProcessor {
 // =================================================================================================
 
 
+// ------------------------------------------------------------------------------------------------------------------
+
+
+
 abstract class MediaElement {
   /* ctor */ MediaElement({
     required String src,
@@ -3582,44 +3765,122 @@ class MediaDeviceInfo {
       required this.label});
 }
 
-/*
+/// The **`BlobEvent`** interface of the
+/// [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API)
+/// represents events associated with a [Blob]. These blobs are typically, but
+/// not necessarily, associated with media content.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BlobEvent).
+abstract class  BlobEvent{
 
-abstract class TauStreamSourceNode implements AudioNode
-{
+  /* ctor */ BlobEvent(
+      String type,
+      BlobEventInit eventInitDict,
+      );
 
+  /// The **`data`** read-only property of the [BlobEvent] interface represents
+  /// a [Blob] associated with the event.
+  Blob get data;
+
+  /// The **`timecode`** read-only property of the [BlobEvent] interface
+  /// indicates the difference between the timestamp of the first chunk of data,
+  /// and the timestamp of the first chunk in the first `BlobEvent` produced by
+  /// this recorder.
+  ///
+  /// Note that the `timecode` in the first produced `BlobEvent` does not need
+  /// to be zero.
+  int get timecode;
+}
+abstract class BlobEventInit {
+  /* ctor */ BlobEventInit({
+    required Blob data,
+    DOMHighResTimeStamp? timecode,
+  });
+
+  Blob get data;
+  set data(Blob value);
+  int get timecode;
+  set timecode(DOMHighResTimeStamp value);
 }
 
 
-abstract class TauStreamDestinationNode implements AudioNode
-{
 
+/// The **`Blob`** interface represents a blob, which is a file-like object of
+/// immutable, raw data; they can be read as text or binary data, or converted
+/// into a [ReadableStream] so its methods can be used for processing the data.
+///
+/// Blobs can represent data that isn't necessarily in a JavaScript-native
+/// format. The [File] interface is based on `Blob`, inheriting blob
+/// functionality and expanding it to support files on the user's system.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
+abstract class Blob {
+  /* ctor */ Blob([
+    List<BlobPart>? blobParts,
+    BlobPropertyBag? options,
+  ]);
+
+  /// The **`slice()`** method of the [Blob] interface
+  /// creates and returns a new `Blob` object which contains data from a subset
+  /// of
+  /// the blob on which it's called.
+  //[LARPOUX]Blob slice([
+  //  int start,
+ //   int end,
+  //  String contentType,
+ // ]);
+
+  /// The **`stream()`** method of the [Blob] interface returns a
+  /// [ReadableStream] which upon reading returns the data contained within the
+  /// `Blob`.
+  //[LARPOUX]ReadableStream stream();
+
+  /// The **`text()`** method of the
+  /// [Blob] interface returns a `Promise` that resolves with a
+  /// string containing the contents of the blob, interpreted as UTF-8.
+  //[LARPOUX]Future<String> text();
+
+  /// The **`arrayBuffer()`** method of the [Blob]
+  /// interface returns a `Promise` that resolves with the contents of the blob
+  /// as
+  /// binary data contained in an `ArrayBuffer`.
+  //[LARPOUX]Future<JSArrayBuffer> arrayBuffer();
+
+  /// The **`size`** read-only property of the [Blob] interface returns
+  /// the size of the [Blob] or [File] in bytes.
+  int get size;
+
+  /// The **`type`** read-only property of the [Blob] interface returns the  of
+  /// the file.
+  ///
+  /// > **Note:** Based on the current implementation, browsers won't actually
+  /// > read the bytestream of a file to determine its media type.
+  /// > It is assumed based on the file extension; a PNG image file renamed to
+  /// > .txt would give "_text/plain_" and not "_image/png_". Moreover,
+  /// > `blob.type` is generally reliable only for common file types like
+  /// > images, HTML documents, audio and video.
+  /// > Uncommon file extensions would return an empty string.
+  /// > Client configuration (for instance, the Windows Registry) may result in
+  /// > unexpected values even for common types. **Developers are advised not to
+  /// > rely on this property as a sole validation scheme.**
+  String get type;
 }
 
 
-abstract class TauStreamNode implements AudioWorkletNode
-{
+abstract class BlobPropertyBag {
+  /* ctor */ BlobPropertyBag({
+    String? type,
+    EndingType? endings,
+  });
 
+  String get type;
+  set type(String value);
+  EndingType get endings;
+  set endings(EndingType value);
 }
-
-abstract class TauStreamNodeOptions implements AudioWorkletNodeOptions 
-{ 
-  //double gain;
-}
-
-*/
-/*
-class MediaTrackConstraints extends t.MediaTrackConstraints
-{
-  String? deviceId;
-  String? groupId;
-  bool? autoGainControl;
-  int? channelCount;
-  bool? echoCancellation;
-  double? latency;
-  bool? noiseSupression;
-  int? sampleRate;
-  int? sampleSize;
-  double? volume;
-}
-
- */
