@@ -123,7 +123,7 @@ void recorderHitStopButton() {
   mediaRecorder!.stop();
 }
 
-
+/*
 // ----------------------------------------------------- The Player --------------------------------------------------------------------------
 
 
@@ -139,7 +139,7 @@ MediaElement? audioElt;
 void playHitButton() async {
 
       playerCtx = tau().newAudioContext();
-      audioElt = tau().newMediaElement(src: fileName );
+      audioElt = tau().newMediaElement(src: '~/Downloads/$fileName' );
       //audioElt!.src = fileName;
       //audioElt!.crossorigin = 'anonymous';
       source =  playerCtx!.createMediaElementSource(audioElt!);
@@ -179,16 +179,13 @@ setState(() {
 }
 
 
-
+*/
 // ---------------------------------------------- That's all guys and girls (everything else is just dressing to run the example) ------------------------------------------------------------
 
 
 
   @override
   void dispose() {
-
-  playerCtx?.close();
-  playerCtx?.dispose();
 
   recorderCtx?.close();
   recorderCtx?.dispose();
@@ -225,29 +222,7 @@ setState(() {
             const SizedBox(
                           width: 20,
                         ),
-            ElevatedButton(
-            onPressed:playEnabled ? playHitButton : null,
-            //color: Colors.indigo,
-            child: const Text(
-            'Play',
-            style: TextStyle(color: Colors.black),
-            ),
-            ),
-            const SizedBox(
-            width: 5,
-            ),
-            ElevatedButton(
-            onPressed:stopPlayerEnabled ? playerHitStopButton : null,
-            //color: Colors.indigo,
-            child: const Text(
-            'Stop player',
-            style: TextStyle(color: Colors.black),
-            ),
-            ),
-            const SizedBox(
-            width: 5,
-            ),
-          ]),
+        ]),
           const SizedBox(
             height: 20,
           ),

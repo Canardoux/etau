@@ -2424,7 +2424,7 @@ abstract class MediaRecorder {
   String makeUrl();
 
   /// Specific Tau
-  void  makeFile(fileName);
+  void  makeFile(String fileName);
 
   /// The **`isTypeSupported()`** static method of the [MediaRecorder] interface
   /// returns a `Boolean` which is `true` if the MIME media type specified is
