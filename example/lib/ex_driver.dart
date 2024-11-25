@@ -32,6 +32,11 @@ import 'BasicEx/to_speaker/to_speaker_ex.dart';
 import 'BasicEx/to_selected_device/to_selected_device_ex.dart';
 import 'BasicEx/threw_async_proc/threw_async_proc_ex.dart';
 import 'BasicEx/to_url/to_url_ex.dart';
+import 'BasicEx/to_file/to_file_ex.dart';
+import 'BasicEx/from_file/from_file_ex.dart';
+import 'BasicEx/from_file_2/from_file_2_ex.dart';
+
+
 
 /*
 import 'RustEx/stereo_panner/stereo_panner_ex.dart';
@@ -220,6 +225,39 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
       graphImage: 'ToUrl',
       mod: 'Basic',
       description: '''Play to a URL.
+'''),
+
+  Example(
+      title: 'To File',
+      subTitle: 'Play to a File',
+      flags: 0,
+      route: (_) => const ToFileEx(),
+      graphDir: 'to_file',
+      graphImage: 'ToFile',
+      mod: 'Basic',
+      description: '''Play to a File.
+'''),
+
+  Example(
+      title: 'From File',
+      subTitle: 'Play from a File',
+      flags: 0,
+      route: (_) => const FromFileEx(),
+      graphDir: 'to_file',
+      graphImage: 'ToFile',
+      mod: 'Basic',
+      description: '''Play from a File selected with File Picker.
+'''),
+
+  Example(
+      title: 'From File 2',
+      subTitle: 'Play from a File',
+      flags: 0,
+      route: (_) => const FromFile2Ex(),
+      graphDir: 'to_file',
+      graphImage: 'ToFile',
+      mod: 'Basic',
+      description: '''Play from a File selected with File Picker.
 '''),
 ];
 

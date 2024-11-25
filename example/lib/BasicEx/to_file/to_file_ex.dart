@@ -32,14 +32,14 @@ import 'package:flutter/services.dart' show rootBundle;
 /// This is a very simple example for τ beginners, that show how to playback a file.
 /// Its a translation to Dart from [Mozilla example](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
 /// This example is really basic.
-class ToUrlEx extends StatefulWidget {
-  const ToUrlEx({super.key});
+class ToFileEx extends StatefulWidget {
+  const ToFileEx({super.key});
   @override
-  State<ToUrlEx> createState() => _ToUrlEx();
+  State<ToFileEx> createState() => _ToFileEx();
 }
 
-class _ToUrlEx extends State<ToUrlEx> {
-  String? _url;
+class _ToFileEx extends State<ToFileEx> {
+  String fileName = 'toto.mp4';
 
   bool playEnabled = false;
   bool stopPlayerEnabled = false;
@@ -88,9 +88,10 @@ recorderDest = recorderCtx!.createMediaStreamDestination();
 mediaRecorder = tau().newMediaRecorder(recorderDest!.stream, "audio/mp4");
 //mediaRecorder!.mimeType = 'audio/ogg; codecs=opus';
 
+
 mediaRecorder!.onstop = ()
 {
-    _url = mediaRecorder?.makeUrl();
+    mediaRecorder?.makeFile(fileName);
     recorderCtx?.dispose();
     recorderCtx = null;
 
@@ -102,8 +103,9 @@ mediaRecorder!.onstop = ()
     });
 
 };
-
 mic.connect(recorderDest!);
+
+
 mediaRecorder!.start();
 
 setState(() {
@@ -136,28 +138,27 @@ MediaElement? audioElt;
 
 void playHitButton() async {
 
-playerCtx = tau().newAudioContext();
-audioElt = tau().newMediaElement(src: _url! );
-audioElt!.src = _url!;
-audioElt!.crossorigin = 'anonymous';
-source =  playerCtx!.createMediaElementSource(audioElt!);
-//!!!!!!!!!!!!source!.mediaElement.onended = (event) => playerHitStopButton();
-source!.connect(playerCtx!.destination);
-audioElt!.play().then( (e)
-{
-tau().logger().d('audioElt!.play() completed');
+      playerCtx = tau().newAudioContext();
+      audioElt = tau().newMediaElement(src: fileName );
+      //audioElt!.src = fileName;
+      //audioElt!.crossorigin = 'anonymous';
+      source =  playerCtx!.createMediaElementSource(audioElt!);
+      //!!!!!!!!!!!!source!.mediaElement.onended = (event) => playerHitStopButton();
+      source!.connect(playerCtx!.destination);
+      audioElt!.play().then( (e) {
+          tau().logger().d('audioElt!.play() completed');
 
 
-    setState(() {
-        playEnabled = false;
-        recorderEnabled = false;
-        stopRecorderEnabled = false;
-        stopPlayerEnabled = true;
-    });
+        setState(() {
+            playEnabled = false;
+            recorderEnabled = false;
+            stopRecorderEnabled = false;
+            stopPlayerEnabled = true;
+        });
 
-}).catchError( (e) {
-tau().logger().d(e);
-});
+      }).catchError( (e) {
+          tau().logger().d(e);
+      });
 
 }
 

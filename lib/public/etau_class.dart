@@ -2417,7 +2417,14 @@ abstract class MediaStreamAudioDestinationNode implements AudioNode {
 
 // ------------------------------------------------------------------------------------------------------------------
 abstract class MediaRecorder {
-  /* ctor */ MediaRecorder(MediaStream stream, [MediaRecorderOptions? options]);
+  /* ctor */ MediaRecorder(MediaStream stream, String mimeType, [MediaRecorderOptions? options]);
+
+
+  /// Specific Tau
+  String makeUrl();
+
+  /// Specific Tau
+  void  makeFile(fileName);
 
   /// The **`isTypeSupported()`** static method of the [MediaRecorder] interface
   /// returns a `Boolean` which is `true` if the MIME media type specified is
@@ -2587,8 +2594,9 @@ abstract class MediaRecorder {
 }
 
 
+/*
 abstract class TauRecorder  extends MediaRecorder {
-  /* ctor */ TauRecorder(MediaStream stream, [MediaRecorderOptions? options]) : super(stream, options);
+  /* ctor */ TauRecorder(MediaStream stream, String type, [MediaRecorderOptions? options]) :  super(stream, options);
 
   String makeUrl();
   void  makeFile(fileName);
@@ -2597,7 +2605,7 @@ abstract class TauRecorder  extends MediaRecorder {
 
 
 }
-
+*/
 
 // ------------------------------------------------------------------------------------------------------------------
 

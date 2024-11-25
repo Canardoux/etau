@@ -392,8 +392,8 @@ abstract class TauInterface {
   });
 
 
-  TauRecorder newTauRecorder(
-      MediaStream stream, [
+MediaRecorder newMediaRecorder(
+      MediaStream stream, String type, [
         MediaRecorderOptions options,
       ]);
 
