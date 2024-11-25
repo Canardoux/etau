@@ -2426,6 +2426,9 @@ abstract class MediaRecorder {
   /// Specific Tau
   void  makeFile(String fileName);
 
+  /// Specific Tau
+  Future<ByteBuffer> makeBuffer();
+
   /// The **`isTypeSupported()`** static method of the [MediaRecorder] interface
   /// returns a `Boolean` which is `true` if the MIME media type specified is
   /// one the user agent should be able to successfully record.

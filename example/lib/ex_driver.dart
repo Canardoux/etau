@@ -35,6 +35,7 @@ import 'BasicEx/to_url/to_url_ex.dart';
 import 'BasicEx/to_file/to_file_ex.dart';
 import 'BasicEx/from_file/from_file_ex.dart';
 import 'BasicEx/from_file_2/from_file_2_ex.dart';
+import 'BasicEx/to_buffer/to_buffer_ex.dart';
 
 
 
@@ -258,6 +259,17 @@ Now, whenever the value of constantNode.offset changes, the gain on both gainNod
       graphImage: 'ToFile',
       mod: 'Basic',
       description: '''Play from a File selected with File Picker.
+'''),
+
+  Example(
+      title: 'To Buffer',
+      subTitle: 'Play to a memory buffer',
+      flags: 0,
+      route: (_) => const ToBufferEx(),
+      graphDir: 'to_buffer',
+      graphImage: 'ToBuffer',
+      mod: 'Basic',
+      description: '''Play to a memory buffer.
 '''),
 ];
 
