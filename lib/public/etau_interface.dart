@@ -383,22 +383,19 @@ abstract class TauInterface {
 //                          Added because of Tau_web
 // =================================================================================================
 
-
-
   MediaStream newMediaStream();
 
   MediaElement newMediaElement({
     required String src,
   });
 
+  MediaRecorder newMediaRecorder(
+    MediaStream stream,
+    String type, [
+    MediaRecorderOptions options,
+  ]);
 
-MediaRecorder newMediaRecorder(
-      MediaStream stream, String type, [
-        MediaRecorderOptions options,
-      ]);
-
-  MediaRecorderOptions newMediaRecorderOptions(
-  {
+  MediaRecorderOptions newMediaRecorderOptions({
     String mimeType,
     int audioBitsPerSecond,
     int videoBitsPerSecond,
@@ -406,7 +403,5 @@ MediaRecorder newMediaRecorder(
     BitrateMode audioBitrateMode,
     Duration videoKeyFrameIntervalDuration,
     int videoKeyFrameIntervalCount,
-
   });
-
 }

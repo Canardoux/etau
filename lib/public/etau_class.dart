@@ -2417,16 +2417,16 @@ abstract class MediaStreamAudioDestinationNode implements AudioNode {
 
 // ------------------------------------------------------------------------------------------------------------------
 abstract class MediaRecorder {
-  /* ctor */ MediaRecorder(MediaStream stream, String mimeType, [MediaRecorderOptions? options]);
+  /* ctor */ MediaRecorder(MediaStream stream, String mimeType,
+      [MediaRecorderOptions? options]);
 
-
-  /// Specific Tau
+  /// Specific τ
   String makeUrl();
 
-  /// Specific Tau
-  void  makeFile(String fileName);
+  /// Specific τ
+  void makeFile(String fileName);
 
-  /// Specific Tau
+  /// Specific τ
   Future<ByteBuffer> makeBuffer();
 
   /// The **`isTypeSupported()`** static method of the [MediaRecorder] interface
@@ -2593,9 +2593,7 @@ abstract class MediaRecorder {
   /// This may differ from the bit rate specified in the constructor (if
   /// it was provided).
   int get audioBitsPerSecond;
-
 }
-
 
 /*
 abstract class TauRecorder  extends MediaRecorder {
@@ -2638,7 +2636,6 @@ abstract class MediaRecorderOptions {
   int get videoKeyFrameIntervalCount;
   set videoKeyFrameIntervalCount(int value);
 }
-
 
 // ------------------------------------------------------------------------------------------------------------------
 
@@ -3689,10 +3686,7 @@ abstract class AudioWorkletProcessor {
 //                          Added because of Tau_web
 // =================================================================================================
 
-
 // ------------------------------------------------------------------------------------------------------------------
-
-
 
 abstract class MediaElement {
   /* ctor */ MediaElement({
@@ -3785,12 +3779,11 @@ class MediaDeviceInfo {
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BlobEvent).
-abstract class  BlobEvent{
-
+abstract class BlobEvent {
   /* ctor */ BlobEvent(
-      String type,
-      BlobEventInit eventInitDict,
-      );
+    String type,
+    BlobEventInit eventInitDict,
+  );
 
   /// The **`data`** read-only property of the [BlobEvent] interface represents
   /// a [Blob] associated with the event.
@@ -3805,6 +3798,7 @@ abstract class  BlobEvent{
   /// to be zero.
   int get timecode;
 }
+
 abstract class BlobEventInit {
   /* ctor */ BlobEventInit({
     required Blob data,
@@ -3816,8 +3810,6 @@ abstract class BlobEventInit {
   int get timecode;
   set timecode(DOMHighResTimeStamp value);
 }
-
-
 
 /// The **`Blob`** interface represents a blob, which is a file-like object of
 /// immutable, raw data; they can be read as text or binary data, or converted
@@ -3843,9 +3835,9 @@ abstract class Blob {
   /// the blob on which it's called.
   //[LARPOUX]Blob slice([
   //  int start,
- //   int end,
+  //   int end,
   //  String contentType,
- // ]);
+  // ]);
 
   /// The **`stream()`** method of the [Blob] interface returns a
   /// [ReadableStream] which upon reading returns the data contained within the
@@ -3882,7 +3874,6 @@ abstract class Blob {
   /// > rely on this property as a sole validation scheme.**
   String get type;
 }
-
 
 abstract class BlobPropertyBag {
   /* ctor */ BlobPropertyBag({

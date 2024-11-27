@@ -47,7 +47,7 @@ rm -rf _*.tgz 2>/dev/null
 flutter pub publish
 if [ $? -ne 0 ]; then
     echo "Error: flutter pub publish[etau]"
-    exit -1
+    ####exit -1
 fi
 
 read -p "Press enter to continue"

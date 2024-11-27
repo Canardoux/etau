@@ -20,7 +20,6 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'package:etau/etau.dart';
 import 'package:tau_web/dummy.dart' show tau
   if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
