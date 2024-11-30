@@ -31,7 +31,6 @@
 library;
 
 import 'dart:typed_data';
-import 'etau_event.dart';
 
 typedef TauSampleRate = double;
 typedef TauTime = int;
@@ -3886,3 +3885,12 @@ abstract class BlobPropertyBag {
   EndingType get endings;
   set endings(EndingType value);
 }
+
+// --------------------------------------------  Events ------------------------------------------------------------
+
+
+class EventTarget {}
+
+class Event {}
+
+class EventInit {}

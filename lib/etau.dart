@@ -18,4 +18,3 @@
 
 export 'public/etau_interface.dart';
 export 'public/etau_class.dart';
-export 'public/etau_event.dart';

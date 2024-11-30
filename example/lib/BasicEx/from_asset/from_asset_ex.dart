@@ -21,8 +21,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:tau_web/dummy.dart' show tau
-  if (dart.library.js_interop) 'package:_/tau_web.dart'
+import 'package:etau/etau.dart'
+  if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
   if (dart.library.io) 'package:tau_wars/tau_wars.dart';
 import 'package:flutter/services.dart' show rootBundle;
 

@@ -22,9 +22,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
 
-import 'package:tau_web/dummy.dart' show tau
-  if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
-  if (dart.library.io) 'package:tauwars/tau_wars.dart';
+import 'package:etau/etau.dart' // Stub implementation
+  if (dart.library.io) 'package:tau_wars/tau_wars.dart' // dart:io implementation
+  if (dart.library.js_interop) 'package:tau_web/tau_web.dart'; // package:web implementation
+
 import 'package:flutter/services.dart' show rootBundle;
 
 /// This is a very simple example for τ beginners, that shows how to playback a file from a buffer.
