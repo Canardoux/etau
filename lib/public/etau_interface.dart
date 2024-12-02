@@ -43,7 +43,7 @@ abstract class TauInterface {
     TauAny renderSizeHint,
   });
 
-  AudioSinkOptions newAudioSinkOptions({required AudioSinkType type});
+  // TODO AudioSinkOptions newAudioSinkOptions({required AudioSinkType type});
 
   AudioTimestamp newAudioTimestamp({
     TauTime contextTime,
