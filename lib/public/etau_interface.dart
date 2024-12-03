@@ -56,6 +56,7 @@ abstract class TauInterface {
     TauSampleRate sampleRate,
   ]);
 
+  /*
   OfflineAudioContextOptions newOfflineAudioContextOptions({
     int numberOfChannels,
     required int length,
@@ -63,17 +64,23 @@ abstract class TauInterface {
     TauAny renderSizeHint,
   });
 
+   */
+/*
   OfflineAudioCompletionEvent newOfflineAudioCompletionEvent(
     String type,
     OfflineAudioCompletionEventInit eventInitDict,
   );
+*/
 
+  /*
   OfflineAudioCompletionEventInit newOfflineAudioCompletionEventInit({
     bool bubbles,
     bool cancelable,
     bool composed,
     required AudioBuffer renderedBuffer,
   });
+
+   */
 
   AudioBuffer newAudioBuffer(AudioBufferOptions options);
 
@@ -123,6 +130,8 @@ abstract class TauInterface {
     AudioProcessingEventInit eventInitDict,
   );
 
+
+  /*
   AudioProcessingEventInit newAudioProcessingEventInit({
     bool bubbles,
     bool cancelable,
@@ -131,6 +140,8 @@ abstract class TauInterface {
     required AudioBuffer inputBuffer,
     required AudioBuffer outputBuffer,
   });
+
+   */
 
   BiquadFilterNode newBiquadFilterNode(
     BaseAudioContext context, [
