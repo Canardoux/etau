@@ -237,8 +237,8 @@ abstract class BaseAudioContext implements EventTarget {
   /// > constructor is the recommended way to create a [IIRFilterNode]; see
   /// > [Creating an AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode#creating_an_audionode).
   IIRFilterNode createIIRFilter(
-    TauArray<TauNumber> feedforward,
-    TauArray<TauNumber> feedback,
+    List<double> feedforward,
+    List<double> feedback,
   );
 
   /// The `createOscillator()` method of the [BaseAudioContext]
@@ -270,9 +270,9 @@ abstract class BaseAudioContext implements EventTarget {
   /// waveform
   /// that can be used to shape the output of an [OscillatorNode].
   PeriodicWave createPeriodicWave(
-    TauArray<TauNumber> real,
-    TauArray<TauNumber> imag, [
-    PeriodicWaveConstraints constraints,
+      Float32List real,
+      Float32List imag, [
+      PeriodicWaveConstraints constraints,
   ]);
 
   // TODO ! AudioWorkletNode createAudioWorkletNode();
