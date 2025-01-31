@@ -37,8 +37,8 @@ dependencies:
   tau_web: # ^0.0.14-alpha.4
     path: ../../tau_web # tau_web Dir
 
-  tau_wars: # ^0.0.1-beta.13
-     path: ../../tau_wars # tau_wars Dir
+  tau_wars: # ^0.0.14-alpha.4
+    path: ../../tau_wars # tau_wars Dir
 
   logger: ^2.4.0
   path_provider: ^2.0.2

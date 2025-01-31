@@ -172,7 +172,7 @@ setState(() {
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        title: const Text('Play threw and async processor'),
+        title: const Text('Play threw an async processor'),
         actions: const <Widget>[],
       ),
       body: makeBody(),
