@@ -270,9 +270,9 @@ abstract class BaseAudioContext implements EventTarget {
   /// waveform
   /// that can be used to shape the output of an [OscillatorNode].
   PeriodicWave createPeriodicWave(
-      Float32List real,
-      Float32List imag, [
-      PeriodicWaveConstraints constraints,
+    Float32List real,
+    Float32List imag, [
+    PeriodicWaveConstraints constraints,
   ]);
 
   // TODO ! AudioWorkletNode createAudioWorkletNode();
@@ -3632,6 +3632,7 @@ abstract class AsyncWorkletNode implements AudioWorkletNode {
   void onBufferUnderflow(OnAudioBufferUnderflowFn f);
   void onReceiveData(OnReceiveDataFn f);
   void send({int outputNo = 0, required List<Float32List> data});
+  void stop();
 }
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -3713,7 +3714,7 @@ abstract class MediaStream {
 }
 
 abstract class MediaDevices {
-  Future<MediaStream> getUserMedia({bool audio = true, bool video = true});
+  Future<MediaStream> getUserMedia({bool audio = true, bool video = false});
   Future<MediaStream> getUserMediaWithConstraints({
     required Map<String, Object> audio,
   });
@@ -3887,7 +3888,6 @@ abstract class BlobPropertyBag {
 }
 
 // --------------------------------------------  Events ------------------------------------------------------------
-
 
 class EventTarget {}
 

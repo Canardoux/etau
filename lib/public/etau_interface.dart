@@ -130,7 +130,6 @@ abstract class TauInterface {
     AudioProcessingEventInit eventInitDict,
   );
 
-
   /*
   AudioProcessingEventInit newAudioProcessingEventInit({
     bool bubbles,

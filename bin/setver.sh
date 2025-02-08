@@ -19,6 +19,8 @@ gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                               
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_wars/example/pubspec.yaml
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../../flutter_sound/flutter_sound/example/pubspec.yaml
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../../flutter_sound/flutter_sound/pubspec.yaml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../../flutter_sound/flutter_sound_web/pubspec.yaml
+
 gsed -i  "s/^\( *## \).*$/\1$VERSION/"                                                  CHANGELOG.md
 
 gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                                   ../tau_doc/_config.yml
