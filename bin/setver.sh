@@ -13,18 +13,28 @@ VERSION_CODE=${VERSION_CODE//+/}
 gsed -i  "s/^\( *version: *\).*$/\1$VERSION/"                                           pubspec.yaml
 gsed -i  "s/^\( *version: *\).*$/\1$VERSION/"                                           example/pubspec.yaml
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       example/pubspec.yaml
-
-### Probably better int pub.sh
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_web/pubspec.yaml
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_wars/pubspec.yaml
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_web/example/pubspec.yaml
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_war/example/pubspec.yaml
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../flutter_sound/example/pubspec.yaml
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../flutter_sound/pubspec.yaml
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../flutter_sound_web/pubspec.yaml
-
 gsed -i  "s/^\( *## \).*$/\1$VERSION/"                                                  CHANGELOG.md
 
-#gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                                   ../tau_doc/_config.yml
-#gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                             ../tau_doc/_data/sidebars/etau_sidebar.yml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_web/example/pubspec.yaml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_war/example/pubspec.yaml
+
+### Flutter Sound does not depend on etau
+
+#gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_web/pubspec.yaml
+#gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_wars/pubspec.yaml
+#gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../flutter_sound/example/pubspec.yaml
+#gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../flutter_sound/pubspec.yaml
+#gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../flutter_sound_web/pubspec.yaml
+
+### Perhaps better in pub.sh
+gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                                   ../tau_doc/_config.yml
+gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                             ../tau_doc/_data/sidebars/etau_sidebar.yml
+
+cd ../tau_web
+bin/setver.sh $1
+cd ../etau
+
+cd ../tau_war
+bin/setver.sh $1
+cd ../etau
 

@@ -1,6 +1,6 @@
 name: etau
 description: "e-τ (Etau) : The W3C Web Audio API interface for dart and Flutter"
-version: 0.15.2-alpha-5+6
+version: 0.15.2-alpha-6+3
 homepage: https://tau.canardoux.xyz/etau-README.html
 repository: https://github.com/canardoux/etau
 

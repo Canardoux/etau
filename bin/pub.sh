@@ -43,6 +43,22 @@ cd ..
 
 rm -rf _*.tgz 2>/dev/null
 
+cd ../tau_web
+bin/pub.sh $1
+if [ $? -ne 0 ]; then
+    echo "Error: publish tau_web"
+    ##exit -1
+fi
+cd ../etau
+
+cd ../tau_war
+bin/pub.sh $1
+if [ $? -ne 0 ]; then
+    echo "Error: publish tau_war"
+    ##exit -1
+fi
+cd ../etau
+
 
 flutter pub publish
 if [ $? -ne 0 ]; then
@@ -59,12 +75,22 @@ if [ $? -ne 0 ]; then
     echo "Error"
     exit -1
 fi
+# I don't know how to build with flutter web, without generating
+# a "<base href="$FLUTTER_BASE_HREF">" in index.html.
+# So I delete this line here.
+# Curiously, this line is not generated when I build FlutterSound !
 cd ..
 
+
 dart doc .
+cd ../tau_doc
+bin/pub.sh
+cd ../etau
+
 
 # Perhaps could be done in `setver.sh` instead of here
-gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                            ../tau_doc/_data/sidebars/etau_sidebar.yml
+gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                  ../tau_doc/_data/sidebars/etau_sidebar.yml
+gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                        ../tau_doc/_config.yml
 
 git add .
 git commit -m "Etau : Version $VERSION"

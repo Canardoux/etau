@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
 import 'package:etau/etau.dart'
     if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
-    if (dart.library.io) 'package:tau_wars/tau_wars.dart';
+    if (dart.library.io) 'package:tau_war/tau_war.dart';
 
 
 
