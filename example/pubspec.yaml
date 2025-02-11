@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 0.0.14-alpha.5
+version: 0.15.2-alpha-5+6
 
 environment:
   sdk: ^3.5.3
@@ -31,14 +31,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  etau: # ^0.0.14-alpha.5
-    path: ../ # etau Dir
+  etau: ^0.15.2-alpha-5+6
+#    path: ../ # etau Dir
 
-  tau_web: # ^0.0.14-alpha.5
-    path: ../../tau_web # tau_web Dir
+  tau_web: ^0.15.2-alpha-5+5
+#    path: ../../tau_web # tau_web Dir
 
-  tau_wars: # ^0.0.14-alpha.5
-    path: ../../tau_wars # tau_wars Dir
+##  tau_war: ^9.23.0
+##    path: ../../tau_wars # tau_wars Dir
 
   logger: ^2.4.0
   path_provider: ^2.0.2

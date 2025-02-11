@@ -54,7 +54,7 @@ read -p "Press enter to continue"
 
 
 cd example
-flutter build web
+flutter build web --release
 if [ $? -ne 0 ]; then
     echo "Error"
     exit -1
@@ -63,6 +63,8 @@ cd ..
 
 dart doc .
 
+# Perhaps could be done in `setver.sh` instead of here
+gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                            ../tau_doc/_data/sidebars/etau_sidebar.yml
 
 git add .
 git commit -m "Etau : Version $VERSION"
