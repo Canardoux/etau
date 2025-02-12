@@ -13,7 +13,34 @@ VERSION_CODE=${VERSION_CODE#+/}
 bin/setver.sh $VERSION
 bin/reldev.sh REL
 
-#cp ../tau_doc/pages/etau/etau_README.md README.md
+git add .
+git commit -m "Etau : Version $VERSION"
+git pull origin
+git push origin
+if [ ! -z "$VERSION" ]; then
+    git tag -f $VERSION
+    git push  -f origin $VERSION
+fi
+
+
+cd ../tau_web
+bin/pub.sh $1
+if [ $? -ne 0 ]; then
+    echo "Error: publish tau_web"
+    ##exit -1
+fi
+cd ../etau
+
+cd ../tau_war
+bin/pub.sh $1
+if [ $? -ne 0 ]; then
+    echo "Error: publish tau_war"
+    ##exit -1
+fi
+
+
+cd ../etau
+
 flutter analyze lib
 if [ $? -ne 0 ]; then
     echo "Error: analyze ./lib"
@@ -33,32 +60,17 @@ if [ $? -ne 0 ]; then
     #exit -1
 fi
 
-#dart format lib
-#if [ $? -ne 0 ]; then
-#    echo "Error: format example/lib"
-    #exit -1
-#fi
 cd ..
 
 
-rm -rf _*.tgz 2>/dev/null
-
-cd ../tau_web
-bin/pub.sh $1
-if [ $? -ne 0 ]; then
-    echo "Error: publish tau_web"
-    ##exit -1
+git add .
+git commit -m "Etau : Version $VERSION"
+git pull origin
+git push origin
+if [ ! -z "$VERSION" ]; then
+    git tag -f $VERSION
+    git push  -f origin $VERSION
 fi
-cd ../etau
-
-cd ../tau_war
-bin/pub.sh $1
-if [ $? -ne 0 ]; then
-    echo "Error: publish tau_war"
-    ##exit -1
-fi
-cd ../etau
-
 
 flutter pub publish
 if [ $? -ne 0 ]; then
