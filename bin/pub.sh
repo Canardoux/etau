@@ -10,6 +10,8 @@ VERSION=$1
 VERSION_CODE=${VERSION#./}
 VERSION_CODE=${VERSION_CODE#+/}
 
+echo '**********************  pub etau **********************'
+
 bin/reldev.sh REL
 bin/setver.sh $VERSION
 
@@ -111,15 +113,15 @@ if [ ! -z "$VERSION" ]; then
 fi
 
 
-echo 'E.O.J'
+
+#cd ../tau_doc
+#bin/pub.sh
+#if [ $? -ne 0 ]; then
+#    echo "Error: tau_doc/bin/pub.sh"
+#    exit -1
+#fi
+#cd ../etau
+
+
+echo 'E.O.J for pub etau'
 exit 0
-
-
-cd ../tau_doc
-bin/pub.sh
-if [ $? -ne 0 ]; then
-    echo "Error: tau_doc/bin/pub.sh"
-    exit -1
-fi
-cd ../etau
-
