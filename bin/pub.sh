@@ -11,6 +11,7 @@ VERSION_CODE=${VERSION#./}
 VERSION_CODE=${VERSION_CODE#+/}
 
 bin/reldev.sh REL
+bin/setver.sh $VERSION
 
 git add .
 git commit -m "Etau : Version $VERSION"
@@ -22,24 +23,6 @@ if [ ! -z "$VERSION" ]; then
 fi
 
 
-cd ../tau_web
-bin/pub.sh $1
-if [ $? -ne 0 ]; then
-    echo "Error: publish tau_web"
-    ##exit -1
-fi
-cd ../etau
-
-cd ../tau_war
-bin/pub.sh $1
-if [ $? -ne 0 ]; then
-    echo "Error: publish tau_war"
-    ##exit -1
-fi
-cd ../etau
-
-# We cannot do that earlier, because we don't want an earlier dependency
-bin/setver.sh $VERSION
 
 
 flutter analyze lib
@@ -81,6 +64,27 @@ fi
 
 read -p "Press enter to continue"
 
+
+
+# We cannot do that earlier, because we don't want an earlier dependency
+
+cd ../tau_web
+bin/pub.sh $1
+if [ $? -ne 0 ]; then
+    echo "Error: publish tau_web"
+    ##exit -1
+fi
+cd ../etau
+
+cd ../tau_war
+bin/pub.sh $1
+if [ $? -ne 0 ]; then
+    echo "Error: publish tau_war"
+    ##exit -1
+fi
+cd ../etau
+
+# We cannot do that earlier, because we don't want an earlier dependency
 
 cd example
 flutter build web --release
