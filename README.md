@@ -7,6 +7,11 @@
 
 ## e-tau stands for Ukraine
 
+![PeaceForUkraine](https://flutter-sound.canardoux.xyz/images/2-year-old-irish-girl-ukrainian.jpg)
+Peace for Ukraine
+
+![PrayForUkraine](https://flutter-sound.canardoux.xyz/images/banner.png)
+Pray for Ukraine
 
 ## Overview
 
