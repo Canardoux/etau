@@ -13,17 +13,10 @@ VERSION_CODE=${VERSION_CODE#+/}
 bin/reldev.sh REL
 bin/setver.sh $VERSION
 
-git add .
-git commit -m "Etau : Version $VERSION"
-git pull origin
-git push origin
-if [ ! -z "$VERSION" ]; then
-    git tag -f $VERSION
-    git push  -f origin $VERSION
-fi
-
-
-
+cp -v ../tau_doc/pages/etau/README.md .
+gsed -i '1,6d' README.md
+gsed -i "/^\"\%}$/d" README.md
+gsed -i "/^{\% include/d" README.md
 
 flutter analyze lib
 if [ $? -ne 0 ]; then
@@ -43,7 +36,6 @@ if [ $? -ne 0 ]; then
     echo "Error: analyze example/lib"
     #exit -1
 fi
-
 cd ..
 
 
