@@ -10,7 +10,6 @@ VERSION=$1
 VERSION_CODE=${VERSION#./}
 VERSION_CODE=${VERSION_CODE#+/}
 
-bin/setver.sh $VERSION
 bin/reldev.sh REL
 
 git add .
@@ -37,9 +36,11 @@ if [ $? -ne 0 ]; then
     echo "Error: publish tau_war"
     ##exit -1
 fi
-
-
 cd ../etau
+
+# We cannot do that earlier, because we don't want an earlier dependency
+bin/setver.sh $VERSION
+
 
 flutter analyze lib
 if [ $? -ne 0 ]; then
@@ -114,6 +115,10 @@ if [ ! -z "$VERSION" ]; then
 fi
 
 
+echo 'E.O.J'
+exit 0
+
+
 cd ../tau_doc
 bin/pub.sh
 if [ $? -ne 0 ]; then
@@ -122,5 +127,3 @@ if [ $? -ne 0 ]; then
 fi
 cd ../etau
 
-
-echo 'E.O.J'

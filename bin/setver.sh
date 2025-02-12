@@ -32,6 +32,8 @@ gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                               
 gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                                   ../tau_doc/_config.yml
 gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                             ../tau_doc/_data/sidebars/etau_sidebar.yml
 
+exit 0
+
 cd ../tau_web
 bin/setver.sh $1
 cd ../etau
