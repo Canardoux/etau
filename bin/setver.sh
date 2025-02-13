@@ -19,6 +19,7 @@ gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                               
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_war/example/pubspec.yaml
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_web/pubspec.yaml
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_war/pubspec.yaml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../taudio/pubspec.yaml
 
 ### Flutter Sound does not depend on etau
 

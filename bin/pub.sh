@@ -10,7 +10,7 @@ VERSION=$1
 VERSION_CODE=${VERSION#./}
 VERSION_CODE=${VERSION_CODE#+/}
 
-echo '**********************  pub etau **********************'
+echo '**********************  pub Etau **********************'
 
 bin/reldev.sh REL
 bin/setver.sh $VERSION
@@ -39,6 +39,9 @@ if [ $? -ne 0 ]; then
     #exit -1
 fi
 cd ..
+
+
+dart doc .
 
 
 git add .
@@ -86,10 +89,6 @@ if [ $? -ne 0 ]; then
     echo "Error"
     exit -1
 fi
-# I don't know how to build with flutter web, without generating
-# a "<base href="$FLUTTER_BASE_HREF">" in index.html.
-# So I delete this line here.
-# Curiously, this line is not generated when I build FlutterSound !
 cd ..
 
 

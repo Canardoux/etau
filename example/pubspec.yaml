@@ -34,10 +34,10 @@ dependencies:
   etau: ^0.17.6
 #    path: ../ # etau Dir
 
-  tau_web: ^0.17.6
+  tau_web: ^0.0.1
 #    path: ../../tau_web # tau_web Dir
 
-  tau_war: ^0.17.6
+  tau_war: ^0.0.4
 #    path: ../../tau_war # tau_war Dir
 
   logger: ^2.4.0
