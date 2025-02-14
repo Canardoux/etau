@@ -16,7 +16,7 @@ bin/reldev.sh REL
 bin/setver.sh $VERSION
 
 cp -v ../tau_doc/pages/etau/README.md .
-gsed -i '1,6d' README.md
+gsed -i '1,5d' README.md
 gsed -i "/^\"\%}$/d" README.md
 gsed -i "/^{\% include/d" README.md
 
