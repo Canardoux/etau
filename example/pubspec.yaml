@@ -31,14 +31,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  etau: ^0.17.6
-#    path: ../ # etau Dir
+  etau: # ^0.17.6
+    path: ../ # etau Dir
 
-  tau_web: ^0.0.1
-#    path: ../../tau_web # tau_web Dir
+  tau_web: # ^0.0.1
+    path: ../../tau_web # tau_web Dir
 
-  tau_war: ^0.0.4
-#    path: ../../tau_war # tau_war Dir
+  tau_war: # ^0.0.4
+    path: ../../tau_war # tau_war Dir
 
   logger: ^2.4.0
   path_provider: ^2.0.2

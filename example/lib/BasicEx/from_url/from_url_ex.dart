@@ -76,7 +76,7 @@ class _FromUrlEx extends State<FromUrlEx> {
 
     audioCtx = tau().newAudioContext();
     dest = audioCtx!.destination;
-    audioElt = tau().newMediaElement(src: 'https://flutter-sound.canardoux.xyz/extract/05.mp3', );
+    audioElt = tau().newMediaElement(src: 'https://tau-ver.canardoux.xyz/tau/extract/05.mp3', );
     audioElt!.src = 'https://flutter-sound.canardoux.xyz/extract/05.mp3';
     audioElt!.crossorigin = 'anonymous';
     //MediaElementAudioSourceOptions opt = Tau().newMediaElementAudioSourceOptions(mediaElement: audioElt);

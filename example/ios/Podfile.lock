@@ -41,14 +41,17 @@ PODS:
     - SDWebImage/Core (= 5.20.0)
   - SDWebImage/Core (5.20.0)
   - SwiftyGif (5.4.5)
-  - tau_wars (0.0.1):
+  - tau_war (0.0.1):
+    - Flutter
+  - tau_webkit (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
-  - tau_wars (from `.symlinks/plugins/tau_wars/ios`)
+  - tau_war (from `.symlinks/plugins/tau_war/ios`)
+  - tau_webkit (from `.symlinks/plugins/tau_webkit/ios`)
 
 SPEC REPOS:
   trunk:
@@ -64,8 +67,10 @@ EXTERNAL SOURCES:
     :path: Flutter
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
-  tau_wars:
-    :path: ".symlinks/plugins/tau_wars/ios"
+  tau_war:
+    :path: ".symlinks/plugins/tau_war/ios"
+  tau_webkit:
+    :path: ".symlinks/plugins/tau_webkit/ios"
 
 SPEC CHECKSUMS:
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
@@ -75,7 +80,8 @@ SPEC CHECKSUMS:
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
-  tau_wars: 782576667fab97a447a89da4f10e2c58f8ef3594
+  tau_war: 977c132f8b0e7e1f2f2fe16aa49a86b2a31a84df
+  tau_webkit: 680fd6361cb9c3270f4140c31d0adfb1b373551c
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
