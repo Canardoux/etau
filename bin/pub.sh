@@ -15,8 +15,8 @@ echo '**********************  pub Etau **********************'
 bin/reldev.sh REL
 bin/setver.sh $VERSION
 
-cp -v ../etau-doc/index.md README.md
-gsed -i '1,6d' README.md
+#cp -v ../etau-doc/index.md README.md
+#gsed -i '1,6d' README.md
 
 flutter analyze lib
 if [ $? -ne 0 ]; then

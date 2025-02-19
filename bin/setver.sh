@@ -33,7 +33,8 @@ gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                               
 #gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                                   ../tau_doc/_config.yml
 #gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                             ../tau_doc/_data/sidebars/etau_sidebar.yml
 
-gsed -i  "s/^title: .*$/title: Etau - $VERSION/"                                               ../etau-doc/index.md
+gsed -i  "s/^title: Etau - .*$/title: Etau - $VERSION/"                                         ../etau-doc/index.md
+gsed -i  "s/^title: Etau - .*$/title: Etau - $VERSION/"                                         ../etau-doc/bin/cp.sh
 
 exit 0
 
