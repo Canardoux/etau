@@ -15,10 +15,8 @@ echo '**********************  pub Etau **********************'
 bin/reldev.sh REL
 bin/setver.sh $VERSION
 
-cp -v ../tau_doc/pages/etau/README.md .
-gsed -i '1,5d' README.md
-gsed -i "/^\"\%}$/d" README.md
-gsed -i "/^{\% include/d" README.md
+cp -v ../etau-doc/index.md README
+gsed -i '1,6d' README.md
 
 flutter analyze lib
 if [ $? -ne 0 ]; then
@@ -65,18 +63,18 @@ read -p "Press enter to continue"
 
 # We cannot do that earlier, because we don't want an earlier dependency
 
-cd ../tau_web
+cd ../tauweb
 bin/pub.sh $1
 if [ $? -ne 0 ]; then
-    echo "Error: publish tau_web"
+    echo "Error: publish tauweb"
     ##exit -1
 fi
 cd ../etau
 
-cd ../tau_war
+cd ../tauwar
 bin/pub.sh $1
 if [ $? -ne 0 ]; then
-    echo "Error: publish tau_war"
+    echo "Error: publish tauwar"
     ##exit -1
 fi
 cd ../etau
@@ -99,8 +97,8 @@ cd ../etau
 
 
 # Perhaps could be done in `setver.sh` instead of here
-gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                  ../tau_doc/_data/sidebars/etau_sidebar.yml
-gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                        ../tau_doc/_config.yml
+#gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                  ../tau_doc/_data/sidebars/etau_sidebar.yml
+#gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                        ../tau_doc/_config.yml
 
 git add .
 git commit -m "Etau : Version $VERSION"

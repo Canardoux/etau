@@ -1,9 +1,3 @@
-![pub version](https://img.shields.io/pub/v/etau.svg?style=flat-square)
-
-## Documentation
-
-- ## Etau user : your doc [is here](https://tau.canardoux.xyz/etau-README.html)
-- ## The CHANGELOG [is here](https://tau.canardoux.xyz/etau-CHANGELOG.html)
 
 ## e-tau stands for Ukraine
 

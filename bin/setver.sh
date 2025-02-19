@@ -15,10 +15,10 @@ gsed -i  "s/^\( *version: *\).*$/\1$VERSION/"                                   
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       example/pubspec.yaml
 gsed -i  "s/^\( *## \).*$/\1$VERSION/"                                                  CHANGELOG.md
 
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_web/example/pubspec.yaml
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_war/example/pubspec.yaml
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_web/pubspec.yaml
-gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tau_war/pubspec.yaml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tauweb/example/pubspec.yaml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tauwar/example/pubspec.yaml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tauweb/pubspec.yaml
+gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../tauwar/pubspec.yaml
 gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../taudio/pubspec.yaml
 
 ### Flutter Sound does not depend on etau
@@ -30,8 +30,10 @@ gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                               
 #gsed -i  "s/^\( *etau: *#* *\^*\).*$/\1$VERSION/"                                       ../flutter_sound_web/pubspec.yaml
 
 ### Perhaps better in pub.sh
-gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                                   ../tau_doc/_config.yml
-gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                             ../tau_doc/_data/sidebars/etau_sidebar.yml
+#gsed -i  "s/^ETAU_VERSION:.*/ETAU_VERSION: $VERSION/"                                   ../tau_doc/_config.yml
+#gsed -i  "s/^\( *version: \).*/\1$VERSION/"                                             ../tau_doc/_data/sidebars/etau_sidebar.yml
+
+gsed -i  "s/^title: .*$/title: Etau - $VERSION/"                                               ../etau-doc/index.md
 
 exit 0
 

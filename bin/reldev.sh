@@ -44,11 +44,11 @@ else
         exit -1
 fi
 
-cd ../tau_web
+cd ../tauweb
 bin/reldev.sh $1
 cd ../etau
 
-cd ../tau_war
+cd ../tauwar
 bin/reldev.sh $1
 cd ../etau
 
