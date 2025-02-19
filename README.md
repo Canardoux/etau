@@ -2,8 +2,8 @@
 
 ## Documentation
 
-- ## Etau user : your doc [is here](https://tau-ver.canardoux.xyz/etau-README.html)
-- ## The CHANGELOG [is here](https://tau-ver.canardoux.xyz/etau-CHANGELOG.html)
+- ## Etau user : your doc [is here](https://etau.vercel.app/)
+- ## The CHANGELOG [is here](https://etau.vercel.app/tau/CHANGELOG.html)
 
 ## Etau stands for Ukraine!
 
@@ -74,7 +74,7 @@ The `Tau` family is composed with:
 - `Etau` (which is a port on Flutter of the W3C Web Audio API)
 - [Flutter Sound](https://pub.dev/packages/flutter_sound) (the legacy plugin developed for many years)
 - [Tauweb](https://pub.dev/packages/tau_web) (which is the `Etau` implementation for Flutter Web)
-- [Tauweb](https://pub.dev/packages/tau_war) (which is the `Etau` implementation for mobiles)
+- [Tauwar](https://pub.dev/packages/tau_war) (which is the `Etau` implementation for mobiles)
 - [Taudio](https://pub.dev/packages/taudio) (which is something like Flutter Sound 10.0)
 
 The `Etau` project is actually being developed.
