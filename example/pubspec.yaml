@@ -34,7 +34,7 @@ dependencies:
   etau: ^0.17.7
 #    path: ../ # etau Dir
 
-  tau_web: ^0.0.1
+  tau_web: ^0.17.7
 #    path: ../../tau_web # tau_web Dir
 
   tau_war: ^0.0.4
