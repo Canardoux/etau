@@ -91,7 +91,7 @@ cd ..
 
 
 dart doc .
-cd ../tau_doc
+cd ../etau-doc
 bin/pub.sh
 cd ../etau
 
