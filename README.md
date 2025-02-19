@@ -1,9 +1,3 @@
-![PrayForUkraine](https://flutter-sound.canardoux.xyz/images/banner.png)
-Pray for Ukraine
-
-## Overview
-
-This is (will be) an implementation on flutter of the [W3C Web Audio API](https://www.w3.org/TR/webaudio-1.1).
 e-tau is actually in a developement state. It is an Alpha version. Even not a Beta version. 
 
 There are many things to do before you can use it. Specially:

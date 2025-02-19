@@ -1,6 +1,6 @@
 name: etau
 description: 'Etau : The W3C Web Audio API interface for dart and Flutter. Member of the `Tau` Europe Stands With Ukraine.'
-version: 0.17.9
+version: 0.17.7
 homepage: https://tau-ver.canardoux.xyz/etau-README.html
 repository: https://github.com/canardoux/etau
 
