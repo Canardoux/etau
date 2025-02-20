@@ -1,9 +1,10 @@
 ![pub version](https://img.shields.io/pub/v/etau.svg?style=flat-square)
+[Etau](https://tau-ver.canardoux.xyz/images/EtauBanner.png)
 
 ## Documentation
 
-- ## Etau user : your doc [is here](https://etau.vercel.app/)
-- ## The CHANGELOG [is here](https://etau.vercel.app/tau/CHANGELOG.html)
+- ## Etau user : your doc [is here](https://etau.canardoux.xyz/)
+- ## The CHANGELOG [is here](https://etau.canardoux.xyz/tau/CHANGELOG.html)
 
 ## Etau stands for Ukraine!
 
@@ -97,7 +98,4 @@ This is too much work on my shoulders. We desesperatly need at least one other d
 
 ## Thanks
 
-{% include note.html content="
-### If you like my work, you can click on the `Thumb up` button of the top of the [pub.dev page](https://pub.dev/packages/etau).
-This is free and this will reassure me that **I do not spend most of my life for nobody**.
-"%}
+### If you like my work, you can click on the `Thumb up` button of the top of the [pub.dev page](https://pub.dev/packages/etau This is free and this will reassure me that **I do not spend most of my life for nobody**.
