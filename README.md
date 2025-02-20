@@ -98,4 +98,4 @@ This is too much work on my shoulders. We desesperatly need at least one other d
 
 ## Thanks
 
-### If you like my work, you can click on the `Thumb up` button of the top of the [pub.dev page](https://pub.dev/packages/etau This is free and this will reassure me that **I do not spend most of my life for nobody**.
+### If you like my work, you can click on the `Thumb up` button of the top of the [pub.dev page](https://pub.dev/packages/etau) This is free and this will reassure me that **I do not spend most of my life for nobody**.
