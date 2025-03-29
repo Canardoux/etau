@@ -20,9 +20,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:etau/dummy.dart'
-    if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
-    if (dart.library.io) 'package:tau_war/tau_war.dart';
 
 
 /// This is a very simple example for τ beginners, that show how to playback a file.
@@ -53,8 +50,8 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
 
 
   Future<List<MediaDeviceInfo>> getDevicesInfos() async {
-    MediaDevices devices = tau().getDevices();
-    await tau().getDevices().getUserMedia(); // Necessary for the following enumerateDevices() !
+    MediaDevices devices = tau().getDevices()!;
+    await tau().getDevices()!.getUserMedia()!; // Necessary for the following enumerateDevices() !
     devicesInfos = await devices.enumerateDevices();
    //var nav = w.window.navigator;
     //var nav2 = h.window.navigator;
@@ -172,7 +169,7 @@ class _FromSelectedDeviceEx extends State<FromSelectedDeviceEx> {
     //{
     //    audio: {deviceId: audioSource ? {exact: audioSource} : undefined}
     //};
-    var mediaStream = await tau().getDevices().getUserMediaWithConstraints(audio: constraints);
+    var mediaStream = await tau().getDevices()!.getUserMediaWithConstraints(audio: constraints);
     var mic = audioCtx!.createMediaStreamSource(mediaStream);
     mic.connect(dest!);
 

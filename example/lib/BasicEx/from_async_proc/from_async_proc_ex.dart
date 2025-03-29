@@ -22,9 +22,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:etau/etau.dart';
-import 'package:etau/dummy.dart'
-  if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
-  if (dart.library.io) 'package:tau_war/tau_war.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 /// This is a very simple example for τ beginners, that show how to playback a file.
@@ -86,7 +83,7 @@ static const int blkSize = 128;
       numberOfInputs: 0,
       numberOfOutputs: 1, // Only one output
       outputChannelCount:  [audioBuffer.numberOfChannels],
-    );
+    )!;
     var streamNode = tau().newAsyncWorkletNode(audioCtx!, "async-processor-1", opt);
 
     //streamNode.port.onmessage = (Message e)

@@ -16,11 +16,4 @@
  * along with τ.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export 'public/etau_interface.dart';
-export 'public/etau_class.dart';
-//export 'public/dummy.dart';
 
-
-export 'dummy.dart'
-if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
-if (dart.library.io) 'package:tau_war/tau_war.dart';

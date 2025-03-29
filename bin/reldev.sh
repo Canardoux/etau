@@ -52,4 +52,12 @@ cd ../tau_war
 bin/reldev.sh $1
 cd ../etau
 
+flutter clean
+flutter pub get
+cd example
+flutter clean
+flutter pub get
+cd ..
+
+
 echo "Done"

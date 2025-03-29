@@ -22,9 +22,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:etau/dummy.dart'
-    if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
-    if (dart.library.io) 'package:tau_war/tau_war.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 /// This is a very simple example for τ beginners, that show how to playback a file.

@@ -21,9 +21,6 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:etau/dummy.dart' // Stub implementation
-  if (dart.library.io) 'package:tau_war/tau_war.dart' // dart:io implementation
-  if (dart.library.js_interop) 'package:tau_web/tau_web.dart'; // package:web implementation
 
 import 'package:flutter/services.dart' show rootBundle;
 

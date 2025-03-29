@@ -20,9 +20,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:etau/etau.dart';
-import 'package:etau/dummy.dart'
-  if (dart.library.js_interop) 'package:tau_web/tau_web.dart'
-  if (dart.library.io) 'package:tau_war/tau_war.dart';
 
 /// This is a very simple example for τ beginners, that show how to playback a file.
 /// Its a translation to Dart from [Mozilla example](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Using_Web_Audio_API)
@@ -76,7 +73,7 @@ Future<void> recordHitButton() async {
 
 recorderCtx = tau().newAudioContext();
 
-var mediaStream = await tau().getDevices().getUserMedia();
+var mediaStream = await tau().getDevices()!.getUserMedia();
 var mic = recorderCtx!.createMediaStreamSource(mediaStream);
 recorderDest = recorderCtx!.createMediaStreamDestination();
 //var options = {'type' : 'audio/ogg; codecs=opus'};
