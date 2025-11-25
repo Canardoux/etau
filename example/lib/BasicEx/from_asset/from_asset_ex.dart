@@ -69,8 +69,8 @@ class _FromAssetEx extends State<FromAssetEx> {
   @override
   void initState() {
     super.initState();
-    tau().init().then ((e){
-    audioCtx = tau().newAudioContext();
+    Tau().init().then ((e){
+    audioCtx = Tau().newAudioContext();
     setState(() 
     {
       playDisabled = false;}
