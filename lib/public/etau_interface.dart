@@ -45,7 +45,8 @@ abstract class TauInterface {
 
   // TODO AudioSinkOptions newAudioSinkOptions({required AudioSinkType type});
 
-  AudioTimestamp? newAudioTimestamp({ // !!!
+  AudioTimestamp? newAudioTimestamp({
+    // !!!
     TauTime contextTime,
     TauHighResTimeStamp performanceTime,
   });
@@ -235,19 +236,22 @@ abstract class TauInterface {
     GainOptions options,
   ]);
 
-  GainOptions newGainOptions({ // !!!
+  GainOptions newGainOptions({
+    // !!!
     int channelCount,
     ChannelCountMode channelCountMode,
     ChannelInterpretation channelInterpretation,
     num gain,
   });
 
-  IIRFilterNode newIIRFilterNode( // !!!
+  IIRFilterNode newIIRFilterNode(
+    // !!!
     BaseAudioContext context,
     IIRFilterOptions options,
   );
 
-  IIRFilterOptions newIIRFilterOptions({ // !!!
+  IIRFilterOptions newIIRFilterOptions({
+    // !!!
     int channelCount,
     ChannelCountMode channelCountMode,
     ChannelInterpretation channelInterpretation,
@@ -260,7 +264,8 @@ abstract class TauInterface {
     MediaElementAudioSourceOptions options,
   );
 
-  MediaElementAudioSourceOptions newMediaElementAudioSourceOptions( // !!!
+  MediaElementAudioSourceOptions newMediaElementAudioSourceOptions(
+      // !!!
       {required MediaElement mediaElement});
 
   MediaStreamAudioDestinationNode newMediaStreamAudioDestinationNode(
@@ -273,7 +278,8 @@ abstract class TauInterface {
     MediaStreamAudioSourceOptions options,
   );
 
-  MediaStreamAudioSourceOptions newMediaStreamAudioSourceOptions( // !!!
+  MediaStreamAudioSourceOptions newMediaStreamAudioSourceOptions(
+      // !!!
       {required MediaStream mediaStream});
 
   MediaStreamTrackAudioSourceNode newMediaStreamTrackAudioSourceNode(
@@ -281,7 +287,8 @@ abstract class TauInterface {
     MediaStreamTrackAudioSourceOptions options,
   );
 
-  MediaStreamTrackAudioSourceOptions newMediaStreamTrackAudioSourceOptions( // !!!
+  MediaStreamTrackAudioSourceOptions newMediaStreamTrackAudioSourceOptions(
+      // !!!
       {required MediaStreamTrack mediaStreamTrack});
 
   OscillatorNode newOscillatorNode(
@@ -329,10 +336,12 @@ abstract class TauInterface {
     PeriodicWaveOptions options,
   ]);
 
-  PeriodicWaveConstraints? newPeriodicWaveConstraints( // !!!
+  PeriodicWaveConstraints? newPeriodicWaveConstraints(
+      // !!!
       {bool disableNormalization});
 
-  PeriodicWaveOptions newPeriodicWaveOptions({ // !!!
+  PeriodicWaveOptions newPeriodicWaveOptions({
+    // !!!
     bool disableNormalization,
     TauArray<TauNumber> real,
     TauArray<TauNumber> imag,
@@ -369,7 +378,8 @@ abstract class TauInterface {
     AudioWorkletNodeOptions options,
   ]);
 
-  AudioWorkletNodeOptions newAudioWorkletNodeOptions({ // !!!
+  AudioWorkletNodeOptions newAudioWorkletNodeOptions({
+    // !!!
     int channelCount,
     ChannelCountMode channelCountMode,
     ChannelInterpretation channelInterpretation,
@@ -395,17 +405,20 @@ abstract class TauInterface {
 
   MediaStream newMediaStream(); // !!!
 
-  MediaElement newMediaElement({ // !!!
+  MediaElement newMediaElement({
+    // !!!
     required String src,
   });
 
-  MediaRecorder newMediaRecorder( // !!!
+  MediaRecorder newMediaRecorder(
+    // !!!
     MediaStream stream,
     String type, [
     MediaRecorderOptions options,
   ]);
 
-  MediaRecorderOptions newMediaRecorderOptions({ // !!!
+  MediaRecorderOptions newMediaRecorderOptions({
+    // !!!
     String mimeType,
     int audioBitsPerSecond,
     int videoBitsPerSecond,
